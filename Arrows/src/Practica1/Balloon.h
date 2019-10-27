@@ -12,25 +12,25 @@ const Uint32 BALLOON_WIDTH = 128;
 const Uint32 BALLOON_HEIGHT = 128;
 const double BALLOON_MAX_SPEED = 10.0;
 const double BALLOON_MIN_SPEED = 3.0;
+const Vector2D BALLOON_DIR = { 0, - 1 };
 
 class Game;
 class Balloon
 {
 private:
-	Point2D p;
-	Vector2D d;
-	Vector2D v;
-	double s;
+	Game* game_;
+	Texture* texture_;
+	Point2D position_;
+	Vector2D direction_;
 
-	Uint32 w;
-	Uint32 h;
-	Uint32 r;
-	Uint32 c;
+	Uint32 width_;
+	Uint32 height_;
 
-	Texture* sprite;
-	Game* game;
+	double speed_;
 
-	bool active;
+	Uint32 spriteRow_;
+	Uint32 spriteColumn_;
+
 	bool burst_;
 	Uint32 burstTime_;
 
@@ -39,11 +39,10 @@ public:
 		Uint32 _w = BALLOON_WIDTH, Uint32 _h = BALLOON_HEIGHT, double _s = 0.0);
 	~Balloon();
 
-	inline bool isActive() const { return active; }
-
+	inline bool hasBurst() const { return burst_; }
 	SDL_Rect getRect() const;
 
-	void update();
+	bool update();
 	void render() const;
 
 	void saveState(std::ofstream& stream);

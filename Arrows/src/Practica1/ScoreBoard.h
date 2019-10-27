@@ -49,12 +49,12 @@ class ScoreBoard
 	};
 
 private:
-	Game* game;
-	Texture* arrowsSprite;
-	Texture* digitsSprite;
+	Game* game_;
+	Texture* arrowsSprite_;
+	Texture* digitsSprite_;
 
-	Uint32 score;
-	Uint32 arrowsLeft;
+	Uint32 score_;
+	Uint32 arrowsLeft_;
 
 	std::vector<ScoreRegister> leaderBoard;
 

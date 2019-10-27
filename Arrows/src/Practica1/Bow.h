@@ -13,21 +13,21 @@ class Game;
 class Bow
 {
 private:
-	Point2D p;
-	Vector2D d;
-	Vector2D v;
-	double s;
-	int a;
+	Game* game_;
+	Texture* texture_;
+	Point2D position_;
+	Vector2D direction_;
 
-	Uint32 w;
-	Uint32 h;
-	Uint32 drawTime_;
+	Uint32 width_;
+	Uint32 height_;
 
-	Texture* sprite;
+	int angle_;
+	double speed_;
+
 	Arrow* arrow_;
-	Game* game;
 
 	bool armed_;
+	Uint32 drawTime_;
 
 	void charge();
 	void loose();
@@ -43,7 +43,6 @@ public:
 	void handleEvents(SDL_Event& event);
 	void update();
 	void render() const;
-
 	void saveState(std::ofstream& stream);
 	void loadState(std::ifstream& stream);
 };

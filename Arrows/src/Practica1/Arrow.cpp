@@ -2,17 +2,15 @@
 #include "Game.h"
 
 Arrow::Arrow(Texture* _t, Point2D _p, Uint32 _w, Uint32 _h, double _s, int _a) :
-	p(_p),
-	d({1, 0}),
-	v({0, 0}),
-	s(_s),
-	a(_a),
-	w(_w),
-	h(_h),
-	sprite(_t),
-	active(true)
+	position_(_p),
+	direction_(ARROW_DIR),
+	speed_(_s),
+	angle_(_a),
+	width_(_w),
+	height_(_h),
+	texture_(_t)
 {
-	d.rotate(a);
+	direction_.rotate(angle_);
 }
 
 Arrow::~Arrow()
@@ -21,14 +19,13 @@ Arrow::~Arrow()
 
 SDL_Rect Arrow::getArrowhead() const
 {
-	// The arrowhead is the 4th quarter of the texture
-	Uint32 head = w / 4;
+	Uint32 head = width_ / 4;
 	
 	SDL_Rect rect;
-	rect.x = static_cast<int>(p.getX()) + (head * 3);
-	rect.y = static_cast<int>(p.getY());
+	rect.x = static_cast<int>(position_.getX()) + (head * 3);
+	rect.y = static_cast<int>(position_.getY());
 	rect.w = head;
-	rect.h = h;
+	rect.h = height_;
 
 	return rect;
 }
@@ -36,34 +33,34 @@ SDL_Rect Arrow::getArrowhead() const
 SDL_Rect Arrow::getRect() const
 {
 	SDL_Rect rect;
-	rect.x = static_cast<int>(p.getX());
-	rect.y = static_cast<int>(p.getY());
-	rect.w = w;
-	rect.h = h;
+	rect.x = static_cast<int>(position_.getX());
+	rect.y = static_cast<int>(position_.getY());
+	rect.w = width_;
+	rect.h = height_;
 	return rect;
 }
 
-void Arrow::update()
+bool Arrow::update()
 {
-	v = d * s;
-	p = p + v;
+	Vector2D vel = direction_ * speed_;
+	position_ = position_ + vel;
 
-	active = p.getX() < WIN_WIDTH &&
-		     p.getY() < WIN_HEIGHT &&
-		     p.getY() > 0;
+	return position_.getX() < WIN_WIDTH &&
+		position_.getY() < WIN_HEIGHT &&
+		position_.getY() > 0;
 }
 
 void Arrow::render() const
 {
-	sprite->renderFrame(getRect(), 0, 0, a);
+	texture_->renderFrame(getRect(), 0, 0, angle_);
 }
 
 void Arrow::saveState(std::ofstream& stream)
 {
-	stream << p << " " << d << " " << s << " " << a << std::endl;
+	stream << position_ << " " << direction_ << " " << speed_ << " " << angle_ << std::endl;
 }
 
 void Arrow::loadState(std::ifstream& stream)
 {
-	stream >> p >> d >> s >> a;
+	stream >> position_ >> direction_ >> speed_ >> angle_;
 }

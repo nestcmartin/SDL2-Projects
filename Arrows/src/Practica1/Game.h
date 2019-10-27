@@ -52,7 +52,7 @@ public:
 	};
 
 private:
-	Bow* bow;
+	Bow* bow_;
 	SDL_Window* window_;
 	SDL_Renderer* renderer_;
 	ScoreBoard* scoreBoard_;
@@ -63,9 +63,9 @@ private:
 	int arrowsLeft;
 	Uint32 lastSpawnTime_;
 
-	std::vector<Arrow*> arrows;
-	std::vector<Balloon*> balloons;
-	Texture* textures[NUM_TEXTURES];
+	std::vector<Arrow*> arrows_;
+	std::vector<Balloon*> balloons_;
+	Texture* textures_[NUM_TEXTURES];
 
 public:
 	Game();
@@ -74,7 +74,7 @@ public:
 	inline Uint32 getScore() const { return score_; }
 	inline Uint32 getArrowsLeft() const { return arrowsLeft; }
 	inline bool hasArrows() const { return arrowsLeft > 0; }
-	Texture* getTexture(TextureName i) const { return textures[i]; }
+	Texture* getTexture(TextureName i) const { return textures_[i]; }
 
 	void run();
 	void shootArrow(Arrow* a);

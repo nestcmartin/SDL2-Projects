@@ -11,15 +11,15 @@
 class Texture 
 {
 private:
-	SDL_Texture* texture;
-	SDL_Renderer* renderer;
+	SDL_Texture* texture_;
+	SDL_Renderer* renderer_;
 
-	Uint32 w;
-	Uint32 h;
-	Uint32 fw; 
-	Uint32 fh;
-	Uint32 numCols;
-	Uint32 numRows;
+	Uint32 width_;
+	Uint32 height_;
+	Uint32 framWidth_; 
+	Uint32 frameHeight_;
+	Uint32 numCols_;
+	Uint32 numRows_;
 
 	void freeTexture();
 
@@ -28,13 +28,13 @@ public:
 	Texture(SDL_Renderer* r, std::string filename, Uint32 numRows = 1, Uint32 numCols = 1);
 	~Texture();	
 
-	inline Uint32 getW() const { return w; };
-	inline Uint32 getH() const { return h; };
-	inline Uint32 getFW() const { return fw; };
-	inline Uint32 getFH() const { return fh; };
-	inline Uint32 getNumCols() const { return numCols; };
-	inline Uint32 getNumRows() const { return numRows; };
-	SDL_Texture* getTexture() const { return texture; };
+	inline Uint32 getWidth() const { return width_; };
+	inline Uint32 getHeight() const { return height_; };
+	inline Uint32 getFramWidth() const { return framWidth_; };
+	inline Uint32 getFrameHeight() const { return frameHeight_; };
+	inline Uint32 getNumCols() const { return numCols_; };
+	inline Uint32 getNumRows() const { return numRows_; };
+	SDL_Texture* getTexture() const { return texture_; };
 
 	void load(std::string filename, Uint32 numRows = 1, Uint32 numCols = 1);
 	void render(const SDL_Rect& destRect, SDL_RendererFlip flip = SDL_FLIP_NONE) const;

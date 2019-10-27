@@ -2,20 +2,18 @@
 #include "Game.h"
 
 Balloon::Balloon(Game* _g, Texture* _t, Point2D _p, Uint32 _w, Uint32 _h, double _s) :
-	p(_p),
-	d({ 0, -1 }),
-	v({ 0, 0 }),
-	w(_w),
-	h(_h),
-	c(0),
-	sprite(_t),
-	game(_g),
-	active(true),
+	position_(_p),
+	direction_(BALLOON_DIR),
+	width_(_w),
+	height_(_h),
+	spriteColumn_(0),
+	texture_(_t),
+	game_(_g),
 	burst_(false),
 	burstTime_(0)
 {
-	r = rand() % sprite->getNumRows();
-	s = BALLOON_MIN_SPEED + 
+	spriteRow_ = rand() % texture_->getNumRows();
+	speed_ = BALLOON_MIN_SPEED + 
 		static_cast<float>(rand()) / 
 		(static_cast<float>(RAND_MAX / 
 		(BALLOON_MAX_SPEED - BALLOON_MIN_SPEED)));
@@ -28,51 +26,54 @@ Balloon::~Balloon()
 SDL_Rect Balloon::getRect() const
 {
 	SDL_Rect rect;
-	rect.x = static_cast<int>(p.getX());
-	rect.y = static_cast<int>(p.getY());
-	rect.w = w;
-	rect.h = h;
+	rect.x = static_cast<int>(position_.getX());
+	rect.y = static_cast<int>(position_.getY());
+	rect.w = width_;
+	rect.h = height_;
 	return rect;
 }
 
-void Balloon::update()
+bool Balloon::update()
 {
 	if (!burst_)
 	{
-		v = d * s;
-		p = p + v;
+		Vector2D vel = direction_ * speed_;
+		position_ = position_ + vel;
 
-		burst_ = game->checkCollision(this);
+		burst_ = game_->checkCollision(this);
 		if (burst_)
 		{
 			burstTime_ = SDL_GetTicks();
-			c++;
+			spriteColumn_++;
 		}
 
-		active = p.getY() > -static_cast<int>(h);
+		return position_.getY() > -static_cast<int>(height_);
 	}
 	else
 	{
 		Uint32 elapsedTime = SDL_GetTicks() - burstTime_;
-		if (c < 6 && (elapsedTime > FRAME_TIME * c)) c++;
-		active = c < 6;
+		if (spriteColumn_ < ANIMATION_FRAMES && 
+			(elapsedTime > FRAME_TIME * spriteColumn_)) 
+			spriteColumn_++;
+		
+		return spriteColumn_ < ANIMATION_FRAMES;
 	}
 }
 
 void Balloon::render() const
 {
-	sprite->renderFrame(getRect(), r, c);
+	texture_->renderFrame(getRect(), spriteRow_, spriteColumn_);
 }
 
 void Balloon::saveState(std::ofstream& stream)
 {
 	if (!burst_)
 	{
-		stream << p << " " << s << " " << r << std::endl;
+		stream << position_ << " " << speed_ << " " << spriteRow_ << std::endl;
 	}
 }
 
 void Balloon::loadState(std::ifstream& stream)
 {
-	stream >> p >> s >> r;
+	stream >> position_ >> speed_ >> spriteRow_;
 }
