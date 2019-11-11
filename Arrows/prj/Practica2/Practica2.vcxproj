@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Practica2\Arrow.cpp" />
+    <ClCompile Include="..\..\src\Practica2\ArrowsGameObject.cpp" />
     <ClCompile Include="..\..\src\Practica2\Balloon.cpp" />
     <ClCompile Include="..\..\src\Practica2\Bow.cpp" />
     <ClCompile Include="..\..\src\Practica2\Game.cpp" />
     <ClCompile Include="..\..\src\Practica2\GameObject.cpp" />
+    <ClCompile Include="..\..\src\Practica2\LeaderBoard.cpp" />
     <ClCompile Include="..\..\src\Practica2\Main.cpp" />
     <ClCompile Include="..\..\src\Practica2\ScoreBoard.cpp" />
     <ClCompile Include="..\..\src\Practica2\Texture.cpp" />
@@ -31,13 +33,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Practica2\Arrow.h" />
+    <ClInclude Include="..\..\src\Practica2\ArrowsGameObject.h" />
     <ClInclude Include="..\..\src\Practica2\Balloon.h" />
     <ClInclude Include="..\..\src\Practica2\Bow.h" />
     <ClInclude Include="..\..\src\Practica2\checkML.h" />
     <ClInclude Include="..\..\src\Practica2\Constants.h" />
+    <ClInclude Include="..\..\src\Practica2\EventHandler.h" />
     <ClInclude Include="..\..\src\Practica2\FileNotFoundError.h" />
     <ClInclude Include="..\..\src\Practica2\Game.h" />
     <ClInclude Include="..\..\src\Practica2\GameObject.h" />
+    <ClInclude Include="..\..\src\Practica2\LeaderBoard.h" />
     <ClInclude Include="..\..\src\Practica2\ScoreBoard.h" />
     <ClInclude Include="..\..\src\Practica2\SDLError.h" />
     <ClInclude Include="..\..\src\Practica2\Texture.h" />

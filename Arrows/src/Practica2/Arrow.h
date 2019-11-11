@@ -1,20 +1,16 @@
 #ifndef __ARROW_H__
 #define __ARROW_H__
 
-#include "GameObject.h"
+#include "ArrowsGameObject.h"
 
 class Game;
-class Arrow : public GameObject
+class Arrow : public ArrowsGameObject
 {
 public:
-	Arrow(Game* g, Texture* t, Point2D p, int a, double s);
-	~Arrow();
+	Arrow(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
+	virtual ~Arrow();
 
-	virtual void update();
-
-	SDL_Rect getArrowhead() const;
+	virtual SDL_Rect getCollisionRect() const;
 };
-
-
 
 #endif // !__ARROW_H__

@@ -1,19 +1,19 @@
 #include "Game.h"
 
 Game::Game() :
+	bow_(nullptr),
 	window_(nullptr),
 	renderer_(nullptr),
-	score_(0),
-	arrowsLeft_(NUM_ARROWS),
-	lastSpawnTime_(0),
+	scoreBoard_(nullptr),
 	end_(false),
 	exit_(false),
-	bow_(nullptr)
+	lastSpawnTime_(0)
 {
 	initSDL();
 	loadTextures();
 	loadEntities();
 }
+
 Game::~Game()
 {
 	clearScene();
@@ -33,37 +33,46 @@ void Game::initSDL()
 	renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
 	if (!renderer_) throw SDLError(SDL_GetError());
 }
+
 void Game::loadTextures()
 {
 	for (Uint32 i = 0; i < NUM_TEXTURES; i++)
 	{
-		textures[i] = new Texture(renderer_);
-		textures[i]->load(IMAGE_PATH + textureAttributes[i].filename,
+		textures_[i] = new Texture(renderer_);
+		textures_[i]->load(IMAGE_PATH + textureAttributes[i].filename,
 			textureAttributes[i].numRows, textureAttributes[i].numCols);
 	}
 }
+
 void Game::loadEntities()
 {
-	bow_ = new Bow(this, textures[BOW], { 50, WIN_HEIGHT / 2 });
-	gameObjects_.push_back(bow_);
-	scoreBoard_ = new ScoreBoard(this, textures[ARROW_UI], textures[DIGITS]);
+	bow_ = new Bow(this, textures_[BOW], BOW_WIDTH, BOW_HEIGHT, { 50, WIN_HEIGHT / 2 }, BOW_DIR, BOW_SPEED, 0);
+	eventHandlers_.push_back(bow_);
+	addGameObject(bow_);
+
+	scoreBoard_ = new ScoreBoard(this, textures_[ARROW_UI], textures_[DIGITS]);
+	leaderBoard_ = new LeaderBoard();
 }
 
 void Game::clearScene()
 {
-	for (GameObject* o : gameObjects_)
+	delete leaderBoard_; leaderBoard_ = nullptr;
+	delete scoreBoard_; scoreBoard_ = nullptr;
+
+	for (ArrowsGameObject* o : gameObjects_)
 	{
 		delete o; o = nullptr;
 	}
-	gameObjects_.clear();
 }
+
 void Game::clearTextures()
 {
 	for (int i = 0; i < NUM_TEXTURES; i++)
 	{
-		delete textures[i]; textures[i] = nullptr;
+		delete textures_[i]; textures_[i] = nullptr;
 	}
 }
+
 void Game::closeSDL()
 {
 	SDL_DestroyRenderer(renderer_);
@@ -74,39 +83,49 @@ void Game::closeSDL()
 void Game::spawnBallon()
 {
 	Uint32 elapsedTime = SDL_GetTicks() - lastSpawnTime_;
+
 	if (elapsedTime > SPAWN_TIME)
 	{
 		Uint32 rndx = rand() % SPAWN_SPACE + SPAWN_LOWER_BOUND;
-		Balloon* b = new Balloon(this, textures[BALLOONS], { static_cast<double>(rndx), WIN_HEIGHT });
-		gameObjects_.push_back(b);
+		
+		Balloon* b = new Balloon(this, textures_[BALLOONS], BALLOON_WIDTH, BALLOON_HEIGHT,
+			{ static_cast<double>(rndx), WIN_HEIGHT }, BALLOON_DIR, BALLOON_MIN_SPEED, 0);
+		
 		balloons_.push_back(b);
+		addGameObject(b);
+
 		lastSpawnTime_ = SDL_GetTicks();
 	}
 }
+
 void Game::shootArrow(Arrow* a)
 {
-	gameObjects_.push_back(a);
+	scoreBoard_->setArrowsLeft(scoreBoard_->getArrowsLeft() - 1);
 	arrows_.push_back(a);
-	arrowsLeft_--;
+	addGameObject(a);
 }
+
 bool Game::checkCollision(Balloon* b)
 {
 	bool collision = false;
-	SDL_Rect B = b->getRect();
+	SDL_Rect B = b->getCollisionRect();
 
 	auto it = arrows_.begin();
 	while (it != arrows_.end() && !collision)
 	{
-		if ((*it)->isActive())
-		{
-			SDL_Rect A = (*it)->getArrowhead();
-			collision = SDL_HasIntersection(&A, &B);
-		}
+		SDL_Rect A = (*it)->getCollisionRect();
+		collision = SDL_HasIntersection(&A, &B);
 		it++;
 	}
 
-	if (collision) score_ += 10;
+	if (collision) scoreBoard_->setScore(scoreBoard_->getScore() + 10);
 	return collision;
+}
+
+void Game::addGameObject(ArrowsGameObject* o)
+{
+	o->setIteratorList(gameObjects_.end());
+	gameObjects_.push_back(o);
 }
 
 void Game::run()
@@ -123,8 +142,14 @@ void Game::run()
 		if (frameTime < FRAME_RATE) SDL_Delay(FRAME_RATE - frameTime);
 	}
 
-	if (end_) scoreBoard_->registerPlayerScore();
+	if (end_)
+	{
+		leaderBoard_->update();
+		leaderBoard_->registerPlayerScore(scoreBoard_->getScore());
+		leaderBoard_->render();
+	}
 }
+
 void Game::handleEvents()
 {
 	SDL_Event event;
@@ -134,43 +159,67 @@ void Game::handleEvents()
 		{
 			exit_ = true;
 		}
-		else if (event.type == SDL_KEYDOWN)
+		if (event.type == SDL_KEYDOWN)
 		{
-			if (event.key.keysym.sym == SDLK_ESCAPE) exit_ = true;
-			if (event.key.keysym.sym == SDLK_s) saveState();
-			if (event.key.keysym.sym == SDLK_l)	loadState();
+			if (event.key.keysym.sym == SDLK_ESCAPE)
+			{
+				exit_ = true;
+			}
+			if (event.key.keysym.sym == SDLK_s)
+			{
+				saveState();
+			}
+			if (event.key.keysym.sym == SDLK_l)
+			{
+				clearScene();
+				loadState();
+			}
 		}
 
-		if (bow_) bow_->handleEvents(event);
+		for (EventHandler* e : eventHandlers_) e->handleEvents(event);
 	}
 }
+
 void Game::update()
 {
 	spawnBallon();
-	for (GameObject* o : gameObjects_) if (o->isActive()) o->update();
+
+	for (ArrowsGameObject* o : gameObjects_)
+	{
+		o->update();
+	}
+	
 	if (scoreBoard_) scoreBoard_->update();
 
 	// End game
-	Uint32 activeArrows = 0;
-	for (Arrow* a : arrows_) if (a->isActive()) activeArrows++;
-	if (activeArrows == 0 && arrowsLeft_ == 0) end_ = true;
+	if (scoreBoard_->getArrowsLeft() == 0)
+	{
+		end_ = true;
+	}
 }
+
 void Game::render() const
 {
 	SDL_RenderClear(renderer_);
 
 	// Render background
-	textures[BACKGROUND]->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
+	textures_[BACKGROUND]->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
 	
 	if (!end_)
 	{
-		for (GameObject* o : gameObjects_) if (o->isActive()) o->render();
+		// Render Game Objects
+		for (ArrowsGameObject* o : gameObjects_)
+		{
+			o->render();
+		}
+
+		// Render UI
 		if (scoreBoard_) scoreBoard_->render();
 	}
 	else
 	{
 		// Render Game Over Screen
-		textures[GAME_OVER]->render({ (WIN_WIDTH / 2) - 300,
+		textures_[GAME_OVER]->render({ (WIN_WIDTH / 2) - 300,
 									  (WIN_HEIGHT / 2) + 75,
 									  600, 100 });
 	}
@@ -184,49 +233,51 @@ void Game::saveState()
 	stream.open(STATE_FILE);
 	if (!stream.is_open()) throw FileNotFoundError("Couldn´t open state.txt\n");
 
-	stream << score_ << " " << arrowsLeft_ << std::endl;
-	bow_->saveState(stream);
-	Uint32 activeArrows = 0;
-	for (Arrow* a : arrows_) if (a->isActive()) activeArrows++;
-	stream << std::endl << activeArrows << std::endl;
-	for (Arrow* a : arrows_) if (a->isActive()) a->saveState(stream);
+	stream << scoreBoard_->getScore() << " " << scoreBoard_->getArrowsLeft() << std::endl;
+	bow_->saveToFile(stream);
+	stream << arrows_.size() << std::endl;
+	for (Arrow* a : arrows_) a->saveToFile(stream);
 	Uint32 activeBalloons = 0;
-	for (Balloon* b : balloons_) if (b->isActive()) activeBalloons++;
-	stream << std::endl << activeBalloons << std::endl;
-	for (Balloon* b : balloons_) if (b->isActive()) b->saveState(stream);
+	for (Balloon* b : balloons_) if (!b->hasBurst()) activeBalloons++;
+	stream << activeBalloons << std::endl;
+	for (Balloon* b : balloons_) b->saveToFile(stream);
 
 	stream.close();
 }
 void Game::loadState()
 {
-	clearScene();
 	loadEntities();
 
 	std::ifstream stream;
 	stream.open(STATE_FILE);
 	if (!stream.is_open()) throw FileNotFoundError("Couldn´t open state.txt\n");
 
-	stream >> score_ >> arrowsLeft_;
-	bow_->loadState(stream);
+	int score;
+	int arrowsLeft;
+	stream >> score >> arrowsLeft;
+	scoreBoard_->setScore(score);
+	scoreBoard_->setArrowsLeft(arrowsLeft);
 
+	bow_->loadFromFile(stream);
+	
 	Uint32 activeArrows = 0;
 	stream >> activeArrows;
 	for (Uint32 i = 0; i < activeArrows; i++)
 	{
-		Arrow* a = new Arrow(this, textures[Game::ARROW], { 0, 0 }, 0, 0.0);
-		gameObjects_.push_back(a);
+		Arrow* a = new Arrow(this, textures_[Game::ARROW], ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
+		a->loadFromFile(stream);
 		arrows_.push_back(a);
-		a->loadState(stream);
+		addGameObject(a);
 	}
 
 	Uint32 activeBalloons = 0;
 	stream >> activeBalloons;
 	for (Uint32 i = 0; i < activeBalloons; i++)
 	{
-		Balloon* b = new Balloon(this, textures[BALLOONS], { 0, 0 });
-		gameObjects_.push_back(b);
+		Balloon* b = new Balloon(this, textures_[Game::BALLOONS], ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
+		b->loadFromFile(stream);
 		balloons_.push_back(b);
-		b->loadState(stream);
+		addGameObject(b);
 	}
 
 	stream.close();

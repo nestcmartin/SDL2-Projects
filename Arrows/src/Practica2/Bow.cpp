@@ -1,9 +1,11 @@
 #include "Bow.h"
 #include "Game.h"
 
-Bow::Bow(Game* g, Texture* t, Point2D p) :
-	GameObject(g, t, p, BOW_DIR, BOW_WIDTH, BOW_HEIGHT, 0, BOW_SPEED),
-	arrow_(nullptr), drawTime_(0), armed_(false)
+Bow::Bow(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
+	ArrowsGameObject(g, t, w, h, p, d, s, a),
+	armed_(false),
+	arrow_(nullptr),
+	drawTime_(0)
 {
 }
 
@@ -17,8 +19,8 @@ void Bow::handleEvents(SDL_Event& event)
 	{
 		if (event.key.keysym.sym == SDLK_LEFT) charge();
 		else if (event.key.keysym.sym == SDLK_RIGHT) loose();
-		else if (event.key.keysym.sym == SDLK_UP) direction_ = Vector2D(0.0, -1.0);
-		else if (event.key.keysym.sym == SDLK_DOWN) direction_ = Vector2D(0-0, 1.0);
+		else if (event.key.keysym.sym == SDLK_UP) direction_ = Vector2D(0, -1);
+		else if (event.key.keysym.sym == SDLK_DOWN) direction_ = Vector2D(0, 1);
 		else if (event.key.keysym.sym == SDLK_a) angle_ -= BOW_ANGLE_INCREMENT;
 		else if (event.key.keysym.sym == SDLK_d) angle_ += BOW_ANGLE_INCREMENT;
 	}
@@ -27,52 +29,40 @@ void Bow::handleEvents(SDL_Event& event)
 		if (event.key.keysym.sym == SDLK_UP ||
 			event.key.keysym.sym == SDLK_DOWN)
 		{
-			direction_ = Vector2D(0.0, 0.0);
+			direction_ = Vector2D(0, 0);
 		}
 	}
 }
 
 void Bow::update()
-{
+{	
+	// Limit y-axis movement
+	if ((position_ + (direction_ * speed_)).getY() < 0.0 ||
+		(position_ + (direction_ * speed_)).getY() > (WIN_HEIGHT - BOW_HEIGHT)) return;
+
 	// Limit rotation
 	if (angle_ > BOW_ANGLE_LIMIT) angle_ = BOW_ANGLE_LIMIT;
 	if (angle_ < -BOW_ANGLE_LIMIT) angle_ = -BOW_ANGLE_LIMIT;
-
-	// Limit y-axis movement
-	Vector2D p = position_ + (direction_ * speed_);
-	if (p.getY() < 0.0 || p.getY() > (WIN_HEIGHT - BOW_HEIGHT)) return;
 	
-	GameObject::update();
+	ArrowsGameObject::update();
 }
 
 void Bow::render() const
 {
-	GameObject::render();
+	ArrowsGameObject::render();
+
 	if (armed_)
 	{
-		game_->getTexture(Game::ARROW)->renderFrame({ static_cast<int>(position_.getX()), 
-			static_cast<int>(position_.getY() + (height_ / 2) - (ARROW_HEIGHT / 2)),
-			ARROW_WIDTH, ARROW_HEIGHT }, 0, 0, angle_);
+		game_->getTexture(Game::ARROW)->renderFrame(
+			{ static_cast<int>(position_.getX()), 
+			  static_cast<int>(position_.getY() + (height_ / 2)), 
+			  ARROW_WIDTH, ARROW_HEIGHT }, 0, 0, angle_);
 	}
-}
-
-void Bow::saveState(std::ofstream& stream)
-{
-	GameObject::saveState(stream);
-	if (armed_)	stream << 1 << " ";
-	else stream << 0 << " ";
-}
-
-void Bow::loadState(std::ifstream& stream)
-{
-	GameObject::loadState(stream);
-	stream >> armed_;
-	if (armed_) charge();
 }
 
 void Bow::charge()
 {
-	if (!armed_ && game_->getArrowsLeft() > 0)
+	if (!armed_ && game_->hasArrows())
 	{
 		drawTime_ = SDL_GetTicks();
 		armed_ = true;
@@ -84,9 +74,8 @@ void Bow::loose()
 	if (armed_)
 	{
 		double drawFactor = 1.0 + ((SDL_GetTicks() - drawTime_) / 10000.0);
-		arrow_ = new Arrow(game_, game_->getTexture(Game::ARROW),
-			{ position_.getX(), position_.getY() + (height_ / 2) - (ARROW_HEIGHT / 2) },
-			angle_, ARROW_SPEED * drawFactor);
+		arrow_ = new Arrow(game_, game_->getTexture(Game::ARROW), ARROW_WIDTH, ARROW_HEIGHT,
+			{ position_.getX(), position_.getY() + (height_ / 2) }, ARROW_DIR, ARROW_SPEED * drawFactor, angle_);
 		game_->shootArrow(arrow_);
 		armed_ = false;
 	}

@@ -1,20 +1,31 @@
 #ifndef __BALLOON_H__
 #define __BALLOON_H__
 
-#include "GameObject.h"
+#include "ArrowsGameObject.h"
 
 class Game;
-class Balloon : public GameObject
+class Balloon : public ArrowsGameObject
 {
 private:
 	bool burst_;
 	Uint32 burstTime_;
+	Uint32 spriteRow_;
+	Uint32 spriteColumn_;
 
 public:
-	Balloon(Game* g, Texture* t, Point2D p);
-	~Balloon();
+	Balloon(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
+	virtual ~Balloon();
 
 	virtual void update();
+	virtual void render() const;
+	virtual void saveToFile(std::ofstream& stream);
+	virtual void loadFromFile(std::ifstream& stream);
+
+	inline bool hasBurst() const { return burst_; }
+
+private:
+	void checkBurst();
+	void animate();
 };
 
 #endif // !__BALLOON_H__

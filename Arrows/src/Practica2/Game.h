@@ -1,12 +1,14 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
+#include "SDLError.h"
 #include "Constants.h"
+
 #include "Bow.h"
 #include "Arrow.h"
 #include "Balloon.h"
 #include "ScoreBoard.h"
-#include "SDLError.h"
+#include "LeaderBoard.h"
 
 class Game
 {
@@ -38,36 +40,36 @@ public:
 		GAME_OVER
 	};
 
-private:	
+private:
 	SDL_Window* window_;
 	SDL_Renderer* renderer_;
-	
-	Uint32 score_;
-	Uint32 arrowsLeft_;
-	Uint32 lastSpawnTime_;
-
-	bool end_;
-	bool exit_;
 
 	Bow* bow_;
 	ScoreBoard* scoreBoard_;
-	std::vector<Arrow*> arrows_;
-	std::vector<Balloon*> balloons_;
-	std::vector<GameObject*> gameObjects_;
+	LeaderBoard* leaderBoard_;
+	
+	Texture* textures_[NUM_TEXTURES];
+	std::list<Arrow*> arrows_;
+	std::list<Balloon*> balloons_;
+	std::list<EventHandler*> eventHandlers_;
+	std::list<ArrowsGameObject*> gameObjects_;
 
-	Texture* textures[NUM_TEXTURES];
+	bool end_;
+	bool exit_;
+	Uint32 lastSpawnTime_;
 
 public:
 	Game();
 	~Game();
 
-	inline Uint32 getScore() const { return score_; }
-	inline Uint32 getArrowsLeft() const { return arrowsLeft_; }
-	inline Texture* getTexture(Game::TextureName i) const { return textures[i]; }
-
 	void run();
 	void shootArrow(Arrow* a);
 	bool checkCollision(Balloon* b);
+	void addGameObject(ArrowsGameObject* o);
+
+	bool hasArrows() { return scoreBoard_->getArrowsLeft() != 0; }
+	Texture* getTexture(TextureName i) const { return textures_[i]; }
+
 
 private:
 	void initSDL();
