@@ -35,6 +35,7 @@ public:
 	virtual SDL_Rect getCollisionRect() const;
 
 	void setIteratorList(const std::list<GameObject*>::iterator& it);
+	std::list<GameObject*>::iterator getIterator() { return iterator_; }
 
 protected:
 	ArrowsGameObject(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);

@@ -1,6 +1,8 @@
 #include "Balloon.h"
 #include "Game.h"
 
+int Balloon::numActiveBalloons = 0;
+
 Balloon::Balloon(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	burst_(false),
@@ -13,6 +15,7 @@ Balloon::Balloon(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d,
 		static_cast<float>(rand()) / 
 		(static_cast<float>(RAND_MAX / 
 		(BALLOON_MAX_SPEED - BALLOON_MIN_SPEED)));
+	numActiveBalloons++;
 }
 
 Balloon::~Balloon()
@@ -24,11 +27,17 @@ void Balloon::update()
 	if (!burst_)
 	{
 		ArrowsGameObject::update();
-		checkBurst();
+		if (position_.getY() < 0)
+		{
+			game_->killGameObject(iterator_);
+			numActiveBalloons--;
+		}
+		else checkBurst();
 	}
 	else
 	{
-		animate();
+		if (spriteColumn_ >= BURST_ANIMATION_FRAMES) game_->killGameObject(iterator_);
+		else animate();
 	}
 }
 
@@ -54,6 +63,7 @@ void Balloon::checkBurst()
 	burst_ = game_->checkCollision(this);
 	if (burst_)
 	{
+		numActiveBalloons--;
 		burstTime_ = SDL_GetTicks();
 		spriteColumn_++;
 	}

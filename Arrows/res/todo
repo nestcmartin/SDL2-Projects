@@ -1,0 +1,36 @@
+//TO DO:
+Destruir objetos
+Poner detección de errores en el código (FILEFORMAT)
+Leaderboard hello??
+
+REGULINCHI:
+void update()
+{
+    for( ob: objects)
+        ob->update();
+
+    for( ob: objectToErase)
+    {
+        delete ob;
+        objects.remove(ob);
+    }
+    objectsToErase.clear()
+}
+
+MEJOR?:
+list<GameObject>::iterator it;
+it = objects.begin();
+while(it!=objects.end())
+    (it)->update();
+    ++it;
+
+Game::KillObject(   ob)
+{
+    objectsToErase.push_back(ob)
+}
+
+::throwArrow(  arr)
+{
+    auto it = objects.insert(objects.end(), arrow);
+    arrow->setIt(it);
+}

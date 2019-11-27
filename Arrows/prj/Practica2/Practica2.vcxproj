@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Practica2\Arrow.h" />
+    <ClInclude Include="..\..\src\Practica2\ArrowsError.h" />
     <ClInclude Include="..\..\src\Practica2\ArrowsGameObject.h" />
     <ClInclude Include="..\..\src\Practica2\Balloon.h" />
     <ClInclude Include="..\..\src\Practica2\Bow.h" />
@@ -42,6 +43,7 @@
     <ClInclude Include="..\..\src\Practica2\checkML.h" />
     <ClInclude Include="..\..\src\Practica2\Constants.h" />
     <ClInclude Include="..\..\src\Practica2\EventHandler.h" />
+    <ClInclude Include="..\..\src\Practica2\FileFormatError.h" />
     <ClInclude Include="..\..\src\Practica2\FileNotFoundError.h" />
     <ClInclude Include="..\..\src\Practica2\Game.h" />
     <ClInclude Include="..\..\src\Practica2\GameObject.h" />
