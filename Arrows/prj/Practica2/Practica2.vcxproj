@@ -23,10 +23,12 @@
     <ClCompile Include="..\..\src\Practica2\ArrowsGameObject.cpp" />
     <ClCompile Include="..\..\src\Practica2\Balloon.cpp" />
     <ClCompile Include="..\..\src\Practica2\Bow.cpp" />
+    <ClCompile Include="..\..\src\Practica2\Butterfly.cpp" />
     <ClCompile Include="..\..\src\Practica2\Game.cpp" />
     <ClCompile Include="..\..\src\Practica2\GameObject.cpp" />
     <ClCompile Include="..\..\src\Practica2\LeaderBoard.cpp" />
     <ClCompile Include="..\..\src\Practica2\Main.cpp" />
+    <ClCompile Include="..\..\src\Practica2\Reward.cpp" />
     <ClCompile Include="..\..\src\Practica2\ScoreBoard.cpp" />
     <ClCompile Include="..\..\src\Practica2\Texture.cpp" />
     <ClCompile Include="..\..\src\Practica2\Vector2D.cpp" />
@@ -36,6 +38,7 @@
     <ClInclude Include="..\..\src\Practica2\ArrowsGameObject.h" />
     <ClInclude Include="..\..\src\Practica2\Balloon.h" />
     <ClInclude Include="..\..\src\Practica2\Bow.h" />
+    <ClInclude Include="..\..\src\Practica2\Butterfly.h" />
     <ClInclude Include="..\..\src\Practica2\checkML.h" />
     <ClInclude Include="..\..\src\Practica2\Constants.h" />
     <ClInclude Include="..\..\src\Practica2\EventHandler.h" />
@@ -43,6 +46,7 @@
     <ClInclude Include="..\..\src\Practica2\Game.h" />
     <ClInclude Include="..\..\src\Practica2\GameObject.h" />
     <ClInclude Include="..\..\src\Practica2\LeaderBoard.h" />
+    <ClInclude Include="..\..\src\Practica2\Reward.h" />
     <ClInclude Include="..\..\src\Practica2\ScoreBoard.h" />
     <ClInclude Include="..\..\src\Practica2\SDLError.h" />
     <ClInclude Include="..\..\src\Practica2\Texture.h" />

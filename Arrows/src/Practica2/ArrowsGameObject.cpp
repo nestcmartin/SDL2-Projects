@@ -64,7 +64,7 @@ SDL_Rect ArrowsGameObject::getCollisionRect() const
 	return rect;
 }
 
-void ArrowsGameObject::setIteratorList(const std::list<ArrowsGameObject*>::iterator& it)
+void ArrowsGameObject::setIteratorList(const std::list<GameObject*>::iterator& it)
 {
 	iterator_ = it;
 }

@@ -20,7 +20,7 @@ protected:
 	double speed_;
 	int angle_;
 
-	std::list<ArrowsGameObject*>::iterator iterator_;
+	std::list<GameObject*>::iterator iterator_;
 
 public:
 	virtual ~ArrowsGameObject();
@@ -34,7 +34,7 @@ public:
 	virtual SDL_Rect getDestRect() const;
 	virtual SDL_Rect getCollisionRect() const;
 
-	void setIteratorList(const std::list<ArrowsGameObject*>::iterator& it);
+	void setIteratorList(const std::list<GameObject*>::iterator& it);
 
 protected:
 	ArrowsGameObject(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);

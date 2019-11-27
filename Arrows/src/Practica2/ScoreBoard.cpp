@@ -21,7 +21,7 @@ void ScoreBoard::update()
 
 void ScoreBoard::render() const
 {
-	for (Uint32 i = 0; i < arrowsLeft_; i++)
+	for (int i = 0; i < arrowsLeft_; i++)
 	{
 		arrowsSprite_->render({ static_cast<int>(UI_ARROW_POS_X + (UI_ARROW_WIDTH * i)),
 							   static_cast<int>(UI_ARROW_POS_Y),

@@ -48,6 +48,12 @@
     <ClCompile Include="..\..\src\Practica2\LeaderBoard.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Practica2\Butterfly.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica2\Reward.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Practica2\Arrow.h">
@@ -93,6 +99,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica2\LeaderBoard.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\Butterfly.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\Reward.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

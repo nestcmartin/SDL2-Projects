@@ -63,6 +63,6 @@ void Balloon::animate()
 {
 	Uint32 elapsedTime = SDL_GetTicks() - burstTime_;
 	if (spriteColumn_ < BURST_ANIMATION_FRAMES &&
-		(elapsedTime > BURST_FRAME_TIME* spriteColumn_))
+		(elapsedTime > BURST_FRAME_TIME * spriteColumn_))
 		spriteColumn_++;
 }

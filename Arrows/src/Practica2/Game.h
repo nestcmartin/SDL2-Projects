@@ -52,7 +52,7 @@ private:
 	std::list<Arrow*> arrows_;
 	std::list<Balloon*> balloons_;
 	std::list<EventHandler*> eventHandlers_;
-	std::list<ArrowsGameObject*> gameObjects_;
+	std::list<GameObject*> gameObjects_;
 
 	bool end_;
 	bool exit_;

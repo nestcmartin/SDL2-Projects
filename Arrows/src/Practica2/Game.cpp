@@ -59,10 +59,14 @@ void Game::clearScene()
 	delete leaderBoard_; leaderBoard_ = nullptr;
 	delete scoreBoard_; scoreBoard_ = nullptr;
 
-	for (ArrowsGameObject* o : gameObjects_)
+	for (GameObject* o : gameObjects_)
 	{
 		delete o; o = nullptr;
 	}
+	gameObjects_.clear();
+	eventHandlers_.clear();
+	balloons_.clear();
+	arrows_.clear();
 }
 
 void Game::clearTextures()
@@ -165,11 +169,11 @@ void Game::handleEvents()
 			{
 				exit_ = true;
 			}
-			if (event.key.keysym.sym == SDLK_s)
+			else if (event.key.keysym.sym == SDLK_s)
 			{
 				saveState();
 			}
-			if (event.key.keysym.sym == SDLK_l)
+			else if (event.key.keysym.sym == SDLK_l)
 			{
 				clearScene();
 				loadState();
@@ -184,7 +188,7 @@ void Game::update()
 {
 	spawnBallon();
 
-	for (ArrowsGameObject* o : gameObjects_)
+	for (GameObject* o : gameObjects_)
 	{
 		o->update();
 	}
@@ -208,7 +212,7 @@ void Game::render() const
 	if (!end_)
 	{
 		// Render Game Objects
-		for (ArrowsGameObject* o : gameObjects_)
+		for (GameObject* o : gameObjects_)
 		{
 			o->render();
 		}

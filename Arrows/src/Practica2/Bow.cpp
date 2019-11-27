@@ -3,6 +3,7 @@
 
 Bow::Bow(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
+	EventHandler(),
 	armed_(false),
 	arrow_(nullptr),
 	drawTime_(0)
