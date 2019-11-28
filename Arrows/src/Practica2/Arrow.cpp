@@ -1,11 +1,14 @@
 #include "Arrow.h"
 #include "Game.h"
 
+int Arrow::count = 0;
+
 Arrow::Arrow(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	numHits_(1)
 {
 	direction_.rotate(angle_);
+	count++;
 }
 
 Arrow::~Arrow()

@@ -6,6 +6,9 @@
 class Game;
 class Balloon : public ArrowsGameObject
 {
+public:
+	static int count;
+
 private:
 	bool burst_;
 	Uint32 burstTime_;

@@ -1,6 +1,8 @@
 #include "Reward.h"
 #include "Game.h"
 
+int Reward::count = 0;
+
 Reward::Reward(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	EventHandler(),
@@ -9,6 +11,7 @@ Reward::Reward(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, d
 {
 	spriteRow_ = rand() % 2;
 	bubbleTexture_ = game_->getTexture(Game::TextureName::BUBBLE);
+	count++;
 }
 
 Reward::~Reward()

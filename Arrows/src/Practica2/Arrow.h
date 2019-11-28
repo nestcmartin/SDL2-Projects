@@ -6,6 +6,9 @@
 class Game;
 class Arrow : public ArrowsGameObject
 {
+public:
+	static int count;
+
 private:
 	Uint32 numHits_;
 

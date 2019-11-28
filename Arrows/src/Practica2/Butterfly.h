@@ -6,6 +6,9 @@
 class Game;
 class Butterfly : public ArrowsGameObject
 {
+public:
+	static int count;
+
 private:
 	Uint32 spriteRow_;
 	Uint32 spriteColumn_;
@@ -23,6 +26,10 @@ public:
 
 private:
 	void animate();
+
+	void randomMovement();
+	void randomPosition();
+	void randomDirection();
 };
 
 #endif // !__BUTTERFLY_H__

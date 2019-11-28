@@ -7,6 +7,9 @@
 class Game;
 class Reward : public ArrowsGameObject, public EventHandler
 {
+public:
+	static int count;
+
 private:
 	Texture* bubbleTexture_;
 	bool bubbled_;

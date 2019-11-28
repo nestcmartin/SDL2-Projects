@@ -20,6 +20,7 @@ public:
 	inline double getY() const { return y_; }
 	inline void setX(double _x) { x_ = _x; }
 	inline void setY(double _y) { y_ = _y; }
+	inline void set(double _x, double _y) { x_ = _x; y_ = _y; }
 
 	Vector2D normalize();
 	double magnitude() const;
