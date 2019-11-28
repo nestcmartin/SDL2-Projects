@@ -6,11 +6,8 @@
 class Game;
 class Arrow : public ArrowsGameObject
 {
-public:
-	static int numArrowsActive;
-	
 private:
-	Uint32 numBalloonsBurst_;
+	Uint32 numHits_;
 
 public:
 	Arrow(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
@@ -19,8 +16,8 @@ public:
 	virtual void update();
 	virtual SDL_Rect getCollisionRect() const;
 
-	inline Uint32 getNumBallonsBurst() const { return numBalloonsBurst_; }
-	inline void incrementNumBalloonsBurst() { numBalloonsBurst_++; }
+	inline Uint32 getNumHits() const { return numHits_; }
+	inline void addHit() { numHits_++; }
 };
 
 #endif // !__ARROW_H__

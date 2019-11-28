@@ -1,6 +1,8 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
+#include <time.h>
+
 #include "SDLError.h"
 #include "Constants.h"
 
@@ -9,6 +11,8 @@
 #include "Balloon.h"
 #include "ScoreBoard.h"
 #include "LeaderBoard.h"
+#include "Butterfly.h"
+#include "Reward.h"
 
 class Game
 {
@@ -17,7 +21,7 @@ class Game
 		Uint32 numRows;
 		Uint32 numCols;
 	};
-	// TODO HERE
+
 	const TextureAttributes textureAttributes[NUM_TEXTURES] = {
 		{"Arrow1.png",				 1,  1},
 		{"Arrow2.png",				 1,  1},
@@ -60,14 +64,20 @@ public:
 private:
 	SDL_Window* window_;
 	SDL_Renderer* renderer_;
+
+	Bow* bow_;
+	ScoreBoard* scoreBoard_;
+	LeaderBoard* leaderBoard_;
 	
 	Texture* textures_[NUM_TEXTURES];
-	std::list<GameObject*> gameObjects_;
+	std::list<Arrow*> arrows_;
+	std::list<Balloon*> balloons_;
 	std::list<EventHandler*> eventHandlers_;
-	std::list<std::list<GameObject*>::iterator> erasableObjects_;
+	std::list<GameObject*> gameObjects_;
 
 	bool end_;
 	bool exit_;
+	bool changeLevel_;
 	Uint32 lastSpawnTime_;
 	Uint32 currentLevel_;
 
@@ -77,10 +87,15 @@ public:
 
 	void run();
 	void shootArrow(Arrow* a);
-	bool checkCollision(Balloon* b);
-	void killGameObject(std::list<GameObject*>::iterator it);
+	bool hitBalloon(Balloon* b);
+	bool hitButterfly(Butterfly* b);
+	bool hitRewardBubble(Reward* b);
+	void addGameObject(ArrowsGameObject* o);
 
-	bool hasArrows() { return static_cast<ScoreBoard*>(gameObjects_.front())->getArrowsLeft() != 0; }
+	void rewardNextLevel();
+	void rewardMoreArrows();
+
+	bool hasArrows() { return scoreBoard_->getArrowsLeft() != 0; }
 	Texture* getTexture(TextureName i) const { return textures_[i]; }
 
 

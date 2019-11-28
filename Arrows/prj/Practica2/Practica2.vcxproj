@@ -43,7 +43,6 @@
     <ClInclude Include="..\..\src\Practica2\checkML.h" />
     <ClInclude Include="..\..\src\Practica2\Constants.h" />
     <ClInclude Include="..\..\src\Practica2\EventHandler.h" />
-    <ClInclude Include="..\..\src\Practica2\FileFormatError.h" />
     <ClInclude Include="..\..\src\Practica2\FileNotFoundError.h" />
     <ClInclude Include="..\..\src\Practica2\Game.h" />
     <ClInclude Include="..\..\src\Practica2\GameObject.h" />

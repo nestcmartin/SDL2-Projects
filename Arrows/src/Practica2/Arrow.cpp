@@ -1,13 +1,11 @@
 #include "Arrow.h"
 #include "Game.h"
 
-int Arrow::numArrowsActive = 0;
-
 Arrow::Arrow(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
-	ArrowsGameObject(g, t, w, h, p, d, s, a)
+	ArrowsGameObject(g, t, w, h, p, d, s, a),
+	numHits_(1)
 {
 	direction_.rotate(angle_);
-	numArrowsActive++;
 }
 
 Arrow::~Arrow()
@@ -17,11 +15,7 @@ Arrow::~Arrow()
 void Arrow::update()
 {
 	ArrowsGameObject::update();
-	if (position_.getX() > WIN_WIDTH)
-	{
-		numArrowsActive--;
-		game_->killGameObject(iterator_);
-	}
+	if (position_.getX() > WIN_WIDTH || position_.getY() > WIN_HEIGHT || position_.getY() < 0);
 }
 
 SDL_Rect Arrow::getCollisionRect() const

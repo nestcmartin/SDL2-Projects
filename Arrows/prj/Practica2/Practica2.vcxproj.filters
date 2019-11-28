@@ -110,8 +110,5 @@
     <ClInclude Include="..\..\src\Practica2\ArrowsError.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\FileFormatError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
