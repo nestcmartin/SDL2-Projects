@@ -16,6 +16,8 @@ private:
 	Uint32 spriteRow_;
 	Uint32 spriteColumn_;
 
+	std::list<Reward*>::iterator rewardIt_;
+
 public:
 	Reward(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
 	virtual ~Reward();
@@ -28,6 +30,8 @@ public:
 	virtual void loadFromFile(std::ifstream& stream);
 
 	virtual SDL_Rect getCollisionRect() const;
+
+	void setRewardIterator(std::list<Reward*>::iterator it) { rewardIt_ = it; }
 
 private:
 	void animate();

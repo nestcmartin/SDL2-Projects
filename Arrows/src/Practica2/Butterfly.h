@@ -15,6 +15,8 @@ private:
 	Uint32 lastTime_;
 	bool dead_;
 
+	std::list<Butterfly*>::iterator butterflyIt_;
+
 public:
 	Butterfly(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
 	virtual ~Butterfly();
@@ -23,6 +25,10 @@ public:
 	virtual void render() const;
 	virtual void saveToFile(std::ofstream& stream);
 	virtual void loadFromFile(std::ifstream& stream);
+
+	inline bool isDead() const { return dead_; }
+
+	void setButterflyIterator(std::list<Butterfly*>::iterator it) { butterflyIt_ = it; }
 
 private:
 	void animate();

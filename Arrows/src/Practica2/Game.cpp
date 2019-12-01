@@ -57,6 +57,7 @@ void Game::loadEntities()
 	for (int i = 0; i < NUM_BUTTERFLIES_PER_LEVEL * currentLevel_; i++)
 	{
 		Butterfly* b = new Butterfly(this, textures_[BUTTERFLY], BUTTERFLY_WIDTH, BUTTERFLY_HEIGHT, { 0, 0 }, { 0, 0 }, BUTTERFLY_SPEED, 0);
+		butterflies_.push_back(b);
 		addGameObject(b);
 	}
 
@@ -113,6 +114,13 @@ void Game::spawnBallon()
 	}
 }
 
+void Game::shootArrow(Arrow* a)
+{
+	scoreBoard_->setArrowsLeft(scoreBoard_->getArrowsLeft() - 1);
+	arrows_.push_back(a);
+	addGameObject(a);
+}
+
 void Game::changeLevel()
 {
 	changeLevel_ = false;
@@ -124,13 +132,6 @@ void Game::changeLevel()
 		loadEntities();
 		scoreBoard_->setScore(score);
 	}
-}
-
-void Game::shootArrow(Arrow* a)
-{
-	scoreBoard_->setArrowsLeft(scoreBoard_->getArrowsLeft() - 1);
-	arrows_.push_back(a);
-	addGameObject(a);
 }
 
 bool Game::hitBalloon(Balloon* b)
@@ -159,6 +160,7 @@ bool Game::hitBalloon(Balloon* b)
 				{ static_cast<double>(b->getDestRect().x), static_cast<double>(b->getDestRect().y) + BALLOON_HEIGHT },
 				{ 0, 1 }, REWARD_SPEED, 0);
 			eventHandlers_.push_back(r);
+			rewards_.push_back(r);
 			addGameObject(r);
 		}
 	}
@@ -198,11 +200,53 @@ bool Game::hitRewardBubble(Reward* b)
 	return collision;
 }
 
+
+void Game::addArrow(Arrow* a)
+{
+	auto it = arrows_.insert(arrows_.end(), a);
+	a->setArrowIterator(it);
+	addGameObject(a);
+}
+
+void Game::addBalloon(Balloon* b)
+{
+	auto it = balloons_.insert(balloons_.end(), b);
+	b->setBalloonIterator(it);
+	addGameObject(b);
+}
+
+void Game::addButterfly(Butterfly* b)
+{
+	auto it = butterflies_.insert(butterflies_.end(), b);
+	b->setButterflyIterator(it);
+	addGameObject(b);
+}
+
+void Game::addRewardBubble(Reward* r)
+{
+	auto it = rewards_.insert(rewards_.end(), r);
+	r->setRewardIterator(it);
+	addEventHandler(r);
+	addGameObject(r);
+}
+
+void Game::addEventHandler(EventHandler* e)
+{
+	auto it = eventHandlers_.insert(eventHandlers_.end(), e);
+	e->setEventHandlerIterator(it);
+}
+
 void Game::addGameObject(ArrowsGameObject* o)
 {
-	o->setIteratorList(gameObjects_.end());
-	gameObjects_.push_back(o);
+	auto it = gameObjects_.insert(gameObjects_.end(), o);
+	o->setIteratorList(it);
 }
+
+void Game::killGameObject(std::list<GameObject*>::iterator it)
+{
+	erasableObjects_.push_back(it);
+}
+
 
 void Game::rewardNextLevel()
 {
@@ -368,4 +412,16 @@ void Game::loadState()
 	}
 
 	stream.close();
+}
+
+void Game::eraseObjects()
+{
+	auto it = erasableObjects_.begin();
+	while (it != erasableObjects_.end())
+	{
+		delete (**it); (**it) = nullptr;
+		gameObjects_.erase(*it);
+		it++;
+	}
+	erasableObjects_.clear();
 }

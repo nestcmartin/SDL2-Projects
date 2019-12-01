@@ -72,8 +72,11 @@ private:
 	Texture* textures_[NUM_TEXTURES];
 	std::list<Arrow*> arrows_;
 	std::list<Balloon*> balloons_;
+	std::list<Reward*> rewards_;
+	std::list<Butterfly*> butterflies_;
 	std::list<EventHandler*> eventHandlers_;
 	std::list<GameObject*> gameObjects_;
+	std::list<std::list<GameObject*>::iterator> erasableObjects_;
 
 	bool end_;
 	bool exit_;
@@ -86,11 +89,19 @@ public:
 	~Game();
 
 	void run();
+
 	void shootArrow(Arrow* a);
 	bool hitBalloon(Balloon* b);
 	bool hitButterfly(Butterfly* b);
 	bool hitRewardBubble(Reward* b);
+
+	void addArrow(Arrow* a);
+	void addBalloon(Balloon* b);
+	void addButterfly(Butterfly* b);
+	void addRewardBubble(Reward* r);
+	void addEventHandler(EventHandler* e);
 	void addGameObject(ArrowsGameObject* o);
+	void killGameObject(std::list<GameObject*>::iterator it);
 
 	void rewardNextLevel();
 	void rewardMoreArrows();
@@ -116,6 +127,8 @@ private:
 
 	void saveState();
 	void loadState();
+
+	void eraseObjects();
 };
 
 #endif // !__GAME_H__
