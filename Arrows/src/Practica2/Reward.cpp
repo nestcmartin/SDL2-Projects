@@ -7,6 +7,7 @@ Reward::Reward(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, d
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	EventHandler(),
 	bubbled_(true),
+	used_(false),
 	spriteColumn_(0)
 {
 	spriteRow_ = rand() % 2;
@@ -23,6 +24,8 @@ void Reward::update()
 	if (!bubbled_) animate();
 	else bubbled_ = !game_->hitRewardBubble(this);
 	ArrowsGameObject::update();
+
+	if (position_.getY() > WIN_HEIGHT || used_) game_->killReward(iterator_, eventHandlerIt_);
 }
 
 void Reward::render() const
@@ -51,6 +54,7 @@ void Reward::handleEvents(SDL_Event& event)
 			{
 				if (spriteRow_ == 0) game_->rewardNextLevel();
 				else if (spriteRow_ == 1) game_->rewardMoreArrows();
+				used_ = true;
 			}
 		}
 	}
@@ -60,13 +64,13 @@ void Reward::handleEvents(SDL_Event& event)
 void Reward::saveToFile(std::ofstream& stream)
 {
 	ArrowsGameObject::saveToFile(stream);
-	stream << spriteRow_ << " " << spriteColumn_ << " ";
+	stream << spriteRow_ << " " << spriteColumn_ << " " << bubbled_ << " ";
 }
 
 void Reward::loadFromFile(std::ifstream& stream)
 {
 	ArrowsGameObject::loadFromFile(stream);
-	stream >> spriteRow_ >> spriteColumn_;
+	stream >> spriteRow_ >> spriteColumn_ >> bubbled_;
 }
 
 SDL_Rect Reward::getCollisionRect() const

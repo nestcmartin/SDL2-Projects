@@ -23,17 +23,14 @@ void Butterfly::update()
 {	
 	if (!dead_)
 	{
-		dead_ = game_->hitButterfly(this);
+		checkDead();
 		randomMovement();
 		animate();
 	}
-	else
-	{
-		spriteColumn_ = 0;
-		direction_.set(0, 1);
-	}
 
 	ArrowsGameObject::update();
+
+	if (position_.getY() > WIN_HEIGHT) game_->killButterfly(iterator_);
 }
 
 void Butterfly::render() const
@@ -59,6 +56,16 @@ void Butterfly::animate()
 	if (direction_.getX() == 1) spriteRow_ = 1;
 	else spriteRow_ = 0;
 	spriteColumn_ = int((SDL_GetTicks() / BUTTERFLY_FRAME_TIME) % BUTTERFLY_ANIMATION_FRAMES);
+}
+
+void Butterfly::checkDead()
+{
+	dead_ = game_->hitButterfly(this);
+	if (dead_)
+	{
+		spriteColumn_ = 0;
+		direction_.set(0, 1);
+	}
 }
 
 void Butterfly::randomMovement()

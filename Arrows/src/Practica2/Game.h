@@ -95,12 +95,10 @@ public:
 	bool hitButterfly(Butterfly* b);
 	bool hitRewardBubble(Reward* b);
 
-	void addArrow(Arrow* a);
-	void addBalloon(Balloon* b);
-	void addButterfly(Butterfly* b);
-	void addRewardBubble(Reward* r);
-	void addEventHandler(EventHandler* e);
-	void addGameObject(ArrowsGameObject* o);
+	void killArrow(std::list<GameObject*>::iterator it);
+	void killBalloon(std::list<GameObject*>::iterator it);
+	void killButterfly(std::list<GameObject*>::iterator it);
+	void killReward(std::list<GameObject*>::iterator it, std::list<EventHandler*>::iterator eit);
 	void killGameObject(std::list<GameObject*>::iterator it);
 
 	void rewardNextLevel();
@@ -109,7 +107,6 @@ public:
 	bool hasArrows() { return scoreBoard_->getArrowsLeft() != 0; }
 	Texture* getTexture(TextureName i) const { return textures_[i]; }
 
-
 private:
 	void initSDL();
 	void loadTextures();
@@ -117,6 +114,13 @@ private:
 	void clearScene();
 	void clearTextures();
 	void closeSDL();
+
+	void addArrow(Arrow* a);
+	void addBalloon(Balloon* b);
+	void addButterfly(Butterfly* b);
+	void addRewardBubble(Reward* r);
+	void addEventHandler(EventHandler* e);
+	void addGameObject(ArrowsGameObject* o);
 
 	void spawnBallon();
 	void changeLevel();

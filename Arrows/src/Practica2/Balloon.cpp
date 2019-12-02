@@ -29,10 +29,17 @@ void Balloon::update()
 	{
 		ArrowsGameObject::update();
 		checkBurst();
+
+		if (position_.getY() < -static_cast<int>(height_))
+		{
+			game_->killBalloon(iterator_);
+			count--;
+		}
 	}
 	else
 	{
 		animate();
+		if (spriteColumn_ < BURST_ANIMATION_FRAMES) game_->killBalloon(iterator_);
 	}
 }
 
@@ -60,6 +67,7 @@ void Balloon::checkBurst()
 	{
 		burstTime_ = SDL_GetTicks();
 		spriteColumn_++;
+		count--;
 	}
 }
 

@@ -75,9 +75,12 @@ void Game::clearScene()
 		delete o; o = nullptr;
 	}
 	gameObjects_.clear();
-	eventHandlers_.clear();
-	balloons_.clear();
 	arrows_.clear();
+	balloons_.clear();
+	butterflies_.clear();
+	rewards_.clear();
+	eventHandlers_.clear();
+	erasableObjects_.clear();
 }
 
 void Game::clearTextures()
@@ -127,7 +130,7 @@ void Game::changeLevel()
 	if (currentLevel_ < NUM_LEVELS)
 	{
 		currentLevel_++;
-		Uint32 score = scoreBoard_->getScore();
+		int score = scoreBoard_->getScore();
 		clearScene();
 		loadEntities();
 		scoreBoard_->setScore(score);
@@ -151,17 +154,16 @@ bool Game::hitBalloon(Balloon* b)
 	{
 		(*it)->addHit();
 		Uint32 numHits = (*it)->getNumHits();
-		int score = (numHits - 1) * (numHits - 1) * POINTS_PER_BALLON;
-		scoreBoard_->setScore(scoreBoard_->getScore() + score);
+		int score = scoreBoard_->getScore() + (numHits - 1) * (numHits - 1) * POINTS_PER_BALLON;
+		if (score > 999) score = 999;
+		scoreBoard_->setScore(score);
 
 		if (rand() % 100 < 30)
 		{
 			Reward* r = new Reward(this, textures_[REWARDS], REWARD_WIDTH, REWARD_HEIGHT, 
 				{ static_cast<double>(b->getDestRect().x), static_cast<double>(b->getDestRect().y) + BALLOON_HEIGHT },
 				{ 0, 1 }, REWARD_SPEED, 0);
-			eventHandlers_.push_back(r);
-			rewards_.push_back(r);
-			addGameObject(r);
+			addRewardBubble(r);
 		}
 	}
 	return collision;
@@ -180,7 +182,12 @@ bool Game::hitButterfly(Butterfly* b)
 		if (!collision) it++;
 	}
 
-	if (collision) scoreBoard_->setScore(scoreBoard_->getScore() - (POINTS_PER_BALLON / 2));
+	if (collision)
+	{
+		int score = scoreBoard_->getScore() - (POINTS_PER_BALLON / 2);
+		if (score < 0) score = 0;
+		scoreBoard_->setScore(score);
+	}
 	return collision;
 }
 
@@ -203,29 +210,25 @@ bool Game::hitRewardBubble(Reward* b)
 
 void Game::addArrow(Arrow* a)
 {
-	auto it = arrows_.insert(arrows_.end(), a);
-	a->setArrowIterator(it);
+	arrows_.push_back(a);
 	addGameObject(a);
 }
 
 void Game::addBalloon(Balloon* b)
 {
-	auto it = balloons_.insert(balloons_.end(), b);
-	b->setBalloonIterator(it);
+	balloons_.push_back(b);
 	addGameObject(b);
 }
 
 void Game::addButterfly(Butterfly* b)
 {
-	auto it = butterflies_.insert(butterflies_.end(), b);
-	b->setButterflyIterator(it);
+	butterflies_.push_back(b);
 	addGameObject(b);
 }
 
 void Game::addRewardBubble(Reward* r)
 {
-	auto it = rewards_.insert(rewards_.end(), r);
-	r->setRewardIterator(it);
+	rewards_.push_back(r);
 	addEventHandler(r);
 	addGameObject(r);
 }
@@ -240,6 +243,35 @@ void Game::addGameObject(ArrowsGameObject* o)
 {
 	auto it = gameObjects_.insert(gameObjects_.end(), o);
 	o->setIteratorList(it);
+}
+
+
+void Game::killArrow(std::list<GameObject*>::iterator it)
+{
+	arrows_.remove(static_cast<Arrow*>((*it)));
+	killGameObject(it);
+	Arrow::count--;
+}
+
+void Game::killBalloon(std::list<GameObject*>::iterator it)
+{
+	balloons_.remove(static_cast<Balloon*>((*it)));
+	killGameObject(it);
+}
+
+void Game::killButterfly(std::list<GameObject*>::iterator it)
+{
+	butterflies_.remove(static_cast<Butterfly*>((*it)));
+	killGameObject(it);
+	Butterfly::count--;
+}
+
+void Game::killReward(std::list<GameObject*>::iterator it, std::list<EventHandler*>::iterator eit)
+{
+	rewards_.remove(static_cast<Reward*>((*it)));
+	eventHandlers_.remove((*eit));
+	killGameObject(it);
+	Reward::count--;
 }
 
 void Game::killGameObject(std::list<GameObject*>::iterator it)
@@ -322,7 +354,9 @@ void Game::update()
 	
 	if (scoreBoard_) scoreBoard_->update();
 	if ((scoreBoard_ && scoreBoard_->getScore() > currentLevel_ * POINTS_PER_LEVEL) || changeLevel_) changeLevel();
-	if (scoreBoard_ && scoreBoard_->getArrowsLeft() == 0 && arrows_.empty()) end_ = true;
+	if ((scoreBoard_ && scoreBoard_->getArrowsLeft() == 0 && arrows_.empty()) || Butterfly::count == 0) end_ = true;
+
+	eraseObjects();
 }
 
 void Game::render() const
@@ -363,21 +397,26 @@ void Game::saveState()
 	stream.open(STATE_FILE);
 	if (!stream.is_open()) throw FileNotFoundError("Couldn´t open state.txt\n");
 
-	stream << scoreBoard_->getScore() << " " << scoreBoard_->getArrowsLeft() << std::endl;
-	bow_->saveToFile(stream);
-	stream << arrows_.size() << std::endl;
-	for (Arrow* a : arrows_) a->saveToFile(stream);
-	Uint32 activeBalloons = 0;
-	for (Balloon* b : balloons_) if (!b->hasBurst()) activeBalloons++;
-	stream << activeBalloons << std::endl;
-	for (Balloon* b : balloons_) b->saveToFile(stream);
+	stream << currentLevel_ << " " << scoreBoard_->getScore() << " " << scoreBoard_->getArrowsLeft() << std::endl;
+	bow_->saveToFile(stream); stream << std::endl;
+	stream << Arrow::count << std::endl;
+	for (Arrow* a : arrows_) { a->saveToFile(stream); stream << std::endl; }
+	stream << Balloon::count << std::endl;
+	for (Balloon* b : balloons_) { if (!b->hasBurst()) { b->saveToFile(stream); stream << std::endl; } }
+	stream << Butterfly::count << std::endl;
+	for (Butterfly* b : butterflies_) { b->saveToFile(stream); stream << std::endl; }
+	stream << Reward::count << std::endl;
+	for (Reward* r : rewards_) { r->saveToFile(stream); stream << std::endl; }
 
 	stream.close();
 }
 
 void Game::loadState()
 {
-	loadEntities();
+	Arrow::count = 0;
+	Balloon::count = 0;
+	Butterfly::count = 0;
+	Reward::count = 0;
 
 	std::ifstream stream;
 	stream.open(STATE_FILE);
@@ -385,30 +424,50 @@ void Game::loadState()
 
 	int score;
 	int arrowsLeft;
-	stream >> score >> arrowsLeft;
+	stream >> currentLevel_ >> score >> arrowsLeft;
+
+	scoreBoard_ = new ScoreBoard(this, textures_[ARROW_UI], textures_[DIGITS]);
+	leaderBoard_ = new LeaderBoard();
 	scoreBoard_->setScore(score);
 	scoreBoard_->setArrowsLeft(arrowsLeft);
 
+	bow_ = new Bow(this, textures_[BOW], BOW_WIDTH, BOW_HEIGHT, { 50, WIN_HEIGHT / 2 }, BOW_DIR, BOW_SPEED, 0);
 	bow_->loadFromFile(stream);
+	eventHandlers_.push_back(bow_);
+	addGameObject(bow_);
 	
-	Uint32 activeArrows = 0;
-	stream >> activeArrows;
-	for (Uint32 i = 0; i < activeArrows; i++)
+	int count = 0;
+	
+	stream >> count;
+	for (int i = 0; i < count; i++)
 	{
 		Arrow* a = new Arrow(this, textures_[Game::ARROW], ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
 		a->loadFromFile(stream);
-		arrows_.push_back(a);
-		addGameObject(a);
+		addArrow(a);
 	}
 
-	Uint32 activeBalloons = 0;
-	stream >> activeBalloons;
-	for (Uint32 i = 0; i < activeBalloons; i++)
+	stream >> count;
+	for (int i = 0; i < count; i++)
 	{
 		Balloon* b = new Balloon(this, textures_[Game::BALLOONS], ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
 		b->loadFromFile(stream);
-		balloons_.push_back(b);
-		addGameObject(b);
+		addBalloon(b);
+	}
+
+	stream >> count;
+	for (int i = 0; i < count; i++)
+	{
+		Butterfly* b = new Butterfly(this, textures_[Game::BUTTERFLY], BUTTERFLY_WIDTH, BUTTERFLY_HEIGHT, { 0, 0 }, { 0, 0 }, BUTTERFLY_SPEED, 0);
+		b->loadFromFile(stream);
+		addButterfly(b);
+	}
+
+	stream >> count;
+	for (int i = 0; i < count; i++)
+	{
+		Reward* r = new Reward(this, textures_[Game::REWARDS], REWARD_WIDTH, REWARD_HEIGHT, { 0, 0 }, { 0, 0 }, REWARD_SPEED, 0);
+		r->loadFromFile(stream);
+		addRewardBubble(r);
 	}
 
 	stream.close();
