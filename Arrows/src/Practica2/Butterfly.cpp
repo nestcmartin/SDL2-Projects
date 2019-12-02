@@ -30,7 +30,11 @@ void Butterfly::update()
 
 	ArrowsGameObject::update();
 
-	if (position_.getY() > WIN_HEIGHT) game_->killButterfly(iterator_);
+	if (position_.getY() > WIN_HEIGHT)
+	{
+		count--;
+		game_->killButterfly(iterator_);
+	}
 }
 
 void Butterfly::render() const
@@ -42,13 +46,13 @@ void Butterfly::render() const
 void Butterfly::saveToFile(std::ofstream& stream)
 {
 	ArrowsGameObject::saveToFile(stream);
-	stream << spriteRow_ << " " << spriteColumn_ << " ";
+	stream << spriteRow_ << " " << spriteColumn_ << " " << dead_ << " ";
 }
 
 void Butterfly::loadFromFile(std::ifstream& stream)
 {
 	ArrowsGameObject::loadFromFile(stream);
-	stream >> spriteRow_ >> spriteColumn_;
+	stream >> spriteRow_ >> spriteColumn_ >> dead_;
 }
 
 void Butterfly::animate()

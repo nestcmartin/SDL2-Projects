@@ -5,11 +5,11 @@ Game::Game() :
 	window_(nullptr),
 	renderer_(nullptr),
 	scoreBoard_(nullptr),
-	end_(false),
 	exit_(false),
 	changeLevel_(false),
 	lastSpawnTime_(0),
-	currentLevel_(1)
+	currentLevel_(1),
+	currentState_(MENU_STATE)
 {
 	srand(static_cast<unsigned int>(time(NULL)));
 
@@ -106,10 +106,10 @@ void Game::spawnBallon()
 	if (elapsedTime > SPAWN_TIME)
 	{
 		Uint32 rndx = rand() % SPAWN_SPACE + SPAWN_LOWER_BOUND;
-		
+
 		Balloon* b = new Balloon(this, textures_[BALLOONS], BALLOON_WIDTH, BALLOON_HEIGHT,
 			{ static_cast<double>(rndx), WIN_HEIGHT }, BALLOON_DIR, BALLOON_MIN_SPEED, 0);
-		
+
 		balloons_.push_back(b);
 		addGameObject(b);
 
@@ -160,7 +160,7 @@ bool Game::hitBalloon(Balloon* b)
 
 		if (rand() % 100 < 30)
 		{
-			Reward* r = new Reward(this, textures_[REWARDS], REWARD_WIDTH, REWARD_HEIGHT, 
+			Reward* r = new Reward(this, textures_[REWARDS], REWARD_WIDTH, REWARD_HEIGHT,
 				{ static_cast<double>(b->getDestRect().x), static_cast<double>(b->getDestRect().y) + BALLOON_HEIGHT },
 				{ 0, 1 }, REWARD_SPEED, 0);
 			addRewardBubble(r);
@@ -250,7 +250,6 @@ void Game::killArrow(std::list<GameObject*>::iterator it)
 {
 	arrows_.remove(static_cast<Arrow*>((*it)));
 	killGameObject(it);
-	Arrow::count--;
 }
 
 void Game::killBalloon(std::list<GameObject*>::iterator it)
@@ -263,7 +262,6 @@ void Game::killButterfly(std::list<GameObject*>::iterator it)
 {
 	butterflies_.remove(static_cast<Butterfly*>((*it)));
 	killGameObject(it);
-	Butterfly::count--;
 }
 
 void Game::killReward(std::list<GameObject*>::iterator it, std::list<EventHandler*>::iterator eit)
@@ -271,7 +269,6 @@ void Game::killReward(std::list<GameObject*>::iterator it, std::list<EventHandle
 	rewards_.remove(static_cast<Reward*>((*it)));
 	eventHandlers_.remove((*eit));
 	killGameObject(it);
-	Reward::count--;
 }
 
 void Game::killGameObject(std::list<GameObject*>::iterator it)
@@ -293,7 +290,7 @@ void Game::rewardMoreArrows()
 
 void Game::run()
 {
-	while (!exit_ && !end_)
+	while (!exit_ && currentState_ != END_STATE)
 	{
 		Uint32 startTime = SDL_GetTicks();
 
@@ -305,7 +302,7 @@ void Game::run()
 		if (frameTime < FRAME_RATE) SDL_Delay(FRAME_RATE - frameTime);
 	}
 
-	if (end_)
+	if (currentState_ == END_STATE)
 	{
 		leaderBoard_->update();
 		leaderBoard_->registerPlayerScore(scoreBoard_->getScore());
@@ -330,47 +327,74 @@ void Game::handleEvents()
 			}
 			else if (event.key.keysym.sym == SDLK_s)
 			{
-				saveState();
+				if (currentState_ == PLAY_STATE)
+					saveState();
 			}
 			else if (event.key.keysym.sym == SDLK_l)
 			{
-				clearScene();
-				loadState();
+				if (currentState_ == MENU_STATE)
+				{
+					clearScene();
+					loadState();
+				}
+			}
+			else if (event.key.keysym.sym == SDLK_SPACE)
+			{
+				if (currentState_ == MENU_STATE)
+				{
+					currentState_ = PLAY_STATE;
+				}
+			}
+			// LOS HACKS
+			else if (event.key.keysym.sym == SDLK_n)
+			{
+				if (currentState_ == PLAY_STATE)
+					rewardNextLevel();
 			}
 		}
 
-		for (EventHandler* e : eventHandlers_) e->handleEvents(event);
+		if (currentState_ == PLAY_STATE)
+			for (EventHandler* e : eventHandlers_) e->handleEvents(event);
 	}
 }
 
 void Game::update()
 {
-	spawnBallon();
-
-	for (GameObject* o : gameObjects_)
+	if (currentState_ == PLAY_STATE)
 	{
-		o->update();
-	}
-	
-	if (scoreBoard_) scoreBoard_->update();
-	if ((scoreBoard_ && scoreBoard_->getScore() > currentLevel_ * POINTS_PER_LEVEL) || changeLevel_) changeLevel();
-	if ((scoreBoard_ && scoreBoard_->getArrowsLeft() == 0 && arrows_.empty()) || Butterfly::count == 0) end_ = true;
+		spawnBallon();
 
-	eraseObjects();
+		for (GameObject* o : gameObjects_)
+		{
+			o->update();
+		}
+
+		if (scoreBoard_)
+		{
+			scoreBoard_->update();
+			if ((scoreBoard_->getScore() > currentLevel_* POINTS_PER_LEVEL) || changeLevel_) changeLevel();
+			if ((scoreBoard_->getArrowsLeft() == 0 && arrows_.empty()) || Butterfly::count == 0) currentState_ = END_STATE;
+		}
+
+		eraseObjects();
+	}
 }
 
 void Game::render() const
 {
 	SDL_RenderClear(renderer_);
 
-	// Render background
-	if (currentLevel_ == 1) textures_[BACKGROUND_1]->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
-	else if (currentLevel_ == 2) textures_[BACKGROUND_2]->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
-	else if (currentLevel_ == 3) textures_[BACKGROUND_3]->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
-	else textures_[BACKGROUND_4]->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
-	
-	if (!end_)
+	if (currentState_ == MENU_STATE)
 	{
+		// Render background
+		textures_[BACKGROUND_SPRING]->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
+		textures_[MENU]->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
+	}
+	else if (currentState_ == PLAY_STATE)
+	{
+		// Render background
+		textures_[FIRST_BG_TEXTURE + currentLevel_]->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
+
 		// Render Game Objects
 		for (GameObject* o : gameObjects_)
 		{
@@ -382,19 +406,25 @@ void Game::render() const
 	}
 	else
 	{
+		// Render background
+		textures_[BACKGROUND_AUTUMN]->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
+
 		// Render Game Over Screen
 		textures_[GAME_OVER]->render({ (WIN_WIDTH / 2) - 300,
 									  (WIN_HEIGHT / 2) + 75,
 									  600, 100 });
 	}
-		
+
 	SDL_RenderPresent(renderer_);
 }
 
 void Game::saveState()
 {
+	int code;
+	std::cout << "Introduce código numérico de guardado: "; std::cin >> code;
+
 	std::ofstream stream;
-	stream.open(STATE_FILE);
+	stream.open(std::to_string(code) + STATE_FILE);
 	if (!stream.is_open()) throw FileNotFoundError("Couldn´t open state.txt\n");
 
 	stream << currentLevel_ << " " << scoreBoard_->getScore() << " " << scoreBoard_->getArrowsLeft() << std::endl;
@@ -413,13 +443,18 @@ void Game::saveState()
 
 void Game::loadState()
 {
+	int code;
+	std::cout << "Introduce código de archivo de guardado: "; std::cin >> code;
+
+	currentState_ = PLAY_STATE;
+
 	Arrow::count = 0;
 	Balloon::count = 0;
 	Butterfly::count = 0;
 	Reward::count = 0;
 
 	std::ifstream stream;
-	stream.open(STATE_FILE);
+	stream.open(std::to_string(code) + STATE_FILE);
 	if (!stream.is_open()) throw FileNotFoundError("Couldn´t open state.txt\n");
 
 	int score;
@@ -435,9 +470,9 @@ void Game::loadState()
 	bow_->loadFromFile(stream);
 	eventHandlers_.push_back(bow_);
 	addGameObject(bow_);
-	
+
 	int count = 0;
-	
+
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{

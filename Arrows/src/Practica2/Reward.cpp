@@ -25,7 +25,11 @@ void Reward::update()
 	else bubbled_ = !game_->hitRewardBubble(this);
 	ArrowsGameObject::update();
 
-	if (position_.getY() > WIN_HEIGHT || used_) game_->killReward(iterator_, eventHandlerIt_);
+	if (position_.getY() > WIN_HEIGHT || used_)
+	{
+		count--;
+		game_->killReward(iterator_, eventHandlerIt_);
+	}
 }
 
 void Reward::render() const

@@ -1,5 +1,3 @@
-GUARDAR Y CARGAR TODOS LOS OBJETOS
-EXCEPCIONES
-MENU
-TTF
-BUTTERFLIES ACABAN NIVEL
+GUARDAR Y CARGAR TODOS LOS OBJETOS: elcount de las mariposas se hace en killobject (modificar el save y el load para que guarde el estado dead) 
+EXCEPCIONES (hay que poner alguna excepcion de fileformat)
+MENU (hacer un menu guarro con dos opciones)

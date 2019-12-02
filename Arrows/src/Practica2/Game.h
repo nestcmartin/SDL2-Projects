@@ -38,7 +38,8 @@ class Game
 		{"Cartoon_Forest_BG_04.png", 1,  1},
 		{"digits1.png",				 1, 10},
 		{"gameover.png",			 1,  1},
-		{"rewards.png",				10,  8}
+		{"rewards.png",				10,  8},
+		{"menu.png",				 1,  1}
 	};
 
 public:
@@ -58,8 +59,11 @@ public:
 		BACKGROUND_4,
 		DIGITS,
 		GAME_OVER,
-		REWARDS
+		REWARDS,
+		MENU
 	};
+
+	enum GameState { MENU_STATE, PLAY_STATE, END_STATE };
 
 private:
 	SDL_Window* window_;
@@ -78,11 +82,11 @@ private:
 	std::list<GameObject*> gameObjects_;
 	std::list<std::list<GameObject*>::iterator> erasableObjects_;
 
-	bool end_;
 	bool exit_;
 	bool changeLevel_;
-	Uint32 lastSpawnTime_;
 	Uint32 currentLevel_;
+	Uint32 lastSpawnTime_;
+	GameState currentState_;
 
 public:
 	Game();

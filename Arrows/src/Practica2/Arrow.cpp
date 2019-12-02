@@ -18,7 +18,12 @@ Arrow::~Arrow()
 void Arrow::update()
 {
 	ArrowsGameObject::update();
-	if (position_.getX() > WIN_WIDTH || position_.getY() > WIN_HEIGHT || position_.getY() < 0) game_->killArrow(iterator_);
+
+	if (position_.getX() > WIN_WIDTH || position_.getY() > WIN_HEIGHT || position_.getY() < 0)
+	{
+		count--;
+		game_->killArrow(iterator_);
+	}
 }
 
 SDL_Rect Arrow::getCollisionRect() const

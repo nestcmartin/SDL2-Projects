@@ -6,7 +6,7 @@ int Balloon::count = 0;
 Balloon::Balloon(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	burst_(false),
-	burstTime_(0),
+	burstTime_(SDL_GetTicks()),
 	spriteRow_(0),
 	spriteColumn_(0)
 {
@@ -15,7 +15,6 @@ Balloon::Balloon(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d,
 		static_cast<float>(rand()) / 
 		(static_cast<float>(RAND_MAX / 
 		(BALLOON_MAX_SPEED - BALLOON_MIN_SPEED)));
-
 	count++;
 }
 
@@ -32,14 +31,19 @@ void Balloon::update()
 
 		if (position_.getY() < -static_cast<int>(height_))
 		{
-			game_->killBalloon(iterator_);
 			count--;
+			game_->killBalloon(iterator_);
 		}
 	}
 	else
 	{
 		animate();
-		if (spriteColumn_ < BURST_ANIMATION_FRAMES) game_->killBalloon(iterator_);
+
+		if (spriteColumn_ < BURST_ANIMATION_FRAMES)
+		{
+			count--;
+			game_->killBalloon(iterator_);
+		}
 	}
 }
 
@@ -51,13 +55,13 @@ void Balloon::render() const
 void Balloon::saveToFile(std::ofstream& stream)
 {
 	ArrowsGameObject::saveToFile(stream);
-	stream << spriteRow_ << " ";
+	stream << spriteRow_ << " " << spriteColumn_ << " " << burst_ << " ";
 }
 
 void Balloon::loadFromFile(std::ifstream& stream)
 {
 	ArrowsGameObject::loadFromFile(stream);
-	stream >> spriteRow_;
+	stream >> spriteRow_ >> spriteColumn_ >> burst_;
 }
 
 void Balloon::checkBurst()
@@ -67,7 +71,6 @@ void Balloon::checkBurst()
 	{
 		burstTime_ = SDL_GetTicks();
 		spriteColumn_++;
-		count--;
 	}
 }
 
