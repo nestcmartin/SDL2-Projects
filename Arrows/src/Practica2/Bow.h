@@ -5,7 +5,7 @@
 #include "EventHandler.h"
 #include "Arrow.h"
 
-class Game;
+class SDLApplication;
 class Bow : public ArrowsGameObject, public EventHandler
 {
 private:
@@ -14,7 +14,7 @@ private:
 	Uint32 drawTime_;
 
 public:
-	Bow(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
+	Bow(SDLApplication* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
 	virtual ~Bow();
 
 	virtual void update();

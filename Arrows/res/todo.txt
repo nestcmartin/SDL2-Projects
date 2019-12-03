@@ -1,3 +1,14 @@
-GUARDAR Y CARGAR TODOS LOS OBJETOS: elcount de las mariposas se hace en killobject (modificar el save y el load para que guarde el estado dead) 
-EXCEPCIONES (hay que poner alguna excepcion de fileformat)
-MENU (hacer un menu guarro con dos opciones)
+Crear la clase GameState
+Crear la clase SDLGameObject
+Extraer de ArrowsGameObject la funcionalidad propia de SDLGameObject
+Cambiar las constructoras y declaraciones previas de Game de todos los ArrowsGameObject
+La constructora de Reward debe recibir la textura de la burbuja como parámetro
+
+Crear la clase GameStateMachine
+Crear los diferentes estados que hereden de GameState
+Añadir includes de PlayState a todos los cpp de GameObjects que lo necesiten
+Trasladar la funcionalidad de Game a PlayState 
+Renombrar Game a SDLApplication
+Redistribuir la funcionalidad a los demás estados
+
+EN PLAY STATE INICIALIZAR RANDOMS

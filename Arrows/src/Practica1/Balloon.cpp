@@ -1,7 +1,7 @@
 #include "Balloon.h"
 #include "Game.h"
 
-Balloon::Balloon(Game* _g, Texture* _t, Point2D _p, Uint32 _w, Uint32 _h, double _s) :
+Balloon::Balloon(SDLApplication* _g, Texture* _t, Point2D _p, Uint32 _w, Uint32 _h, double _s) :
 	position_(_p),
 	direction_(BALLOON_DIR),
 	width_(_w),

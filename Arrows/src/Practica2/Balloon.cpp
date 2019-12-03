@@ -3,7 +3,7 @@
 
 int Balloon::count = 0;
 
-Balloon::Balloon(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
+Balloon::Balloon(SDLApplication* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	burst_(false),
 	burstTime_(SDL_GetTicks()),

@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() :
+SDLApplication::SDLApplication() :
 	bow_(nullptr),
 	window_(nullptr),
 	renderer_(nullptr),
@@ -18,14 +18,14 @@ Game::Game() :
 	loadEntities();
 }
 
-Game::~Game()
+SDLApplication::~SDLApplication()
 {
 	clearScene();
 	clearTextures();
 	closeSDL();
 }
 
-void Game::initSDL()
+void SDLApplication::initSDL()
 {
 	int res = SDL_Init(SDL_INIT_EVERYTHING);
 	if (res > 0) throw SDLError(SDL_GetError());
@@ -38,7 +38,7 @@ void Game::initSDL()
 	if (!renderer_) throw SDLError(SDL_GetError());
 }
 
-void Game::loadTextures()
+void SDLApplication::loadTextures()
 {
 	for (Uint32 i = 0; i < NUM_TEXTURES; i++)
 	{
@@ -48,7 +48,7 @@ void Game::loadTextures()
 	}
 }
 
-void Game::loadEntities()
+void SDLApplication::loadEntities()
 {
 	bow_ = new Bow(this, textures_[BOW], BOW_WIDTH, BOW_HEIGHT, { 50, WIN_HEIGHT / 2 }, BOW_DIR, BOW_SPEED, 0);
 	eventHandlers_.push_back(bow_);
@@ -65,7 +65,7 @@ void Game::loadEntities()
 	leaderBoard_ = new LeaderBoard();
 }
 
-void Game::clearScene()
+void SDLApplication::clearScene()
 {
 	delete leaderBoard_; leaderBoard_ = nullptr;
 	delete scoreBoard_; scoreBoard_ = nullptr;
@@ -83,7 +83,7 @@ void Game::clearScene()
 	erasableObjects_.clear();
 }
 
-void Game::clearTextures()
+void SDLApplication::clearTextures()
 {
 	for (int i = 0; i < NUM_TEXTURES; i++)
 	{
@@ -91,7 +91,7 @@ void Game::clearTextures()
 	}
 }
 
-void Game::closeSDL()
+void SDLApplication::closeSDL()
 {
 	SDL_DestroyRenderer(renderer_);
 	SDL_DestroyWindow(window_);
@@ -99,7 +99,7 @@ void Game::closeSDL()
 }
 
 
-void Game::spawnBallon()
+void SDLApplication::spawnBallon()
 {
 	Uint32 elapsedTime = SDL_GetTicks() - lastSpawnTime_;
 
@@ -117,14 +117,14 @@ void Game::spawnBallon()
 	}
 }
 
-void Game::shootArrow(Arrow* a)
+void SDLApplication::shootArrow(Arrow* a)
 {
 	scoreBoard_->setArrowsLeft(scoreBoard_->getArrowsLeft() - 1);
 	arrows_.push_back(a);
 	addGameObject(a);
 }
 
-void Game::changeLevel()
+void SDLApplication::changeLevel()
 {
 	changeLevel_ = false;
 	if (currentLevel_ < NUM_LEVELS)
@@ -137,7 +137,7 @@ void Game::changeLevel()
 	}
 }
 
-bool Game::hitBalloon(Balloon* b)
+bool SDLApplication::hitBalloon(Balloon* b)
 {
 	bool collision = false;
 	SDL_Rect B = b->getCollisionRect();
@@ -169,7 +169,7 @@ bool Game::hitBalloon(Balloon* b)
 	return collision;
 }
 
-bool Game::hitButterfly(Butterfly* b)
+bool SDLApplication::hitButterfly(Butterfly* b)
 {
 	bool collision = false;
 	SDL_Rect B = b->getCollisionRect();
@@ -191,7 +191,7 @@ bool Game::hitButterfly(Butterfly* b)
 	return collision;
 }
 
-bool Game::hitRewardBubble(Reward* b)
+bool SDLApplication::hitRewardBubble(Reward* b)
 {
 	bool collision = false;
 	SDL_Rect B = b->getCollisionRect();
@@ -208,87 +208,87 @@ bool Game::hitRewardBubble(Reward* b)
 }
 
 
-void Game::addArrow(Arrow* a)
+void SDLApplication::addArrow(Arrow* a)
 {
 	arrows_.push_back(a);
 	addGameObject(a);
 }
 
-void Game::addBalloon(Balloon* b)
+void SDLApplication::addBalloon(Balloon* b)
 {
 	balloons_.push_back(b);
 	addGameObject(b);
 }
 
-void Game::addButterfly(Butterfly* b)
+void SDLApplication::addButterfly(Butterfly* b)
 {
 	butterflies_.push_back(b);
 	addGameObject(b);
 }
 
-void Game::addRewardBubble(Reward* r)
+void SDLApplication::addRewardBubble(Reward* r)
 {
 	rewards_.push_back(r);
 	addEventHandler(r);
 	addGameObject(r);
 }
 
-void Game::addEventHandler(EventHandler* e)
+void SDLApplication::addEventHandler(EventHandler* e)
 {
 	auto it = eventHandlers_.insert(eventHandlers_.end(), e);
 	e->setEventHandlerIterator(it);
 }
 
-void Game::addGameObject(ArrowsGameObject* o)
+void SDLApplication::addGameObject(ArrowsGameObject* o)
 {
 	auto it = gameObjects_.insert(gameObjects_.end(), o);
 	o->setIteratorList(it);
 }
 
 
-void Game::killArrow(std::list<GameObject*>::iterator it)
+void SDLApplication::killArrow(std::list<GameObject*>::iterator it)
 {
 	arrows_.remove(static_cast<Arrow*>((*it)));
 	killGameObject(it);
 }
 
-void Game::killBalloon(std::list<GameObject*>::iterator it)
+void SDLApplication::killBalloon(std::list<GameObject*>::iterator it)
 {
 	balloons_.remove(static_cast<Balloon*>((*it)));
 	killGameObject(it);
 }
 
-void Game::killButterfly(std::list<GameObject*>::iterator it)
+void SDLApplication::killButterfly(std::list<GameObject*>::iterator it)
 {
 	butterflies_.remove(static_cast<Butterfly*>((*it)));
 	killGameObject(it);
 }
 
-void Game::killReward(std::list<GameObject*>::iterator it, std::list<EventHandler*>::iterator eit)
+void SDLApplication::killReward(std::list<GameObject*>::iterator it, std::list<EventHandler*>::iterator eit)
 {
 	rewards_.remove(static_cast<Reward*>((*it)));
 	eventHandlers_.remove((*eit));
 	killGameObject(it);
 }
 
-void Game::killGameObject(std::list<GameObject*>::iterator it)
+void SDLApplication::killGameObject(std::list<GameObject*>::iterator it)
 {
 	erasableObjects_.push_back(it);
 }
 
 
-void Game::rewardNextLevel()
+void SDLApplication::rewardNextLevel()
 {
 	changeLevel_ = true;
 }
 
-void Game::rewardMoreArrows()
+void SDLApplication::rewardMoreArrows()
 {
 	scoreBoard_->setArrowsLeft(scoreBoard_->getArrowsLeft() + 2);
 }
 
 
-void Game::run()
+void SDLApplication::run()
 {
 	while (!exit_ && currentState_ != END_STATE)
 	{
@@ -310,7 +310,7 @@ void Game::run()
 	}
 }
 
-void Game::handleEvents()
+void SDLApplication::handleEvents()
 {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) && !exit_)
@@ -358,7 +358,7 @@ void Game::handleEvents()
 	}
 }
 
-void Game::update()
+void SDLApplication::update()
 {
 	if (currentState_ == PLAY_STATE)
 	{
@@ -380,7 +380,7 @@ void Game::update()
 	}
 }
 
-void Game::render() const
+void SDLApplication::render() const
 {
 	SDL_RenderClear(renderer_);
 
@@ -418,7 +418,7 @@ void Game::render() const
 	SDL_RenderPresent(renderer_);
 }
 
-void Game::saveState()
+void SDLApplication::saveState()
 {
 	int code;
 	std::cout << "Introduce código numérico de guardado: "; std::cin >> code;
@@ -441,7 +441,7 @@ void Game::saveState()
 	stream.close();
 }
 
-void Game::loadState()
+void SDLApplication::loadState()
 {
 	int code;
 	std::cout << "Introduce código de archivo de guardado: "; std::cin >> code;
@@ -476,7 +476,7 @@ void Game::loadState()
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{
-		Arrow* a = new Arrow(this, textures_[Game::ARROW], ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
+		Arrow* a = new Arrow(this, textures_[SDLApplication::ARROW], ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
 		a->loadFromFile(stream);
 		addArrow(a);
 	}
@@ -484,7 +484,7 @@ void Game::loadState()
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{
-		Balloon* b = new Balloon(this, textures_[Game::BALLOONS], ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
+		Balloon* b = new Balloon(this, textures_[SDLApplication::BALLOONS], ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
 		b->loadFromFile(stream);
 		addBalloon(b);
 	}
@@ -492,7 +492,7 @@ void Game::loadState()
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{
-		Butterfly* b = new Butterfly(this, textures_[Game::BUTTERFLY], BUTTERFLY_WIDTH, BUTTERFLY_HEIGHT, { 0, 0 }, { 0, 0 }, BUTTERFLY_SPEED, 0);
+		Butterfly* b = new Butterfly(this, textures_[SDLApplication::BUTTERFLY], BUTTERFLY_WIDTH, BUTTERFLY_HEIGHT, { 0, 0 }, { 0, 0 }, BUTTERFLY_SPEED, 0);
 		b->loadFromFile(stream);
 		addButterfly(b);
 	}
@@ -500,7 +500,7 @@ void Game::loadState()
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{
-		Reward* r = new Reward(this, textures_[Game::REWARDS], REWARD_WIDTH, REWARD_HEIGHT, { 0, 0 }, { 0, 0 }, REWARD_SPEED, 0);
+		Reward* r = new Reward(this, textures_[SDLApplication::REWARDS], REWARD_WIDTH, REWARD_HEIGHT, { 0, 0 }, { 0, 0 }, REWARD_SPEED, 0);
 		r->loadFromFile(stream);
 		addRewardBubble(r);
 	}
@@ -508,7 +508,7 @@ void Game::loadState()
 	stream.close();
 }
 
-void Game::eraseObjects()
+void SDLApplication::eraseObjects()
 {
 	auto it = erasableObjects_.begin();
 	while (it != erasableObjects_.end())

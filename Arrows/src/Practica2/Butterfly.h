@@ -3,7 +3,7 @@
 
 #include "ArrowsGameObject.h"
 
-class Game;
+class SDLApplication;
 class Butterfly : public ArrowsGameObject
 {
 public:
@@ -16,7 +16,7 @@ private:
 	bool dead_;
 
 public:
-	Butterfly(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
+	Butterfly(SDLApplication* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
 	virtual ~Butterfly();
 
 	virtual void update();

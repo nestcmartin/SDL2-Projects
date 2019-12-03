@@ -21,7 +21,7 @@ const Uint32 SPAWN_SPACE = SPAWN_UPPER_BOUND - SPAWN_LOWER_BOUND;
 const std::string STATE_FILE = "state.txt";
 const std::string IMAGE_PATH = "..\\res\\images\\";
 
-class Game
+class SDLApplication
 {
 	struct TextureAttributes {
 		std::string filename;
@@ -68,8 +68,8 @@ private:
 	Texture* textures_[NUM_TEXTURES];
 
 public:
-	Game();
-	~Game();
+	SDLApplication();
+	~SDLApplication();
 
 	inline Uint32 getScore() const { return score_; }
 	inline Uint32 getArrowsLeft() const { return arrowsLeft; }

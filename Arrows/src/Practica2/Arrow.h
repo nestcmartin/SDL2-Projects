@@ -3,7 +3,7 @@
 
 #include "ArrowsGameObject.h"
 
-class Game;
+class SDLApplication;
 class Arrow : public ArrowsGameObject
 {
 public:
@@ -13,7 +13,7 @@ private:
 	Uint32 numHits_;
 
 public:
-	Arrow(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
+	Arrow(SDLApplication* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
 	virtual ~Arrow();
 
 	virtual void update();

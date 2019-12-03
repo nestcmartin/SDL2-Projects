@@ -18,7 +18,7 @@ const Uint32 UI_SCORE_HEIGHT = 65;
 
 const std::string BOARD_FILE = "leaderboard.txt";
 
-class Game;
+class SDLApplication;
 class ScoreBoard
 {
 	struct ScoreRegister 
@@ -49,7 +49,7 @@ class ScoreBoard
 	};
 
 private:
-	Game* game_;
+	SDLApplication* game_;
 	Texture* arrowsSprite_;
 	Texture* digitsSprite_;
 
@@ -59,7 +59,7 @@ private:
 	std::vector<ScoreRegister> leaderBoard;
 
 public:
-	ScoreBoard(Game* _g, Texture* _arrowT, Texture* _digitsT);
+	ScoreBoard(SDLApplication* _g, Texture* _arrowT, Texture* _digitsT);
 	~ScoreBoard();
 
 	void registerPlayerScore();

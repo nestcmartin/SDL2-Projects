@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() :
+SDLApplication::SDLApplication() :
 	bow_(nullptr),
 	window_(nullptr),
 	renderer_(nullptr),
@@ -15,14 +15,14 @@ Game::Game() :
 	loadTextures();
 	loadEntities();
 }
-Game::~Game()
+SDLApplication::~SDLApplication()
 {
 	clearScene();
 	clearTextures();
 	closeSDL();
 }
 
-void Game::initSDL()
+void SDLApplication::initSDL()
 {
 	int res = SDL_Init(SDL_INIT_EVERYTHING);
 	if (res > 0) throw SDLError(SDL_GetError());
@@ -34,7 +34,7 @@ void Game::initSDL()
 	renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
 	if (!renderer_) throw SDLError(SDL_GetError());
 }
-void Game::loadTextures()
+void SDLApplication::loadTextures()
 {
 	for (Uint32 i = 0; i < NUM_TEXTURES; i++)
 	{
@@ -43,13 +43,13 @@ void Game::loadTextures()
 			textureAttributes[i].numRows, textureAttributes[i].numCols);
 	}
 }
-void Game::loadEntities()
+void SDLApplication::loadEntities()
 {
 	bow_ = new Bow(this, textures_[BOW], { 50, WIN_HEIGHT / 2 });
 	scoreBoard_ = new ScoreBoard(this, textures_[ARROW_UI], textures_[DIGITS]);
 }
 
-void Game::clearScene()
+void SDLApplication::clearScene()
 {
 	for (Arrow* a : arrows_)
 	{
@@ -66,21 +66,21 @@ void Game::clearScene()
 	delete scoreBoard_; scoreBoard_ = nullptr;
 	delete bow_; bow_ = nullptr;
 }
-void Game::clearTextures()
+void SDLApplication::clearTextures()
 {
 	for (int i = 0; i < NUM_TEXTURES; i++)
 	{
 		delete textures_[i]; textures_[i] = nullptr;
 	}
 }
-void Game::closeSDL()
+void SDLApplication::closeSDL()
 {
 	SDL_DestroyRenderer(renderer_);
 	SDL_DestroyWindow(window_);
 	SDL_Quit();
 }
 
-void Game::spawnBallon()
+void SDLApplication::spawnBallon()
 {
 	Uint32 elapsedTime = SDL_GetTicks() - lastSpawnTime_;
 	if (elapsedTime > SPAWN_TIME)
@@ -91,12 +91,12 @@ void Game::spawnBallon()
 		lastSpawnTime_ = SDL_GetTicks();
 	}
 }
-void Game::shootArrow(Arrow* a)
+void SDLApplication::shootArrow(Arrow* a)
 {
 	arrows_.push_back(a);
 	arrowsLeft--;
 }
-bool Game::checkCollision(Balloon* b)
+bool SDLApplication::checkCollision(Balloon* b)
 {
 	bool collision = false;
 	SDL_Rect B = b->getRect();
@@ -113,7 +113,7 @@ bool Game::checkCollision(Balloon* b)
 	return collision;
 }
 
-void Game::run()
+void SDLApplication::run()
 {
 	while (!exit_ && !end_)
 	{
@@ -129,7 +129,7 @@ void Game::run()
 
 	if (end_) scoreBoard_->registerPlayerScore();
 }
-void Game::handleEvents()
+void SDLApplication::handleEvents()
 {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) && !exit_)
@@ -158,7 +158,7 @@ void Game::handleEvents()
 		bow_->handleEvents(event);
 	}
 }
-void Game::update()
+void SDLApplication::update()
 {
 	spawnBallon();
 	if (bow_) bow_->update();
@@ -193,7 +193,7 @@ void Game::update()
 	if (arrows_.empty() && arrowsLeft == 0)
 		end_ = true;
 }
-void Game::render() const
+void SDLApplication::render() const
 {
 	SDL_RenderClear(renderer_);
 
@@ -221,7 +221,7 @@ void Game::render() const
 	SDL_RenderPresent(renderer_);
 }
 
-void Game::saveState()
+void SDLApplication::saveState()
 {
 	std::ofstream stream;
 	stream.open(STATE_FILE);
@@ -238,7 +238,7 @@ void Game::saveState()
 
 	stream.close();
 }
-void Game::loadState()
+void SDLApplication::loadState()
 {
 	std::ifstream stream;
 	stream.open(STATE_FILE);
@@ -252,7 +252,7 @@ void Game::loadState()
 	stream >> activeArrows;
 	for (Uint32 i = 0; i < activeArrows; i++)
 	{
-		Arrow* a = new Arrow(textures_[Game::ARROW],	{ 0, 0 },
+		Arrow* a = new Arrow(textures_[SDLApplication::ARROW],	{ 0, 0 },
 							 ARROW_WIDTH, ARROW_HEIGHT, ARROW_SPEED, 0);
 		a->loadState(stream);
 		arrows_.push_back(a);

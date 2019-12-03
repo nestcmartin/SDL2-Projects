@@ -3,7 +3,7 @@
 
 int Butterfly::count = 0;
 
-Butterfly::Butterfly(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
+Butterfly::Butterfly(SDLApplication* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	spriteRow_(0),
 	spriteColumn_(0),

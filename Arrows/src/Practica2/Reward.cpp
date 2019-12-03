@@ -3,7 +3,7 @@
 
 int Reward::count = 0;
 
-Reward::Reward(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
+Reward::Reward(SDLApplication* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	EventHandler(),
 	bubbled_(true),
@@ -11,7 +11,7 @@ Reward::Reward(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, d
 	spriteColumn_(0)
 {
 	spriteRow_ = rand() % 2;
-	bubbleTexture_ = game_->getTexture(Game::TextureName::BUBBLE);
+	bubbleTexture_ = game_->getTexture(SDLApplication::TextureName::BUBBLE);
 	count++;
 }
 

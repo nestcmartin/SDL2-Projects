@@ -1,7 +1,7 @@
 #include "ArrowsGameObject.h"
 #include "Game.h"
 
-ArrowsGameObject::ArrowsGameObject(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
+ArrowsGameObject::ArrowsGameObject(SDLApplication* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	GameObject(),
 	game_(g),
 	texture_(t),

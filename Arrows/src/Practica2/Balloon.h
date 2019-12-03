@@ -3,7 +3,7 @@
 
 #include "ArrowsGameObject.h"
 
-class Game;
+class SDLApplication;
 class Balloon : public ArrowsGameObject
 {
 public:
@@ -16,7 +16,7 @@ private:
 	Uint32 spriteColumn_;
 
 public:
-	Balloon(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
+	Balloon(SDLApplication* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
 	virtual ~Balloon();
 
 	virtual void update();

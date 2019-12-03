@@ -7,11 +7,11 @@
 #include "Vector2D.h"
 #include "Texture.h"
 
-class Game;
+class SDLApplication;
 class ArrowsGameObject : public GameObject
 {
 protected:
-	Game* game_;
+	SDLApplication* game_;
 	Texture* texture_;
 	Uint32 width_;
 	Uint32 height_;
@@ -37,7 +37,7 @@ public:
 	void setIteratorList(const std::list<GameObject*>::iterator& it);
 
 protected:
-	ArrowsGameObject(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
+	ArrowsGameObject(SDLApplication* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
 };
 
 #endif // !__ARROWS_GAME_OBJECT_H__

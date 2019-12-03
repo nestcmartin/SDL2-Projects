@@ -1,7 +1,7 @@
 #include "Bow.h"
 #include "Game.h"
 
-Bow::Bow(Game* _g, Texture* _t, Point2D _p, Uint32 _w, Uint32 _h, double _s) :
+Bow::Bow(SDLApplication* _g, Texture* _t, Point2D _p, Uint32 _w, Uint32 _h, double _s) :
 	position_(_p),
 	direction_({ 0, 0 }),
 	speed_(_s),
@@ -34,7 +34,7 @@ void Bow::loose()
 	if (armed_)
 	{
 		double drawFactor = 1.0 + ((SDL_GetTicks() - drawTime_) / 10000.0);
-		arrow_ = new Arrow(game_->getTexture(Game::ARROW), 
+		arrow_ = new Arrow(game_->getTexture(SDLApplication::ARROW), 
 					  { position_.getX(), position_.getY() + (height_ / 2) },
 					  ARROW_WIDTH, ARROW_HEIGHT, ARROW_SPEED * drawFactor, angle_);
 		game_->shootArrow(arrow_);
@@ -93,7 +93,7 @@ void Bow::render() const
 	texture_->renderFrame(getRect(), 0, 0, angle_);
 	if (armed_)
 	{
-		game_->getTexture(Game::ARROW)->renderFrame({ static_cast<int>(position_.getX()), 
+		game_->getTexture(SDLApplication::ARROW)->renderFrame({ static_cast<int>(position_.getX()), 
 												  static_cast<int>(position_.getY() + (height_ / 2)), 
 												  ARROW_WIDTH, ARROW_HEIGHT }, 0, 0, angle_);
 	}

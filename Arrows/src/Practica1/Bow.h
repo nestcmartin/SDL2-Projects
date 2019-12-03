@@ -9,11 +9,11 @@ const Uint32 ARMED_BOW_WIDTH = 100;
 const Uint32 ARMED_BOW_HEIGHT = 150;
 const double BOW_SPEED = 10.0;
 
-class Game;
+class SDLApplication;
 class Bow
 {
 private:
-	Game* game_;
+	SDLApplication* game_;
 	Texture* texture_;
 	Point2D position_;
 	Vector2D direction_;
@@ -33,7 +33,7 @@ private:
 	void loose();
 
 public:
-	Bow(Game* _g, Texture* _t, Point2D _p, 
+	Bow(SDLApplication* _g, Texture* _t, Point2D _p, 
 		Uint32 _w = BOW_WIDTH, Uint32 _h = BOW_HEIGHT, double _s = BOW_SPEED);
 	~Bow();
 

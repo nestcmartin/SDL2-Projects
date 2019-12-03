@@ -14,7 +14,7 @@
 #include "Butterfly.h"
 #include "Reward.h"
 
-class Game
+class SDLApplication
 {
 	struct TextureAttributes {
 		std::string filename;
@@ -89,8 +89,8 @@ private:
 	GameState currentState_;
 
 public:
-	Game();
-	~Game();
+	SDLApplication();
+	~SDLApplication();
 
 	void run();
 

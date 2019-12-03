@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-ScoreBoard::ScoreBoard(Game* _g, Texture* _arrowT, Texture* _digitsT) :
+ScoreBoard::ScoreBoard(SDLApplication* _g, Texture* _arrowT, Texture* _digitsT) :
 	game_(_g),
 	arrowsSprite_(_arrowT),
 	digitsSprite_(_digitsT),

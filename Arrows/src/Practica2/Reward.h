@@ -4,7 +4,7 @@
 #include "ArrowsGameObject.h"
 #include "EventHandler.h"
 
-class Game;
+class SDLApplication;
 class Reward : public ArrowsGameObject, public EventHandler
 {
 public:
@@ -18,7 +18,7 @@ private:
 	Uint32 spriteColumn_;
 
 public:
-	Reward(Game* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
+	Reward(SDLApplication* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
 	virtual ~Reward();
 
 	virtual void update();
