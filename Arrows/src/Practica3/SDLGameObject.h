@@ -1,9 +1,6 @@
 #ifndef __SDL_GAME_OBJECT_H__
 #define __SDL_GAME_OBJECT_H__
 
-#include <iostream>
-#include <fstream>
-
 #include "GameObject.h"
 #include "Vector2D.h"
 #include "Texture.h"
@@ -23,6 +20,8 @@ public:
 
 	virtual void update() = 0;
 	virtual void render() const = 0;
+
+	virtual SDL_Rect getDestRect() const;
 
 protected:
 	SDLGameObject(GameState* g, Texture* t, Uint32 w, Uint32 h, Point2D p);

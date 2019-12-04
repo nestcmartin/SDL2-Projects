@@ -33,7 +33,7 @@ void Butterfly::update()
 	if (position_.getY() > WIN_HEIGHT)
 	{
 		count--;
-		game_->killButterfly(iterator_);
+		//game_->killButterfly(iterator_);
 	}
 }
 
@@ -64,7 +64,7 @@ void Butterfly::animate()
 
 void Butterfly::checkDead()
 {
-	dead_ = game_->hitButterfly(this);
+	//dead_ = game_->hitButterfly(this);
 	if (dead_)
 	{
 		spriteColumn_ = 0;

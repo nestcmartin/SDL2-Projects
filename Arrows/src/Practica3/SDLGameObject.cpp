@@ -14,3 +14,13 @@ SDLGameObject::SDLGameObject(GameState* g, Texture* t, Uint32 w, Uint32 h, Point
 SDLGameObject::~SDLGameObject()
 {
 }
+
+SDL_Rect SDLGameObject::getDestRect() const
+{
+	SDL_Rect rect;
+	rect.x = static_cast<int>(position_.getX());
+	rect.y = static_cast<int>(position_.getY());
+	rect.w = width_;
+	rect.h = height_;
+	return rect;
+}

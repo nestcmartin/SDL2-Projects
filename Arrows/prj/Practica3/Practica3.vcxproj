@@ -24,7 +24,11 @@
     <ClCompile Include="..\..\src\Practica3\Balloon.cpp" />
     <ClCompile Include="..\..\src\Practica3\Bow.cpp" />
     <ClCompile Include="..\..\src\Practica3\Butterfly.cpp" />
+    <ClCompile Include="..\..\src\Practica3\EndState.cpp" />
     <ClCompile Include="..\..\src\Practica3\MainMenuState.cpp" />
+    <ClCompile Include="..\..\src\Practica3\MenuButton.cpp" />
+    <ClCompile Include="..\..\src\Practica3\PauseState.cpp" />
+    <ClCompile Include="..\..\src\Practica3\PlayState.cpp" />
     <ClCompile Include="..\..\src\Practica3\SDLApplication.cpp" />
     <ClCompile Include="..\..\src\Practica3\GameObject.cpp" />
     <ClCompile Include="..\..\src\Practica3\GameState.cpp" />
@@ -46,10 +50,14 @@
     <ClInclude Include="..\..\src\Practica3\Butterfly.h" />
     <ClInclude Include="..\..\src\Practica3\checkML.h" />
     <ClInclude Include="..\..\src\Practica3\Constants.h" />
+    <ClInclude Include="..\..\src\Practica3\EndState.h" />
     <ClInclude Include="..\..\src\Practica3\EventHandler.h" />
     <ClInclude Include="..\..\src\Practica3\FileFormatError.h" />
     <ClInclude Include="..\..\src\Practica3\FileNotFoundError.h" />
     <ClInclude Include="..\..\src\Practica3\MainMenuState.h" />
+    <ClInclude Include="..\..\src\Practica3\MenuButton.h" />
+    <ClInclude Include="..\..\src\Practica3\PauseState.h" />
+    <ClInclude Include="..\..\src\Practica3\PlayState.h" />
     <ClInclude Include="..\..\src\Practica3\SDLApplication.h" />
     <ClInclude Include="..\..\src\Practica3\GameObject.h" />
     <ClInclude Include="..\..\src\Practica3\GameState.h" />

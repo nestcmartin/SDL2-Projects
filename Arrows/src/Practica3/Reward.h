@@ -23,7 +23,7 @@ public:
 
 	virtual void update();
 	virtual void render() const;
-	virtual void handleEvents(SDL_Event& event);
+	virtual bool handleEvents(SDL_Event& event);
 
 	virtual void saveToFile(std::ofstream& stream);
 	virtual void loadFromFile(std::ifstream& stream);

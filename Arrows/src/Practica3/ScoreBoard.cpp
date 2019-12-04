@@ -1,5 +1,5 @@
 #include "ScoreBoard.h"
-#include "Game.h"
+#include "GameState.h"
 
 ScoreBoard::ScoreBoard(SDLApplication* g, Texture* arrowTexture, Texture* digitsTexture) :
 	GameObject(),

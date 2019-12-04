@@ -21,7 +21,7 @@ Reward::~Reward()
 
 void Reward::update()
 {
-	if (!bubbled_) animate();
+	/*if (!bubbled_) animate();
 	else bubbled_ = !game_->hitRewardBubble(this);
 	ArrowsGameObject::update();
 
@@ -29,7 +29,7 @@ void Reward::update()
 	{
 		count--;
 		game_->killReward(iterator_, eventHandlerIt_);
-	}
+	}*/
 }
 
 void Reward::render() const
@@ -44,9 +44,9 @@ void Reward::render() const
 	}
 }
 
-void Reward::handleEvents(SDL_Event& event)
+bool Reward::handleEvents(SDL_Event& event)
 {
-	if (bubbled_) return;
+	if (bubbled_) return false;
 
 	if (event.type == SDL_MOUSEBUTTONDOWN)
 	{
@@ -56,13 +56,14 @@ void Reward::handleEvents(SDL_Event& event)
 			SDL_GetMouseState(&p.x, &p.y);
 			if (SDL_PointInRect(&p, &getDestRect()))
 			{
-				if (spriteRow_ == 0) game_->rewardNextLevel();
-				else if (spriteRow_ == 1) game_->rewardMoreArrows();
-				used_ = true;
+				//if (spriteRow_ == 0) game_->rewardNextLevel();
+				//else if (spriteRow_ == 1) game_->rewardMoreArrows();
+				//used_ = true;
+				return true;
 			}
 		}
 	}
-
+	return false;
 }
 
 void Reward::saveToFile(std::ofstream& stream)

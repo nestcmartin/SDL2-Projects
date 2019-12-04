@@ -1,31 +1,29 @@
 #include "SDLApplication.h"
 
+bool SDLApplication::exit_ = false;
+std::map<std::string, Texture*> SDLApplication::textures;
+
 SDLApplication::SDLApplication() :
 	window_(nullptr),
 	renderer_(nullptr),
 	gameStateMachine_(nullptr),
-	exit_(false),
 	error_(false)
 {
 	// Init SDL
 	int res = SDL_Init(SDL_INIT_EVERYTHING);
 	if (res > 0) throw SDLError(SDL_GetError());
-	window_ = SDL_CreateWindow("Bow & Arrow 1.0", SDL_WINDOWPOS_CENTERED,
+	window_ = SDL_CreateWindow("Arrows", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (!window_) throw SDLError(SDL_GetError());
 	renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
 	if (!renderer_) throw SDLError(SDL_GetError());
 
-	// Init Textures
-	for (Uint32 i = 0; i < NUM_TEXTURES; i++)
-	{
-		textures_[i] = new Texture(renderer_);
-		textures_[i]->load(IMAGE_PATH + textureAttributes[i].filename,
-			textureAttributes[i].numRows, textureAttributes[i].numCols);
-	}
+	// Init sub-systems
+	loadTextures();
 
-	// Init Game State Machine
+	// Create Game State Machine
 	gameStateMachine_ = new GameStateMachine();
+	gameStateMachine_->pushState(new MainMenuState(this));
 }
 
 SDLApplication::~SDLApplication()
@@ -35,16 +33,38 @@ SDLApplication::~SDLApplication()
 	gameStateMachine_ = nullptr;
 
 	// Clear Textures
-	for (int i = 0; i < NUM_TEXTURES; i++)
+	for (std::pair<std::string, Texture*> t : textures)
 	{
-		delete textures_[i]; 
-		textures_[i] = nullptr;
+		delete t.second; 
+		t.second = nullptr;
 	}
+	textures.clear();
 
 	// Close SDL
 	SDL_DestroyRenderer(renderer_);
 	SDL_DestroyWindow(window_);
 	SDL_Quit();
+}
+
+void SDLApplication::loadTextures()
+{
+	std::ifstream stream;
+	stream.open(TEXTURES_FILE);
+	if (!stream.is_open()) throw FileNotFoundError("Couldn´t open" + TEXTURES_FILE + "\n");
+
+	Uint32 numTextures = 0;
+	std::string id, filename;
+	int numRows, numCols;
+	stream >> numTextures;
+
+	for (Uint32 i = 0; i < numTextures; i++)
+	{
+		stream >> id >> filename >> numRows >> numCols;
+		textures[id] = new Texture(renderer_);
+		textures[id]->load(IMAGE_PATH + filename, numRows, numCols);		
+	}
+
+	stream.close();
 }
 
 void SDLApplication::run()
@@ -60,6 +80,11 @@ void SDLApplication::run()
 		Uint32 frameTime = SDL_GetTicks() - startTime;
 		if (frameTime < FRAME_RATE) SDL_Delay(FRAME_RATE - frameTime);
 	}
+}
+
+void SDLApplication::closeApplication(SDLApplication* app)
+{
+	exit_ = true;
 }
 
 void SDLApplication::handleEvents()

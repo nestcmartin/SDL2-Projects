@@ -19,7 +19,7 @@ public:
 
 	virtual void update();
 	virtual void render() const;
-	virtual void handleEvents(SDL_Event& event);
+	virtual bool handleEvents(SDL_Event& event);
 
 	inline bool isArmed() const { return armed_; }
 

@@ -21,17 +21,8 @@ void GameStateMachine::pushState(GameState* newState)
 
 void GameStateMachine::changeState(GameState* newState)
 {
-	if (!gameStates_.empty())
-	{
-
-		if (gameStates_.top()->onExit())
-		{
-			gameStates_.pop();
-		}
-	}
-
-	gameStates_.push(newState);
-	gameStates_.top()->onEnter();
+	popState();
+	pushState(newState);
 }
 
 void GameStateMachine::popState()
@@ -40,6 +31,8 @@ void GameStateMachine::popState()
 	{
 		if (gameStates_.top()->onExit())
 		{
+			delete gameStates_.top();
+			gameStates_.top() = nullptr;
 			gameStates_.pop();
 		}
 	}
@@ -49,7 +42,7 @@ void GameStateMachine::handleEvents(SDL_Event& event)
 {
 	if (!gameStates_.empty())
 	{
-		gameStates_.top()->handleEvents();
+		gameStates_.top()->handleEvents(event);
 	}
 }
 

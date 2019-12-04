@@ -1,5 +1,5 @@
 #include "Arrow.h"
-#include "Game.h"
+#include "GameState.h"
 
 int Arrow::count = 0;
 
@@ -19,11 +19,11 @@ void Arrow::update()
 {
 	ArrowsGameObject::update();
 
-	if (position_.getX() > WIN_WIDTH || position_.getY() > WIN_HEIGHT || position_.getY() < 0)
+	/*if (position_.getX() > WIN_WIDTH || position_.getY() > WIN_HEIGHT || position_.getY() < 0)
 	{
 		count--;
 		game_->killArrow(iterator_);
-	}
+	}*/
 }
 
 SDL_Rect Arrow::getCollisionRect() const

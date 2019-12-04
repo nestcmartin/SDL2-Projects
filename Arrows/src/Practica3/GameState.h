@@ -29,7 +29,7 @@ public:
 
 protected:
 	void addEventHandler(EventHandler* e);
-	void addGameObject(ArrowsGameObject* o);
+	void addGameObject(SDLGameObject* o);
 };
 
 #endif // !__GAME_STATE_H__

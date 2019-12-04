@@ -24,7 +24,7 @@ Balloon::~Balloon()
 
 void Balloon::update()
 {
-	if (!burst_)
+	/*if (!burst_)
 	{
 		ArrowsGameObject::update();
 		checkBurst();
@@ -44,7 +44,7 @@ void Balloon::update()
 			count--;
 			game_->killBalloon(iterator_);
 		}
-	}
+	}*/
 }
 
 void Balloon::render() const
@@ -66,7 +66,7 @@ void Balloon::loadFromFile(std::ifstream& stream)
 
 void Balloon::checkBurst()
 {
-	burst_ = game_->hitBalloon(this);
+	/*burst_ = game_->hitBalloon(this);*/
 	if (burst_)
 	{
 		burstTime_ = SDL_GetTicks();

@@ -1,5 +1,5 @@
-#include "Game.h"
 #include "checkML.h"
+#include "SDLApplication.h"
 
 int main(int argc, char* argv[]) 
 {

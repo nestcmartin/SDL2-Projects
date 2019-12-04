@@ -2,6 +2,7 @@
 #define __ARROWS_GAME_OBJECT_H__
 
 #include <list>
+#include <fstream>
 
 #include "SDLGameObject.h"
 
@@ -24,7 +25,6 @@ public:
 	virtual void saveToFile(std::ofstream& stream);
 	virtual void loadFromFile(std::ifstream& stream);
 
-	virtual SDL_Rect getDestRect() const;
 	virtual SDL_Rect getCollisionRect() const;
 
 	void setIteratorList(const std::list<GameObject*>::iterator& it);

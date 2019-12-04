@@ -69,6 +69,7 @@ const Uint32		SPAWN_LOWER_BOUND = WIN_WIDTH / 3;
 const Uint32		SPAWN_UPPER_BOUND = WIN_WIDTH - BALLOON_WIDTH;
 const Uint32		SPAWN_SPACE = SPAWN_UPPER_BOUND - SPAWN_LOWER_BOUND;
 const std::string	STATE_FILE = "state.txt";
+const std::string	TEXTURES_FILE = "textures.txt";
 const std::string	IMAGE_PATH = "..\\res\\images\\";
 
 #endif // !__CONSTANTS_H__

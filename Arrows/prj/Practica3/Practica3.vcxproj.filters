@@ -13,129 +13,174 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de encabezado\States">
+      <UniqueIdentifier>{7847ef2d-a89c-4518-8263-0100d04ce163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objects">
+      <UniqueIdentifier>{0a593e09-6c0b-4238-bf2e-91b174da6d2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Errors">
+      <UniqueIdentifier>{a637c581-c10b-47bd-84ab-a43dc1bf2746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Objects">
+      <UniqueIdentifier>{e366a4ad-5b37-4900-a1f8-3848339e64b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\States">
+      <UniqueIdentifier>{765bdc3e-7360-40f2-88f5-ce6d7af10d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Utils">
+      <UniqueIdentifier>{ab096f3d-ef36-40c8-9f6a-6d3687b8e196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Utils">
+      <UniqueIdentifier>{cbd8ce6f-ba74-4a79-8a4b-fe647f536564}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Practica3\Arrow.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\ArrowsGameObject.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\Balloon.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\Bow.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\Butterfly.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\GameObject.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\LeaderBoard.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Practica3\Main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\Reward.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\ScoreBoard.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\Texture.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\Vector2D.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\GameState.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\GameStateMachine.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\SDLGameObject.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Practica3\SDLApplication.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\Arrow.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\ArrowsGameObject.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\Balloon.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\Bow.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\Butterfly.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\GameObject.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\LeaderBoard.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\Reward.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\ScoreBoard.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\GameState.cpp">
+      <Filter>Archivos de origen\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\GameStateMachine.cpp">
+      <Filter>Archivos de origen\States</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Practica3\MainMenuState.cpp">
-      <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\SDLGameObject.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\Texture.cpp">
+      <Filter>Archivos de origen\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\Vector2D.cpp">
+      <Filter>Archivos de origen\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\PlayState.cpp">
+      <Filter>Archivos de origen\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\PauseState.cpp">
+      <Filter>Archivos de origen\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\EndState.cpp">
+      <Filter>Archivos de origen\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\MenuButton.cpp">
+      <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\Practica3\Arrow.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\ArrowsError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\ArrowsGameObject.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\Balloon.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\Bow.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\Butterfly.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\checkML.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Practica3\Constants.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\EventHandler.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\FileFormatError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\FileNotFoundError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\GameObject.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\LeaderBoard.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\Reward.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\ScoreBoard.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\SDLError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\Texture.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\Vector2D.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\GameState.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\GameStateMachine.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\SDLGameObject.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica3\SDLApplication.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\Arrow.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\ArrowsGameObject.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\Balloon.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\Bow.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\Butterfly.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\EventHandler.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\GameObject.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\LeaderBoard.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\Reward.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\SDLGameObject.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\ArrowsError.h">
+      <Filter>Archivos de encabezado\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\checkML.h">
+      <Filter>Archivos de encabezado\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\FileFormatError.h">
+      <Filter>Archivos de encabezado\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\FileNotFoundError.h">
+      <Filter>Archivos de encabezado\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\SDLError.h">
+      <Filter>Archivos de encabezado\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\GameState.h">
+      <Filter>Archivos de encabezado\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\GameStateMachine.h">
+      <Filter>Archivos de encabezado\States</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\Practica3\MainMenuState.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\ScoreBoard.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\Vector2D.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\Texture.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\PlayState.h">
+      <Filter>Archivos de encabezado\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\PauseState.h">
+      <Filter>Archivos de encabezado\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\EndState.h">
+      <Filter>Archivos de encabezado\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\MenuButton.h">
+      <Filter>Archivos de encabezado\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

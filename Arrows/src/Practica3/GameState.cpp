@@ -51,8 +51,8 @@ void GameState::addEventHandler(EventHandler* e)
 	e->setEventHandlerIterator(it);
 }
 
-void GameState::addGameObject(ArrowsGameObject* o)
+void GameState::addGameObject(SDLGameObject* o)
 {
 	auto it = gameObjects_.insert(gameObjects_.end(), o);
-	o->setIteratorList(it);
+	//o->setIteratorList(it);
 }

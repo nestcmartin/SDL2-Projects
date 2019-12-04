@@ -39,16 +39,6 @@ void ArrowsGameObject::loadFromFile(std::ifstream& stream)
 	stream >> width_ >> height_;
 }
 
-SDL_Rect ArrowsGameObject::getDestRect() const
-{
-	SDL_Rect rect;
-	rect.x = static_cast<int>(position_.getX());
-	rect.y = static_cast<int>(position_.getY());
-	rect.w = width_;
-	rect.h = height_;
-	return rect;
-}
-
 SDL_Rect ArrowsGameObject::getCollisionRect() const
 {
 	SDL_Rect rect;
