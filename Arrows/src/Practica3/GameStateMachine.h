@@ -15,6 +15,8 @@ public:
 	void changeState(GameState* newState);
 	void popState();
 
+	GameState* currentState() const;
+
 	void handleEvents(SDL_Event& event);
 	void update();
 	void render();

@@ -54,5 +54,5 @@ void GameState::addEventHandler(EventHandler* e)
 void GameState::addGameObject(SDLGameObject* o)
 {
 	auto it = gameObjects_.insert(gameObjects_.end(), o);
-	//o->setIteratorList(it);
+	if (dynamic_cast<ArrowsGameObject*>(o)) static_cast<ArrowsGameObject*>(o)->setIteratorList(it);
 }

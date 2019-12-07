@@ -12,3 +12,5 @@ Renombrar Game a SDLApplication
 Redistribuir la funcionalidad a los demás estados
 
 EN PLAY STATE INICIALIZAR RANDOMS
+
+arrow de bow??

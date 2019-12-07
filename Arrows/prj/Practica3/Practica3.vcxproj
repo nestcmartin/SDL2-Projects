@@ -30,7 +30,6 @@
     <ClCompile Include="..\..\src\Practica3\PauseState.cpp" />
     <ClCompile Include="..\..\src\Practica3\PlayState.cpp" />
     <ClCompile Include="..\..\src\Practica3\SDLApplication.cpp" />
-    <ClCompile Include="..\..\src\Practica3\GameObject.cpp" />
     <ClCompile Include="..\..\src\Practica3\GameState.cpp" />
     <ClCompile Include="..\..\src\Practica3\GameStateMachine.cpp" />
     <ClCompile Include="..\..\src\Practica3\LeaderBoard.cpp" />

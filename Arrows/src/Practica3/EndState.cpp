@@ -10,16 +10,6 @@ EndState::~EndState()
 {
 }
 
-bool EndState::onEnter()
-{
-	return false;
-}
-
-bool EndState::onExit()
-{
-	return false;
-}
-
 void EndState::handleEvents(SDL_Event& event)
 {
 }

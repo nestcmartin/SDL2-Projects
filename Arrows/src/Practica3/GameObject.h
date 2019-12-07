@@ -4,8 +4,8 @@
 class GameObject
 {
 public:
-	GameObject();
-	virtual ~GameObject();
+	GameObject() {}
+	virtual ~GameObject() {}
 
 	virtual void update() = 0;
 	virtual void render() const = 0;

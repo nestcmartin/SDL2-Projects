@@ -45,9 +45,12 @@ bool MenuButton::handleEvents(SDL_Event& event)
 	if (event.type == SDL_MOUSEMOTION)
 	{
 		SDL_Point p = { event.motion.x, event.motion.y };
-		if (SDL_PointInRect(&p, &getDestRect())) currentState_ = MOUSE_OVER;
-		else currentState_ = MOUSE_OUT;
-		return true;
+		if (SDL_PointInRect(&p, &getDestRect()))
+		{
+			currentState_ = MOUSE_OVER;
+			return true;
+		}		
+		currentState_ = MOUSE_OUT;
 	}
 
 	return false;

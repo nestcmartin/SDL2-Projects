@@ -1,13 +1,13 @@
 #include "SDLApplication.h"
 
 bool SDLApplication::exit_ = false;
+GameStateMachine* SDLApplication::gameStateMachine_ = nullptr;
 std::map<std::string, Texture*> SDLApplication::textures;
 
 SDLApplication::SDLApplication() :
+	error_(false),
 	window_(nullptr),
-	renderer_(nullptr),
-	gameStateMachine_(nullptr),
-	error_(false)
+	renderer_(nullptr)
 {
 	// Init SDL
 	int res = SDL_Init(SDL_INIT_EVERYTHING);
@@ -82,9 +82,46 @@ void SDLApplication::run()
 	}
 }
 
+void SDLApplication::toMenuState(SDLApplication* app)
+{
+	while (gameStateMachine_->currentState()->getStateName() != "MENU_STATE")
+	{
+		gameStateMachine_->popState();
+	}
+}
+
+void SDLApplication::toPlayState(SDLApplication* app)
+{
+	gameStateMachine_->pushState(new PlayState(app));
+}
+
+void SDLApplication::toPauseState(SDLApplication* app)
+{
+	//gameStateMachine_->pushState(new PauseState(app));
+}
+
+void SDLApplication::toEndState(SDLApplication* app)
+{
+	//gameStateMachine_->changeState(new EndState(app));
+}
+
 void SDLApplication::closeApplication(SDLApplication* app)
 {
 	exit_ = true;
+}
+
+void SDLApplication::savePlayState(SDLApplication* app)
+{
+	int code;
+	std::cout << "Introduce un código de guardado: "; std::cin >> code;
+	gameStateMachine_->popState();
+}
+
+void SDLApplication::loadPlayState(SDLApplication* app)
+{
+	int code;
+	std::cout << "Introduce tu código de carga: "; std::cin >> code;
+	gameStateMachine_->pushState(new PlayState(app));
 }
 
 void SDLApplication::handleEvents()

@@ -1,5 +1,6 @@
 #include "Reward.h"
 #include "GameState.h"
+#include "PlayState.h"
 
 int Reward::count = 0;
 
@@ -21,15 +22,15 @@ Reward::~Reward()
 
 void Reward::update()
 {
-	/*if (!bubbled_) animate();
-	else bubbled_ = !game_->hitRewardBubble(this);
+	if (!bubbled_) animate();
+	else bubbled_ = !static_cast<PlayState*>(state_)->hitRewardBubble(this);
 	ArrowsGameObject::update();
 
 	if (position_.getY() > WIN_HEIGHT || used_)
 	{
 		count--;
-		game_->killReward(iterator_, eventHandlerIt_);
-	}*/
+		static_cast<PlayState*>(state_)->killReward(iterator_, eventHandlerIt_);
+	}
 }
 
 void Reward::render() const
@@ -56,9 +57,9 @@ bool Reward::handleEvents(SDL_Event& event)
 			SDL_GetMouseState(&p.x, &p.y);
 			if (SDL_PointInRect(&p, &getDestRect()))
 			{
-				//if (spriteRow_ == 0) game_->rewardNextLevel();
-				//else if (spriteRow_ == 1) game_->rewardMoreArrows();
-				//used_ = true;
+				if (spriteRow_ == 0) static_cast<PlayState*>(state_)->rewardNextLevel();
+				else if (spriteRow_ == 1) static_cast<PlayState*>(state_)->rewardMoreArrows();
+				used_ = true;
 				return true;
 			}
 		}

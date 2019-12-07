@@ -1,11 +1,13 @@
 #include "Bow.h"
 #include "GameState.h"
+#include "PlayState.h"
 
-Bow::Bow(GameState* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
+Bow::Bow(GameState* g, Texture* t, Texture* at, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	EventHandler(),
 	armed_(false),
 	arrow_(nullptr),
+	arrowTexture_(at),
 	drawTime_(0)
 {
 }
@@ -57,30 +59,30 @@ void Bow::render() const
 
 	if (armed_)
 	{
-		/*game_->getTexture(SDLApplication::ARROW)->renderFrame(
+		arrowTexture_->renderFrame(
 			{ static_cast<int>(position_.getX()), 
 			  static_cast<int>(position_.getY() + (height_ / 2)), 
-			  ARROW_WIDTH, ARROW_HEIGHT }, 0, 0, angle_);*/
+			  ARROW_WIDTH, ARROW_HEIGHT }, 0, 0, angle_);
 	}
 }
 
 void Bow::charge()
 {
-	/*if (!armed_ && game_->hasArrows())
+	if (!armed_ && static_cast<PlayState*>(state_)->hasArrows())
 	{
 		drawTime_ = SDL_GetTicks();
 		armed_ = true;
-	}*/
+	}
 }
 
 void Bow::loose()
 {
 	if (armed_)
 	{
-		/*double drawFactor = 1.0 + ((SDL_GetTicks() - drawTime_) / 10000.0);
-		arrow_ = new Arrow(game_, game_->getTexture(SDLApplication::ARROW), ARROW_WIDTH, ARROW_HEIGHT,
-			{ position_.getX(), position_.getY() + (height_ / 2) }, ARROW_DIR, ARROW_SPEED * drawFactor, angle_);
-		game_->shootArrow(arrow_);
-		armed_ = false;*/
+		double drawFactor = 1.0 + ((SDL_GetTicks() - drawTime_) / 10000.0);
+		arrow_ = new Arrow(state_, arrowTexture_, ARROW_WIDTH, ARROW_HEIGHT, { position_.getX(), position_.getY() + (height_ / 2) }, 
+			ARROW_DIR, ARROW_SPEED * drawFactor, angle_);
+		static_cast<PlayState*>(state_)->shootArrow(arrow_);
+		armed_ = false;
 	}
 }

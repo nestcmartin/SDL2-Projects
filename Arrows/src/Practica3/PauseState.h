@@ -10,8 +10,7 @@ public:
 	PauseState(SDLApplication* a);
 	virtual ~PauseState();
 
-	virtual bool onEnter();
-	virtual bool onExit();
+	virtual std::string getStateName() const { return "PAUSE_STATE"; }
 
 	virtual void handleEvents(SDL_Event& event);
 	virtual void update();

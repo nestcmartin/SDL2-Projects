@@ -10,9 +10,8 @@ class MainMenuState : public GameState
 public:
 	MainMenuState(SDLApplication* a);
 	virtual ~MainMenuState();
-
-	virtual bool onEnter();
-	virtual bool onExit();
+	
+	virtual std::string getStateName() const { return "MENU_STATE"; }
 
 	virtual void handleEvents(SDL_Event& event);
 	virtual void update();

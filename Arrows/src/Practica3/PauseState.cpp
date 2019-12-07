@@ -10,16 +10,6 @@ PauseState::~PauseState()
 {
 }
 
-bool PauseState::onEnter()
-{
-	return false;
-}
-
-bool PauseState::onExit()
-{
-	return false;
-}
-
 void PauseState::handleEvents(SDL_Event& event)
 {
 }

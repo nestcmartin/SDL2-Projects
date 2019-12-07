@@ -10,8 +10,7 @@ public:
 	EndState(SDLApplication* a);
 	virtual ~EndState();
 
-	virtual bool onEnter();
-	virtual bool onExit();
+	virtual std::string getStateName() const { return "END_STATE"; }
 
 	virtual void handleEvents(SDL_Event& event);
 	virtual void update();

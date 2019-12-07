@@ -20,8 +20,7 @@ public:
 	GameState(SDLApplication* g);
 	virtual ~GameState();
 
-	virtual bool onEnter() = 0;
-	virtual bool onExit() = 0;
+	virtual std::string getStateName() const = 0;
 
 	virtual void handleEvents(SDL_Event& event);
 	virtual void update();

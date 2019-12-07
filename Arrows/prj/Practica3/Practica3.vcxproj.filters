@@ -57,9 +57,6 @@
     <ClCompile Include="..\..\src\Practica3\Butterfly.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\GameObject.cpp">
-      <Filter>Archivos de origen\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Practica3\LeaderBoard.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>

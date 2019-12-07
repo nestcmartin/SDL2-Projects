@@ -1,5 +1,6 @@
 #include "Balloon.h"
 #include "GameState.h"
+#include "PlayState.h"
 
 int Balloon::count = 0;
 
@@ -24,7 +25,7 @@ Balloon::~Balloon()
 
 void Balloon::update()
 {
-	/*if (!burst_)
+	if (!burst_)
 	{
 		ArrowsGameObject::update();
 		checkBurst();
@@ -32,7 +33,7 @@ void Balloon::update()
 		if (position_.getY() < -static_cast<int>(height_))
 		{
 			count--;
-			game_->killBalloon(iterator_);
+			static_cast<PlayState*>(state_)->killBalloon(iterator_);
 		}
 	}
 	else
@@ -42,9 +43,9 @@ void Balloon::update()
 		if (spriteColumn_ < BURST_ANIMATION_FRAMES)
 		{
 			count--;
-			game_->killBalloon(iterator_);
+			static_cast<PlayState*>(state_)->killBalloon(iterator_);
 		}
-	}*/
+	}
 }
 
 void Balloon::render() const
@@ -66,7 +67,7 @@ void Balloon::loadFromFile(std::ifstream& stream)
 
 void Balloon::checkBurst()
 {
-	/*burst_ = game_->hitBalloon(this);*/
+	burst_ = static_cast<PlayState*>(state_)->hitBalloon(this);
 	if (burst_)
 	{
 		burstTime_ = SDL_GetTicks();

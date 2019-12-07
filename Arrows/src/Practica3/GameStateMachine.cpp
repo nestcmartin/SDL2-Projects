@@ -16,7 +16,6 @@ GameStateMachine::~GameStateMachine()
 void GameStateMachine::pushState(GameState* newState)
 {
 	gameStates_.push(newState);
-	gameStates_.top()->onEnter();
 }
 
 void GameStateMachine::changeState(GameState* newState)
@@ -29,13 +28,21 @@ void GameStateMachine::popState()
 {
 	if (!gameStates_.empty())
 	{
-		if (gameStates_.top()->onExit())
-		{
-			delete gameStates_.top();
-			gameStates_.top() = nullptr;
-			gameStates_.pop();
-		}
+		delete gameStates_.top();
+		gameStates_.top() = nullptr;
+		gameStates_.pop();
+
 	}
+}
+
+GameState* GameStateMachine::currentState() const
+{
+	if (!gameStates_.empty())
+	{
+		return gameStates_.top();
+	}
+
+	return nullptr;
 }
 
 void GameStateMachine::handleEvents(SDL_Event& event)

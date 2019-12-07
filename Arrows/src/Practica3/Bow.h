@@ -11,10 +11,11 @@ class Bow : public ArrowsGameObject, public EventHandler
 private:
 	bool armed_;
 	Arrow* arrow_;
+	Texture* arrowTexture_;
 	Uint32 drawTime_;
 
 public:
-	Bow(GameState* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
+	Bow(GameState* g, Texture* t, Texture* at, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a);
 	virtual ~Bow();
 
 	virtual void update();
