@@ -1,4 +1,4 @@
-23
+24
 BOW Bow2.png 1 1
 ARMED_BOW Bow1.png 1 1
 ARROW Arrow1.png 1 1
@@ -8,7 +8,8 @@ BUBBLE bubble.png 1 1
 REWARDS rewards.png 10 8
 DIGITS digits1.png 1 10
 ARROW_UI Arrow2.png 1 1
-GAME_OVER gameover.png 1 1
+WIN gameover_win.png 1 1
+LOSE gameover_lose.png 1 1
 BACKGROUND_AUTUMN bg1.png 1 1
 BACKGROUND_SPRING bg_spring_trees_1.png 1 1
 BACKGROUND_1 Cartoon_Forest_BG_01.png 1 1

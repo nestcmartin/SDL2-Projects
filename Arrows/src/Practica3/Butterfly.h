@@ -6,9 +6,6 @@
 class GameState;
 class Butterfly : public ArrowsGameObject
 {
-public:
-	static int count;
-
 private:
 	Uint32 spriteRow_;
 	Uint32 spriteColumn_;

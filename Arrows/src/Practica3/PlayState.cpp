@@ -1,14 +1,15 @@
 #include "PlayState.h"
 #include "SDLApplication.h"
 
-PlayState::PlayState(SDLApplication* a, int code) :
+PlayState::PlayState(SDLApplication* a) :
 	GameState(a),
+	win_(false),
 	changeLevel_(false),
 	lastSpawnTime_(0),
 	currentLevel_(0),
+	numButterflies_(0),
 	bow_(nullptr),
-	scoreBoard_(nullptr),
-	leaderBoard_(nullptr)
+	scoreBoard_(nullptr)
 {
 	srand(static_cast<unsigned int>(time(NULL)));
 	initScene();
@@ -30,6 +31,16 @@ void PlayState::handleEvents(SDL_Event& event)
 		{
 			app_->toPauseState(app_);
 		}
+
+		// HACKS
+		else if (event.key.keysym.sym == SDLK_l)
+		{
+			scoreBoard_->setArrowsLeft(0);
+		}
+		else if (event.key.keysym.sym == SDLK_n)
+		{
+			changeLevel();
+		}
 	}
 
 	GameState::handleEvents(event);
@@ -41,14 +52,18 @@ void PlayState::update()
 
 	GameState::update();
 
+	eraseObjects();
+
 	if (scoreBoard_)
 	{
 		scoreBoard_->update();
 		if ((scoreBoard_->getScore() > currentLevel_* POINTS_PER_LEVEL) || changeLevel_) changeLevel();
-		if ((scoreBoard_->getArrowsLeft() == 0 && arrows_.empty()) || Butterfly::count == 0) app_->toEndState(app_);
+		if ((scoreBoard_->getArrowsLeft() == 0 && arrows_.empty()))
+		{
+			if (numButterflies_ > 0) win_ = true;
+			app_->toEndState(app_);
+		}
 	}
-
-	eraseObjects();
 }
 
 void PlayState::render() const
@@ -69,12 +84,10 @@ void PlayState::initScene()
 	addGameObject(bow_);
 
 	scoreBoard_ = new ScoreBoard(app_, app_->textures["ARROW_UI"], app_->textures["DIGITS"]);
-	leaderBoard_ = new LeaderBoard();
 }
 
 void PlayState::clearScene()
 {
-	delete leaderBoard_; leaderBoard_ = nullptr;
 	delete scoreBoard_; scoreBoard_ = nullptr;
 
 	for (GameObject* o : gameObjects_)
@@ -117,6 +130,7 @@ void PlayState::changeLevel()
 		{
 			Butterfly* b = new Butterfly(this, app_->textures["BUTTERFLY"], BUTTERFLY_WIDTH, BUTTERFLY_HEIGHT, { 0, 0 }, { 0, 0 }, BUTTERFLY_SPEED, 0);
 			addButterfly(b);
+			numButterflies_++;
 		}
 
 		scoreBoard_->setScore(score);
@@ -199,6 +213,7 @@ bool PlayState::hitButterfly(Butterfly* b)
 		int score = scoreBoard_->getScore() - (POINTS_PER_BALLON / 2);
 		if (score < 0) score = 0;
 		scoreBoard_->setScore(score);
+		numButterflies_--;
 	}
 	return collision;
 }
@@ -290,7 +305,7 @@ void PlayState::addRewardBubble(Reward* r)
 
 
 
-void PlayState::saveState(int code)
+void PlayState::saveToFile(int code)
 {
 	std::cout << "Guardando...\n";
 
@@ -300,13 +315,25 @@ void PlayState::saveState(int code)
 
 	stream << currentLevel_ << " " << scoreBoard_->getScore() << " " << scoreBoard_->getArrowsLeft() << std::endl;
 	bow_->saveToFile(stream); stream << std::endl;
-	stream << Arrow::count << std::endl;
+
+	int count = 0;
+	for (Arrow* a : arrows_) count++;
+	stream << count << std::endl;
 	for (Arrow* a : arrows_) { a->saveToFile(stream); stream << std::endl; }
-	stream << Balloon::count << std::endl;
+
+	count = 0;
+	for (Balloon* b : balloons_) if (!b->hasBurst()) count++;
+	stream << count << std::endl;
 	for (Balloon* b : balloons_) { if (!b->hasBurst()) { b->saveToFile(stream); stream << std::endl; } }
-	stream << Butterfly::count << std::endl;
-	for (Butterfly* b : butterflies_) { b->saveToFile(stream); stream << std::endl; }
-	stream << Reward::count << std::endl;
+
+	count = 0;
+	for (Butterfly* b : butterflies_) if (!b->isDead()) count++;
+	stream << count << std::endl;
+	for (Butterfly* b : butterflies_) { if (!b->isDead()) { b->saveToFile(stream); stream << std::endl; } }
+
+	count = 0;
+	for (Reward* r : rewards_) count++;
+	stream << count << std::endl;
 	for (Reward* r : rewards_) { r->saveToFile(stream); stream << std::endl; }
 
 	stream.close();
@@ -314,14 +341,12 @@ void PlayState::saveState(int code)
 	std::cout << "Partida guardada!\n";
 }
 
-void PlayState::loadState(int code)
+void PlayState::loadFromFile(int code)
 {
 	std::cout << "Cargando...\n";
 
-	Arrow::count = 0;
-	Balloon::count = 0;
-	Butterfly::count = 0;
-	Reward::count = 0;
+	clearScene();
+	initScene();
 
 	std::ifstream stream;
 	stream.open(std::to_string(code) + STATE_FILE);
@@ -331,18 +356,12 @@ void PlayState::loadState(int code)
 	int arrowsLeft;
 	stream >> currentLevel_ >> score >> arrowsLeft;
 
-	scoreBoard_ = new ScoreBoard(app_, app_->textures["ARROW_UI"], app_->textures["DIGITS"]);
-	leaderBoard_ = new LeaderBoard();
-	scoreBoard_->setScore(score);
 	scoreBoard_->setArrowsLeft(arrowsLeft);
-
-	bow_ = new Bow(this, app_->textures["BOW"], app_->textures["ARROW"], BOW_WIDTH, BOW_HEIGHT, { 50, WIN_HEIGHT / 2 }, BOW_DIR, BOW_SPEED, 0);
+	scoreBoard_->setScore(score);
 	bow_->loadFromFile(stream);
-	addEventHandler(bow_);
-	addGameObject(bow_);
+
 
 	int count = 0;
-
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{
@@ -351,6 +370,7 @@ void PlayState::loadState(int code)
 		addArrow(a);
 	}
 
+	count = 0;
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{
@@ -359,6 +379,7 @@ void PlayState::loadState(int code)
 		addBalloon(b);
 	}
 
+	count = 0;
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{
@@ -367,6 +388,7 @@ void PlayState::loadState(int code)
 		addButterfly(b);
 	}
 
+	count = 0;
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{

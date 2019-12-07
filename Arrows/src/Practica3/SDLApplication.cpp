@@ -97,12 +97,14 @@ void SDLApplication::toPlayState(SDLApplication* app)
 
 void SDLApplication::toPauseState(SDLApplication* app)
 {
-	//gameStateMachine_->pushState(new PauseState(app));
+	gameStateMachine_->pushState(new PauseState(app));
 }
 
 void SDLApplication::toEndState(SDLApplication* app)
 {
-	//gameStateMachine_->changeState(new EndState(app));
+	int finalScore = static_cast<PlayState*>(gameStateMachine_->currentState())->getScore();
+	bool win = static_cast<PlayState*>(gameStateMachine_->currentState())->isWon();
+	gameStateMachine_->changeState(new EndState(app, 700, win));
 }
 
 void SDLApplication::closeApplication(SDLApplication* app)
@@ -115,6 +117,7 @@ void SDLApplication::savePlayState(SDLApplication* app)
 	int code;
 	std::cout << "Introduce un código de guardado: "; std::cin >> code;
 	gameStateMachine_->popState();
+	static_cast<PlayState*>(gameStateMachine_->currentState())->saveToFile(code);
 }
 
 void SDLApplication::loadPlayState(SDLApplication* app)
@@ -122,6 +125,12 @@ void SDLApplication::loadPlayState(SDLApplication* app)
 	int code;
 	std::cout << "Introduce tu código de carga: "; std::cin >> code;
 	gameStateMachine_->pushState(new PlayState(app));
+	static_cast<PlayState*>(gameStateMachine_->currentState())->loadFromFile(code);
+}
+
+void SDLApplication::resumeApplication(SDLApplication* app)
+{
+	gameStateMachine_->popState();
 }
 
 void SDLApplication::handleEvents()

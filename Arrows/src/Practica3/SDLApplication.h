@@ -35,6 +35,7 @@ public:
 	static void toPauseState(SDLApplication* app);
 	static void toEndState(SDLApplication* app);
 	static void closeApplication(SDLApplication* app);
+	static void resumeApplication(SDLApplication* app);
 	static void savePlayState(SDLApplication* app);
 	static void loadPlayState(SDLApplication* app);
 

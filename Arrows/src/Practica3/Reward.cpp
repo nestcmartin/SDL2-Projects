@@ -2,8 +2,6 @@
 #include "GameState.h"
 #include "PlayState.h"
 
-int Reward::count = 0;
-
 Reward::Reward(GameState* g, Texture* t, Texture* bt, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	EventHandler(),
@@ -13,7 +11,6 @@ Reward::Reward(GameState* g, Texture* t, Texture* bt, Uint32 w, Uint32 h, Point2
 	spriteColumn_(0)
 {
 	spriteRow_ = rand() % 2;
-	count++;
 }
 
 Reward::~Reward()
@@ -28,7 +25,6 @@ void Reward::update()
 
 	if (position_.getY() > WIN_HEIGHT || used_)
 	{
-		count--;
 		static_cast<PlayState*>(state_)->killReward(iterator_, eventHandlerIt_);
 	}
 }

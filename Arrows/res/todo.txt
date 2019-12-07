@@ -13,4 +13,10 @@ Redistribuir la funcionalidad a los demás estados
 
 EN PLAY STATE INICIALIZAR RANDOMS
 
-arrow de bow??
+EndState, codigos de guardado/cargado (quizas gsm.top.save/load?)
+ScoreBoard/LeaderBoard
+Informar de si has ganado o perdido
+
+TTF
+Sound
+Rewards

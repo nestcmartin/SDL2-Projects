@@ -2,8 +2,6 @@
 #include "GameState.h"
 #include "PlayState.h"
 
-int Butterfly::count = 0;
-
 Butterfly::Butterfly(GameState* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	spriteRow_(0),
@@ -13,7 +11,6 @@ Butterfly::Butterfly(GameState* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Ve
 	randomDirection();
 	randomPosition();
 	lastTime_ = SDL_GetTicks();
-	count++;
 }
 
 Butterfly::~Butterfly()
@@ -33,7 +30,6 @@ void Butterfly::update()
 
 	if (position_.getY() > WIN_HEIGHT)
 	{
-		count--;
 		static_cast<PlayState*>(state_)->killButterfly(iterator_);
 	}
 }

@@ -3,11 +3,18 @@
 
 #include "GameState.h"
 
+#include "LeaderBoard.h"
+
 class SDLApplication;
 class EndState : public GameState
 {
+private:
+	bool win_;
+	int finalScore_;
+	LeaderBoard* leaderBoard_;
+
 public:
-	EndState(SDLApplication* a);
+	EndState(SDLApplication* a, int score, bool win);
 	virtual ~EndState();
 
 	virtual std::string getStateName() const { return "END_STATE"; }

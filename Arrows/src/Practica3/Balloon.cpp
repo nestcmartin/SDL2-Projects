@@ -2,8 +2,6 @@
 #include "GameState.h"
 #include "PlayState.h"
 
-int Balloon::count = 0;
-
 Balloon::Balloon(GameState* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector2D d, double s, int a) :
 	ArrowsGameObject(g, t, w, h, p, d, s, a),
 	burst_(false),
@@ -16,7 +14,6 @@ Balloon::Balloon(GameState* g, Texture* t, Uint32 w, Uint32 h, Point2D p, Vector
 		static_cast<float>(rand()) / 
 		(static_cast<float>(RAND_MAX / 
 		(BALLOON_MAX_SPEED - BALLOON_MIN_SPEED)));
-	count++;
 }
 
 Balloon::~Balloon()
@@ -32,7 +29,6 @@ void Balloon::update()
 
 		if (position_.getY() < -static_cast<int>(height_))
 		{
-			count--;
 			static_cast<PlayState*>(state_)->killBalloon(iterator_);
 		}
 	}
@@ -42,7 +38,6 @@ void Balloon::update()
 
 		if (spriteColumn_ < BURST_ANIMATION_FRAMES)
 		{
-			count--;
 			static_cast<PlayState*>(state_)->killBalloon(iterator_);
 		}
 	}

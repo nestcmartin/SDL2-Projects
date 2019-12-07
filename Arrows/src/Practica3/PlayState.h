@@ -7,7 +7,6 @@
 #include "Arrow.h"
 #include "Balloon.h"
 #include "ScoreBoard.h"
-#include "LeaderBoard.h"
 #include "Butterfly.h"
 #include "Reward.h"
 
@@ -15,13 +14,14 @@ class SDLApplication;
 class PlayState : public GameState
 {
 private:
+	bool win_;
 	bool changeLevel_;
 	Uint32 currentLevel_;
 	Uint32 lastSpawnTime_;
+	Uint32 numButterflies_;
 
 	Bow* bow_;
 	ScoreBoard* scoreBoard_;
-	LeaderBoard* leaderBoard_;
 
 	std::list<Arrow*> arrows_;
 	std::list<Balloon*> balloons_;
@@ -30,7 +30,7 @@ private:
 	std::list<std::list<GameObject*>::iterator> erasableObjects_;
 
 public:
-	PlayState(SDLApplication* a, int code = -1);
+	PlayState(SDLApplication* a);
 	virtual ~PlayState();
 
 	virtual std::string getStateName() const { return "PLAY_STATE"; }
@@ -53,7 +53,12 @@ public:
 	void rewardNextLevel();
 	void rewardMoreArrows();
 
-	bool hasArrows() { return scoreBoard_->getArrowsLeft() != 0; }
+	void saveToFile(int code);
+	void loadFromFile(int code);
+
+	inline bool isWon() const { return win_; }
+	inline int getScore() const { return scoreBoard_->getScore(); }
+	inline bool hasArrows() const { return scoreBoard_->getArrowsLeft() != 0; }
 
 private:
 	void initScene();
@@ -66,9 +71,6 @@ private:
 
 	void spawnBallon();
 	void changeLevel();
-
-	void saveState(int code);
-	void loadState(int code);
 
 	void eraseObjects();
 };

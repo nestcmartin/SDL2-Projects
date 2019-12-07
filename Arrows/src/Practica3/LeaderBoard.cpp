@@ -27,7 +27,7 @@ void LeaderBoard::registerPlayerScore(int score)
 	std::cout << "Introduce tu nombre: "; 
 	std::cin >> name;
 
-	leaderBoard_.push_back({ name, score });
+	leaderBoard_.push_back({ name.substr(0, 6), score });
 	std::sort(leaderBoard_.begin(), leaderBoard_.end(), ScoreComparer());
 
 	saveLeaderBoard();
