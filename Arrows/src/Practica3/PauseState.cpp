@@ -12,7 +12,7 @@ PauseState::PauseState(SDLApplication* a) :
 	addEventHandler(button);
 	addGameObject(button);
 
-	button = new MenuButton(this, SDLApplication::textures["EXIT"], 200, 80, { 900, 350 }, app_, SDLApplication::toMenuState);
+	button = new MenuButton(this, SDLApplication::textures["MENU"], 200, 80, { 900, 350 }, app_, SDLApplication::toMenuState);
 	addEventHandler(button);
 	addGameObject(button);
 }

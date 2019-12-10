@@ -7,7 +7,7 @@ EndState::EndState(SDLApplication* a, int score, bool win) :
 	finalScore_(score),
 	leaderBoard_(nullptr)
 {
-	MenuButton* button = new MenuButton(this, SDLApplication::textures["PLAY"], 200, 80, { 400, 550 }, app_, SDLApplication::toMenuState);
+	MenuButton* button = new MenuButton(this, SDLApplication::textures["MENU"], 200, 80, { 400, 550 }, app_, SDLApplication::toMenuState);
 	addEventHandler(button);
 	addGameObject(button);
 
