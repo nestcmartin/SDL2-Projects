@@ -38,7 +38,7 @@ void LeaderBoard::saveLeaderBoard()
 	std::ofstream stream;
 	stream.open(LEADERBOARD_FILE);
 	if (!stream.is_open()) 
-		throw FileNotFoundError("Couldn´t open leaderboard.txt\n");
+		throw FileNotFoundError("Couldn´t open " + LEADERBOARD_FILE + "\n");
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -53,7 +53,7 @@ void LeaderBoard::loadLeaderBoard()
 	std::ifstream stream;
 	stream.open(LEADERBOARD_FILE);
 	if (!stream.is_open()) 
-		throw FileNotFoundError("Couldn´t open leaderboard.txt\n");
+		throw FileNotFoundError("Couldn´t open " + LEADERBOARD_FILE + "\n");
 
 	for (int i = 0; i < 10; i++)
 	{

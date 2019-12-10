@@ -13,9 +13,6 @@
 
 class SDLApplication
 {
-public:
-	static std::map<std::string, Texture*> textures;
-
 private:
 	bool error_;
 	SDL_Window* window_;
@@ -23,6 +20,8 @@ private:
 	
 	static bool exit_;
 	static GameStateMachine* gameStateMachine_;
+
+	std::map<std::string, Texture*> textures_;
 
 public:
 	SDLApplication();
@@ -38,6 +37,8 @@ public:
 	static void resumeApplication(SDLApplication* app);
 	static void savePlayState(SDLApplication* app);
 	static void loadPlayState(SDLApplication* app);
+
+	inline Texture* getTexture(std::string s) { return textures_[s]; }
 
 private:
 	void handleEvents();

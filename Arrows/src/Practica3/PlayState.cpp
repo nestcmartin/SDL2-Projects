@@ -68,7 +68,7 @@ void PlayState::update()
 
 void PlayState::render() const
 {
-	app_->textures["BACKGROUND_" + std::to_string(currentLevel_)]->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
+	app_->getTexture("BACKGROUND_" + std::to_string(currentLevel_))->render({ 0, 0, WIN_WIDTH, WIN_HEIGHT });
 
 	GameState::render();
 
@@ -79,11 +79,11 @@ void PlayState::render() const
 
 void PlayState::initScene()
 {
-	bow_ = new Bow(this, app_->textures["BOW"], app_->textures["ARROW"], BOW_WIDTH, BOW_HEIGHT, { 50, WIN_HEIGHT / 2 }, BOW_DIR, BOW_SPEED, 0);
+	bow_ = new Bow(this, app_->getTexture("BOW"), app_->getTexture("ARROW"), BOW_WIDTH, BOW_HEIGHT, { 50, WIN_HEIGHT / 2 }, BOW_DIR, BOW_SPEED, 0);
 	addEventHandler(bow_);
 	addGameObject(bow_);
 
-	scoreBoard_ = new ScoreBoard(app_, app_->textures["ARROW_UI"], app_->textures["DIGITS"]);
+	scoreBoard_ = new ScoreBoard(app_, app_->getTexture("ARROW_UI"), app_->getTexture("DIGITS"));
 }
 
 void PlayState::clearScene()
@@ -128,7 +128,7 @@ void PlayState::changeLevel()
 
 		for (int i = 0; i < NUM_BUTTERFLIES_PER_LEVEL * currentLevel_; i++)
 		{
-			Butterfly* b = new Butterfly(this, app_->textures["BUTTERFLY"], BUTTERFLY_WIDTH, BUTTERFLY_HEIGHT, { 0, 0 }, { 0, 0 }, BUTTERFLY_SPEED, 0);
+			Butterfly* b = new Butterfly(this, app_->getTexture("BUTTERFLY"), BUTTERFLY_WIDTH, BUTTERFLY_HEIGHT, { 0, 0 }, { 0, 0 }, BUTTERFLY_SPEED, 0);
 			addButterfly(b);
 			numButterflies_++;
 		}
@@ -147,7 +147,7 @@ void PlayState::spawnBallon()
 	{
 		Uint32 rndx = rand() % SPAWN_SPACE + SPAWN_LOWER_BOUND;
 
-		Balloon* b = new Balloon(this, app_->textures["BALLOONS"], BALLOON_WIDTH, BALLOON_HEIGHT,
+		Balloon* b = new Balloon(this, app_->getTexture("BALLOONS"), BALLOON_WIDTH, BALLOON_HEIGHT,
 			{ static_cast<double>(rndx), WIN_HEIGHT }, BALLOON_DIR, BALLOON_MIN_SPEED, 0);
 
 		balloons_.push_back(b);
@@ -186,7 +186,7 @@ bool PlayState::hitBalloon(Balloon* b)
 
 		if (rand() % 100 < 30)
 		{
-			Reward* r = new Reward(this, app_->textures["REWARDS"], app_->textures["BUBBLE"], REWARD_WIDTH, REWARD_HEIGHT,
+			Reward* r = new Reward(this, app_->getTexture("REWARDS"), app_->getTexture("BUBBLE"), REWARD_WIDTH, REWARD_HEIGHT,
 				{ static_cast<double>(b->getDestRect().x), static_cast<double>(b->getDestRect().y) + BALLOON_HEIGHT },
 				{ 0, 1 }, REWARD_SPEED, 0);
 			addRewardBubble(r);
@@ -365,7 +365,7 @@ void PlayState::loadFromFile(int code)
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{
-		Arrow* a = new Arrow(this, app_->textures["ARROW"], ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
+		Arrow* a = new Arrow(this, app_->getTexture("ARROW"), ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
 		a->loadFromFile(stream);
 		addArrow(a);
 	}
@@ -374,7 +374,7 @@ void PlayState::loadFromFile(int code)
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{
-		Balloon* b = new Balloon(this, app_->textures["BALLOONS"], ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
+		Balloon* b = new Balloon(this, app_->getTexture("BALLOONS"), ARROW_WIDTH, ARROW_HEIGHT, { 0, 0 }, ARROW_DIR, ARROW_SPEED, 0);
 		b->loadFromFile(stream);
 		addBalloon(b);
 	}
@@ -383,7 +383,7 @@ void PlayState::loadFromFile(int code)
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{
-		Butterfly* b = new Butterfly(this, app_->textures["BUTTERFLY"], BUTTERFLY_WIDTH, BUTTERFLY_HEIGHT, { 0, 0 }, { 0, 0 }, BUTTERFLY_SPEED, 0);
+		Butterfly* b = new Butterfly(this, app_->getTexture("BUTTERFLY"), BUTTERFLY_WIDTH, BUTTERFLY_HEIGHT, { 0, 0 }, { 0, 0 }, BUTTERFLY_SPEED, 0);
 		b->loadFromFile(stream);
 		addButterfly(b);
 	}
@@ -392,7 +392,7 @@ void PlayState::loadFromFile(int code)
 	stream >> count;
 	for (int i = 0; i < count; i++)
 	{
-		Reward* r = new Reward(this, app_->textures["REWARDS"], app_->textures["BUBBLE"], REWARD_WIDTH, REWARD_HEIGHT, { 0, 0 }, { 0, 0 }, REWARD_SPEED, 0);
+		Reward* r = new Reward(this, app_->getTexture("REWARDS"), app_->getTexture("BUBBLE"), REWARD_WIDTH, REWARD_HEIGHT, { 0, 0 }, { 0, 0 }, REWARD_SPEED, 0);
 		r->loadFromFile(stream);
 		addRewardBubble(r);
 	}
