@@ -2,7 +2,6 @@
 #define __MAIN_MENU_STATE_H__
 
 #include "GameState.h"
-#include "MenuButton.h"
 
 class SDLApplication;
 class MainMenuState : public GameState

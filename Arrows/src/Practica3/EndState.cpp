@@ -1,5 +1,6 @@
 #include "EndState.h"
 #include "SDLApplication.h"
+#include "MenuButton.h"
 
 EndState::EndState(SDLApplication* a, int score, bool win) :
 	GameState(a),

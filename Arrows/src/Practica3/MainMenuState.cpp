@@ -1,5 +1,6 @@
 #include "MainMenuState.h"
 #include "SDLApplication.h"
+#include "MenuButton.h"
 
 MainMenuState::MainMenuState(SDLApplication* a) :
 	GameState(a)

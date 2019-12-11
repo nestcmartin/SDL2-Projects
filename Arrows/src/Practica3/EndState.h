@@ -2,7 +2,6 @@
 #define __END_STATE_H__
 
 #include "GameState.h"
-
 #include "LeaderBoard.h"
 
 class SDLApplication;

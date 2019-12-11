@@ -1,5 +1,6 @@
 #include "PauseState.h"
 #include "SDLApplication.h"
+#include "MenuButton.h"
 
 PauseState::PauseState(SDLApplication* a) :
 	GameState(a)

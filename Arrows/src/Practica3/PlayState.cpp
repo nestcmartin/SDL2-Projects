@@ -53,14 +53,12 @@ void PlayState::update()
 	GameState::update();
 
 	eraseObjects();
-
+	std::cout << numButterflies_ << std::endl;
 	if (scoreBoard_)
 	{
-		scoreBoard_->update();
 		if ((scoreBoard_->getScore() > currentLevel_* POINTS_PER_LEVEL) || changeLevel_) changeLevel();
-		if ((scoreBoard_->getArrowsLeft() == 0 && arrows_.empty()))
+		if ((scoreBoard_->getArrowsLeft() == 0 && arrows_.empty()) || numButterflies_ == 0)
 		{
-			if (numButterflies_ > 0) win_ = true;
 			app_->toEndState(app_);
 		}
 	}
@@ -89,6 +87,7 @@ void PlayState::initScene()
 void PlayState::clearScene()
 {
 	delete scoreBoard_; scoreBoard_ = nullptr;
+	numButterflies_ = 0;
 
 	for (GameObject* o : gameObjects_)
 	{
@@ -135,6 +134,10 @@ void PlayState::changeLevel()
 
 		scoreBoard_->setScore(score);
 	}
+	else
+	{
+		if (numButterflies_ > 0) win_ = true;
+	}
 }
 
 
@@ -149,9 +152,7 @@ void PlayState::spawnBallon()
 
 		Balloon* b = new Balloon(this, app_->getTexture("BALLOONS"), BALLOON_WIDTH, BALLOON_HEIGHT,
 			{ static_cast<double>(rndx), WIN_HEIGHT }, BALLOON_DIR, BALLOON_MIN_SPEED, 0);
-
-		balloons_.push_back(b);
-		addGameObject(b);
+		addBalloon(b);
 
 		lastSpawnTime_ = SDL_GetTicks();
 	}
