@@ -5,7 +5,7 @@
 
 #include "Constants.h"
 #include "EventHandler.h"
-#include "ArrowsGameObject.h"
+#include "SDLGameObject.h"
 
 class SDLApplication;
 class GameState
@@ -25,6 +25,8 @@ public:
 	virtual void handleEvents(SDL_Event& event);
 	virtual void update();
 	virtual void render() const;
+
+	inline SDLApplication* getApp() const { return app_; }
 
 protected:
 	void addEventHandler(EventHandler* e);

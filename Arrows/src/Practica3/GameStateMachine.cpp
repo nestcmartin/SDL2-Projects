@@ -31,7 +31,6 @@ void GameStateMachine::popState()
 		delete gameStates_.top();
 		gameStates_.top() = nullptr;
 		gameStates_.pop();
-
 	}
 }
 
@@ -41,7 +40,6 @@ GameState* GameStateMachine::currentState() const
 	{
 		return gameStates_.top();
 	}
-
 	return nullptr;
 }
 

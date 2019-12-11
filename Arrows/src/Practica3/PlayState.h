@@ -1,6 +1,8 @@
 #ifndef __PLAY_STATE_H__
 #define __PLAY_STATE_H__
 
+#include <time.h>
+
 #include "GameState.h"
 
 #include "Bow.h"

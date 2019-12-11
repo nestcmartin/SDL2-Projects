@@ -1,9 +1,8 @@
 #include "MenuButton.h"
 
-MenuButton::MenuButton(GameState* g, Texture* t, Uint32 w, Uint32 h, Point2D p, SDLApplication* a, CallBackOnClick* cb) :
+MenuButton::MenuButton(GameState* g, Texture* t, Uint32 w, Uint32 h, Point2D p, CallBackOnClick* cb) :
 	SDLGameObject(g, t, w, h, p),
 	EventHandler(),
-	app_ (a),
 	callbackOnClick_(cb),
 	currentState_(MOUSE_OUT)
 {
@@ -36,7 +35,7 @@ bool MenuButton::handleEvents(SDL_Event& event)
 			if (SDL_PointInRect(&p, &getDestRect()))
 			{
 				currentState_ = MOUSE_OVER;
-				callbackOnClick_(app_);
+				callbackOnClick_(state_->getApp());
 				return true;
 			}
 		}

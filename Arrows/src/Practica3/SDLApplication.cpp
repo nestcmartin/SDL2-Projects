@@ -2,7 +2,6 @@
 
 bool SDLApplication::exit_ = false;
 GameStateMachine* SDLApplication::gameStateMachine_ = nullptr;
-std::map<std::string, Texture*> SDLApplication::textures;
 
 SDLApplication::SDLApplication() :
 	error_(false),
@@ -33,12 +32,12 @@ SDLApplication::~SDLApplication()
 	gameStateMachine_ = nullptr;
 
 	// Clear Textures
-	for (std::pair<std::string, Texture*> t : textures)
+	for (std::pair<std::string, Texture*> t : textures_)
 	{
 		delete t.second; 
 		t.second = nullptr;
 	}
-	textures.clear();
+	textures_.clear();
 
 	// Close SDL
 	SDL_DestroyRenderer(renderer_);
@@ -60,8 +59,8 @@ void SDLApplication::loadTextures()
 	for (Uint32 i = 0; i < numTextures; i++)
 	{
 		stream >> id >> filename >> numRows >> numCols;
-		textures[id] = new Texture(renderer_);
-		textures[id]->load(IMAGE_PATH + filename, numRows, numCols);		
+		textures_[id] = new Texture(renderer_);
+		textures_[id]->load(IMAGE_PATH + filename, numRows, numCols);		
 	}
 
 	stream.close();
@@ -104,7 +103,7 @@ void SDLApplication::toEndState(SDLApplication* app)
 {
 	int finalScore = static_cast<PlayState*>(gameStateMachine_->currentState())->getScore();
 	bool win = static_cast<PlayState*>(gameStateMachine_->currentState())->isWon();
-	gameStateMachine_->changeState(new EndState(app, 700, win));
+	gameStateMachine_->changeState(new EndState(app, finalScore, win));
 }
 
 void SDLApplication::closeApplication(SDLApplication* app)

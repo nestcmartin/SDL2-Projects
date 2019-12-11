@@ -37,6 +37,10 @@ void ArrowsGameObject::loadFromFile(std::ifstream& stream)
 	stream >> position_ >> direction_;
 	stream >> speed_ >> angle_;
 	stream >> width_ >> height_;
+
+	if (position_.getX() < 0 || position_.getX() > WIN_WIDTH || 
+		position_.getY() < -static_cast<int>(height_) || position_.getY() > WIN_HEIGHT)
+		throw FileFormatError("Position out of bounds.\n");
 }
 
 SDL_Rect ArrowsGameObject::getCollisionRect() const

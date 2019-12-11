@@ -5,6 +5,7 @@
 #include <fstream>
 
 #include "SDLGameObject.h"
+#include "FileFormatError.h"
 
 class GameState;
 class ArrowsGameObject : public SDLGameObject

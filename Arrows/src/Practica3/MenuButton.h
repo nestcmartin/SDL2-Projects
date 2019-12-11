@@ -3,8 +3,8 @@
 
 #include "SDLGameObject.h"
 #include "EventHandler.h"
+#include "SDLApplication.h"
 
-class SDLApplication;
 using CallBackOnClick = void(SDLApplication * app);
 
 class MenuButton : public SDLGameObject, public EventHandler
@@ -16,11 +16,10 @@ private:
 		MOUSE_CLICKED 
 	} currentState_;
 
-	SDLApplication* app_;
 	CallBackOnClick* callbackOnClick_;
 
 public:
-	MenuButton(GameState* g, Texture* t, Uint32 w, Uint32 h, Point2D p, SDLApplication* a, CallBackOnClick* cb);
+	MenuButton(GameState* g, Texture* t, Uint32 w, Uint32 h, Point2D p, CallBackOnClick* cb);
 	virtual ~MenuButton();
 
 	virtual bool handleEvents(SDL_Event& event);
