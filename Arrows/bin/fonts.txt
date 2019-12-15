@@ -1,0 +1,9 @@
+8
+PAINT22 Paintbrush.ttf 22
+PAINT42 Paintbrush.ttf 42
+PAINT52 Paintbrush.ttf 52
+PAINT72 Paintbrush.ttf 72
+PIXELED22 Pixeled.ttf 22
+PIXELED42 Pixeled.ttf 42
+PIXELED52 Pixeled.ttf 52
+PIXELED72 Pixeled.ttf 72

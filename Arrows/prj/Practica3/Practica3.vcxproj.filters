@@ -96,6 +96,9 @@
     <ClCompile Include="..\..\src\Practica3\MenuButton.cpp">
       <Filter>Archivos de origen\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\Font.cpp">
+      <Filter>Archivos de origen\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Practica3\Constants.h">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Practica3\MenuButton.h">
       <Filter>Archivos de encabezado\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\Font.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

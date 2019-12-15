@@ -9,6 +9,7 @@
 #include "Constants.h"
 #include "GameObject.h"
 
+class SDLApplication;
 class LeaderBoard : public GameObject
 {
 	struct ScoreRegister 
@@ -29,8 +30,10 @@ class LeaderBoard : public GameObject
 private:
 	std::vector<ScoreRegister> leaderBoard_;
 
+	SDLApplication* app_;
+
 public:
-	LeaderBoard();
+	LeaderBoard(SDLApplication* a);
 	~LeaderBoard();
 
 	virtual void update();

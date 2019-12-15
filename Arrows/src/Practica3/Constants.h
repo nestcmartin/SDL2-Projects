@@ -48,7 +48,7 @@ const Uint32		UI_ARROW_POS_X = 300;
 const Uint32		UI_ARROW_POS_Y = 40;
 const Uint32		UI_ARROW_WIDTH = 20;
 const Uint32		UI_ARROW_HEIGHT = 65;
-const Uint32		UI_SCORE_POS_X = 200;
+const Uint32		UI_SCORE_POS_X = 100;
 const Uint32		UI_SCORE_POS_Y = 40;
 const Uint32		UI_SCORE_WIDTH = 27;
 const Uint32		UI_SCORE_HEIGHT = 65;
@@ -60,7 +60,7 @@ const Uint32		WIN_HEIGHT = 720;
 const Uint32		NUM_TEXTURES = 17;
 const Uint32		FIRST_BG_TEXTURE = 8;
 const Uint32		NUM_LEVELS = 4;
-const Uint32		POINTS_PER_LEVEL = 100;
+const Uint32		POINTS_PER_LEVEL = 150;
 const Uint32		POINTS_PER_BALLON = 5;
 const Uint32		NUM_ARROWS = 10;
 const Uint32		NUM_BUTTERFLIES_PER_LEVEL = 3;
@@ -68,8 +68,11 @@ const Uint32		SPAWN_TIME = 200;
 const Uint32		SPAWN_LOWER_BOUND = WIN_WIDTH / 3;
 const Uint32		SPAWN_UPPER_BOUND = WIN_WIDTH - BALLOON_WIDTH;
 const Uint32		SPAWN_SPACE = SPAWN_UPPER_BOUND - SPAWN_LOWER_BOUND;
+
 const std::string	STATE_FILE = "state.txt";
 const std::string	TEXTURES_FILE = "textures.txt";
+const std::string	FONTS_FILE = "fonts.txt";
 const std::string	IMAGE_PATH = "..\\res\\images\\";
+const std::string	FONT_PATH = "..\\res\\fonts\\";
 
 #endif // !__CONSTANTS_H__

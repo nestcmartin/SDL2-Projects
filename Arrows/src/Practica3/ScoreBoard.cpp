@@ -1,9 +1,10 @@
 #include "ScoreBoard.h"
 #include "GameState.h"
+#include "SDLApplication.h"
 
-ScoreBoard::ScoreBoard(SDLApplication* g, Texture* arrowTexture, Texture* digitsTexture) :
+ScoreBoard::ScoreBoard(SDLApplication* a, Texture* arrowTexture, Texture* digitsTexture) :
 	GameObject(),
-	game_(g),
+	app_(a),
 	arrowsSprite_(arrowTexture),
 	digitsSprite_(digitsTexture),
 	arrowsLeft_(NUM_ARROWS),
@@ -28,20 +29,9 @@ void ScoreBoard::render() const
 							   UI_ARROW_WIDTH, UI_ARROW_HEIGHT });
 	}
 
-	Uint32 centenas = score_ / 100;
-	Uint32 decenas = (score_ % 100) / 10;
-	Uint32 unidades = (score_ % 10);
-
-	digitsSprite_->renderFrame({ static_cast<int>(UI_SCORE_POS_X + (UI_SCORE_WIDTH * 0)),
-								static_cast<int>(UI_SCORE_POS_Y),
-								UI_SCORE_WIDTH, UI_SCORE_HEIGHT },
-								0, centenas);
-	digitsSprite_->renderFrame({ static_cast<int>(UI_SCORE_POS_X + (UI_SCORE_WIDTH * 1)),
-								static_cast<int>(UI_SCORE_POS_Y),
-								UI_SCORE_WIDTH, UI_SCORE_HEIGHT },
-								0, decenas);
-	digitsSprite_->renderFrame({ static_cast<int>(UI_SCORE_POS_X + (UI_SCORE_WIDTH * 2)),
-								static_cast<int>(UI_SCORE_POS_Y),
-								UI_SCORE_WIDTH, UI_SCORE_HEIGHT },
-								0, unidades);
+	int w, h;
+	Texture* t = new Texture(app_->getRenderer(), std::to_string(score_), app_->getFont("PAINT72"), { 255, 255, 255, 255 });
+	app_->getFont("PAINT72")->sizeOfText(std::to_string(score_), w, h);
+	t->render({ UI_SCORE_POS_X, UI_SCORE_POS_Y, w, h });
+	delete t; t = nullptr;
 }

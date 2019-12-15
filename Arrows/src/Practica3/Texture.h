@@ -1,11 +1,13 @@
 #ifndef __TEXTURE_H__
 #define __TEXTURE_H__
 
-#include <string>
 #include <iostream>
 
-#include "SDL.h"
-#include "SDL_image.h"
+#include <SDL.h>
+#include <SDL_image.h>
+
+#include "Font.h"
+#include "SDLError.h"
 #include "FileNotFoundError.h"
 
 class Texture 
@@ -26,6 +28,7 @@ private:
 public:
 	Texture(SDL_Renderer* r);
 	Texture(SDL_Renderer* r, std::string filename, Uint32 numRows = 1, Uint32 numCols = 1);
+	Texture(SDL_Renderer* r, std::string text, Font* font, SDL_Color color);
 	~Texture();	
 
 	inline Uint32 getWidth() const { return width_; };
@@ -37,6 +40,7 @@ public:
 	SDL_Texture* getTexture() const { return texture_; };
 
 	void load(std::string filename, Uint32 numRows = 1, Uint32 numCols = 1);
+	void load(std::string text, Font* font, SDL_Color color = { 0, 0, 0, 255 });
 	void render(const SDL_Rect& destRect, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	void renderFrame(const SDL_Rect& destRect, int row, int col, int angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 };

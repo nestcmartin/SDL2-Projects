@@ -8,7 +8,7 @@ class SDLApplication;
 class ScoreBoard : public GameObject
 {
 public:
-	ScoreBoard(SDLApplication* g, Texture* arrowTexture, Texture* digitsTexture);
+	ScoreBoard(SDLApplication* a, Texture* arrowTexture, Texture* digitsTexture);
 	virtual ~ScoreBoard();
 
 	virtual void update();
@@ -20,7 +20,7 @@ public:
 	inline void setArrowsLeft(int a) { arrowsLeft_ = a; }
 
 private:
-	SDLApplication* game_;
+	SDLApplication* app_;
 	Texture* arrowsSprite_;
 	Texture* digitsSprite_;
 	int arrowsLeft_;

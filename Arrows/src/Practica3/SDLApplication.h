@@ -3,7 +3,6 @@
 
 #include <map>
 
-#include "SDLError.h"
 #include "MainMenuState.h"
 #include "PlayState.h"
 #include "PauseState.h"
@@ -21,6 +20,7 @@ private:
 	static GameStateMachine* gameStateMachine_;
 
 	std::map<std::string, Texture*> textures_;
+	std::map<std::string, Font*> fonts_;
 
 public:
 	SDLApplication();
@@ -37,7 +37,9 @@ public:
 	static void savePlayState(SDLApplication* app);
 	static void loadPlayState(SDLApplication* app);
 
+	inline SDL_Renderer* getRenderer() { return renderer_; }
 	inline Texture* getTexture(std::string s) { return textures_[s]; }
+	inline Font* getFont(std::string s) { return fonts_[s]; }
 
 private:
 	void handleEvents();
@@ -45,6 +47,7 @@ private:
 	void render() const;
 
 	void loadTextures();
+	void loadFonts();
 };
 
 #endif // !__SDL_APPLICATION_H__

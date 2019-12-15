@@ -53,7 +53,7 @@ void PlayState::update()
 	GameState::update();
 
 	eraseObjects();
-	std::cout << numButterflies_ << std::endl;
+
 	if (scoreBoard_)
 	{
 		if ((scoreBoard_->getScore() > currentLevel_* POINTS_PER_LEVEL) || changeLevel_) changeLevel();
@@ -182,7 +182,6 @@ bool PlayState::hitBalloon(Balloon* b)
 		(*it)->addHit();
 		Uint32 numHits = (*it)->getNumHits();
 		int score = scoreBoard_->getScore() + (numHits - 1) * (numHits - 1) * POINTS_PER_BALLON;
-		if (score > 999) score = 999;
 		scoreBoard_->setScore(score);
 
 		if (rand() % 100 < 30)

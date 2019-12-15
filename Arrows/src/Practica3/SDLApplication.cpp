@@ -16,9 +16,11 @@ SDLApplication::SDLApplication() :
 	if (!window_) throw SDLError(SDL_GetError());
 	renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
 	if (!renderer_) throw SDLError(SDL_GetError());
+	TTF_Init();
 
 	// Init sub-systems
 	loadTextures();
+	loadFonts();
 
 	// Create Game State Machine
 	gameStateMachine_ = new GameStateMachine();
@@ -31,6 +33,14 @@ SDLApplication::~SDLApplication()
 	delete gameStateMachine_;
 	gameStateMachine_ = nullptr;
 
+	// Clear Fonts
+	for (std::pair<std::string, Font*> f : fonts_)
+	{
+		delete f.second;
+		f.second = nullptr;
+	}
+	fonts_.clear();
+
 	// Clear Textures
 	for (std::pair<std::string, Texture*> t : textures_)
 	{
@@ -40,6 +50,7 @@ SDLApplication::~SDLApplication()
 	textures_.clear();
 
 	// Close SDL
+	TTF_Quit();
 	SDL_DestroyRenderer(renderer_);
 	SDL_DestroyWindow(window_);
 	SDL_Quit();
@@ -61,6 +72,27 @@ void SDLApplication::loadTextures()
 		stream >> id >> filename >> numRows >> numCols;
 		textures_[id] = new Texture(renderer_);
 		textures_[id]->load(IMAGE_PATH + filename, numRows, numCols);		
+	}
+
+	stream.close();
+}
+
+void SDLApplication::loadFonts()
+{
+	std::ifstream stream;
+	stream.open(FONTS_FILE);
+	if (!stream.is_open()) throw FileNotFoundError("Couldn´t open" + FONTS_FILE + "\n");
+
+	Uint32 numFonts = 0;
+	std::string id, filename;
+	int size;
+	stream >> numFonts;
+
+	for (Uint32 i = 0; i < numFonts; i++)
+	{
+		stream >> id >> filename >> size;
+		fonts_[id] = new Font();
+		fonts_[id]->load(FONT_PATH + filename, size);
 	}
 
 	stream.close();

@@ -3,6 +3,7 @@
 
 #include <list>
 
+#include "Font.h"
 #include "Constants.h"
 #include "EventHandler.h"
 #include "SDLGameObject.h"

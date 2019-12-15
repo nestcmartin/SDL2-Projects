@@ -1,6 +1,9 @@
 #include "LeaderBoard.h"
+#include "SDLApplication.h"
 
-LeaderBoard::LeaderBoard()
+
+LeaderBoard::LeaderBoard(SDLApplication* a) :
+	app_(a)
 {
 }
 
@@ -17,7 +20,12 @@ void LeaderBoard::render() const
 {
 	for (int i = 0; i < 10; i++)
 	{
-		std::cout << leaderBoard_[i].name << ":\t" << leaderBoard_[i].score << "\n";
+		int w, h;
+		std::string s = leaderBoard_[i].name + " - " + std::to_string(leaderBoard_[i].score);
+		Texture* t = new Texture(app_->getRenderer(), s, app_->getFont("PAINT22"), { 0, 0, 0, 255 });
+		app_->getFont("PAINT22")->sizeOfText(s, w, h);
+		t->render({ static_cast<int>((WIN_WIDTH - w) / 2), static_cast<int>(130 + h * i), w, h });
+		delete t; t = nullptr;
 	}
 }
 
