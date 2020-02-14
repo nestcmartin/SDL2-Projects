@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{3F2AC9BD-320A-461B-94F6-712DB102E65C}</ProjectGuid>
+    <RootNamespace>Practica1</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\SDL2_image-2.0.1\include;$(SolutionDir)lib\SDL2_mixer-2.0.4\include;$(SolutionDir)lib\SDL2_net-2.0.1\include;$(SolutionDir)lib\SDL2_ttf-2.0.15\include;$(SolutionDir)lib\SDL2-2.0.10\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\SDL2_image-2.0.1\lib\x86;$(SolutionDir)lib\SDL2_mixer-2.0.4\lib\x86;$(SolutionDir)lib\SDL2_net-2.0.1\lib\x86;$(SolutionDir)lib\SDL2_ttf-2.0.15\lib\x86;$(SolutionDir)lib\SDL2-2.0.10\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_net.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\SDL2_image-2.0.1\include;$(SolutionDir)lib\SDL2_mixer-2.0.4\include;$(SolutionDir)lib\SDL2_net-2.0.1\include;$(SolutionDir)lib\SDL2_ttf-2.0.15\include;$(SolutionDir)lib\SDL2-2.0.10\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\SDL2_image-2.0.1\lib\x86;$(SolutionDir)lib\SDL2_mixer-2.0.4\lib\x86;$(SolutionDir)lib\SDL2_net-2.0.1\lib\x86;$(SolutionDir)lib\SDL2_ttf-2.0.15\lib\x86;$(SolutionDir)lib\SDL2-2.0.10\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_net.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Practica1\AudioManager.cpp" />
+    <ClCompile Include="..\..\src\Practica1\BallMoveBehaviour.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Collisions.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Component.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Entity.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Font.cpp" />
+    <ClCompile Include="..\..\src\Practica1\FontsManager.cpp" />
+    <ClCompile Include="..\..\src\Practica1\GameCtrl.cpp" />
+    <ClCompile Include="..\..\src\Practica1\GameLogic.cpp" />
+    <ClCompile Include="..\..\src\Practica1\InputHandler.cpp" />
+    <ClCompile Include="..\..\src\Practica1\jute.cpp" />
+    <ClCompile Include="..\..\src\Practica1\main.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Manager.cpp" />
+    <ClCompile Include="..\..\src\Practica1\ObjectPool.cpp" />
+    <ClCompile Include="..\..\src\Practica1\PaddleKBCtrl.cpp" />
+    <ClCompile Include="..\..\src\Practica1\PaddleMouseCtrl.cpp" />
+    <ClCompile Include="..\..\src\Practica1\PaddleMoveBehaviour.cpp" />
+    <ClCompile Include="..\..\src\Practica1\PingPong.cpp" />
+    <ClCompile Include="..\..\src\Practica1\RandomNumberGenerator.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Rectangle.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Resources.cpp" />
+    <ClCompile Include="..\..\src\Practica1\ScoreManager.cpp" />
+    <ClCompile Include="..\..\src\Practica1\ScoreViewer.cpp" />
+    <ClCompile Include="..\..\src\Practica1\SDLAudioManager.cpp" />
+    <ClCompile Include="..\..\src\Practica1\SDLFontsManager.cpp" />
+    <ClCompile Include="..\..\src\Practica1\SDLGame.cpp" />
+    <ClCompile Include="..\..\src\Practica1\SDLTexturesManager.cpp" />
+    <ClCompile Include="..\..\src\Practica1\sdl_macros.cpp" />
+    <ClCompile Include="..\..\src\Practica1\SimpleMoveBahviour.cpp" />
+    <ClCompile Include="..\..\src\Practica1\SRandBasedGenerator.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Texture.cpp" />
+    <ClCompile Include="..\..\src\Practica1\TexturesManager.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Transform.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Vector2D.cpp" />
+    <ClCompile Include="..\..\src\Practica1\VelocityVectorViewer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Practica1\AudioManager.h" />
+    <ClInclude Include="..\..\src\Practica1\BallMoveBehaviour.h" />
+    <ClInclude Include="..\..\src\Practica1\checkML.h" />
+    <ClInclude Include="..\..\src\Practica1\Collisions.h" />
+    <ClInclude Include="..\..\src\Practica1\Component.h" />
+    <ClInclude Include="..\..\src\Practica1\ecs.h" />
+    <ClInclude Include="..\..\src\Practica1\Entity.h" />
+    <ClInclude Include="..\..\src\Practica1\Font.h" />
+    <ClInclude Include="..\..\src\Practica1\FontsManager.h" />
+    <ClInclude Include="..\..\src\Practica1\GameCtrl.h" />
+    <ClInclude Include="..\..\src\Practica1\GameLogic.h" />
+    <ClInclude Include="..\..\src\Practica1\InputHandler.h" />
+    <ClInclude Include="..\..\src\Practica1\jute.h" />
+    <ClInclude Include="..\..\src\Practica1\Manager.h" />
+    <ClInclude Include="..\..\src\Practica1\ObjectPool.h" />
+    <ClInclude Include="..\..\src\Practica1\PaddleKBCtrl.h" />
+    <ClInclude Include="..\..\src\Practica1\PaddleMouseCtrl.h" />
+    <ClInclude Include="..\..\src\Practica1\PaddleMoveBehaviour.h" />
+    <ClInclude Include="..\..\src\Practica1\PingPong.h" />
+    <ClInclude Include="..\..\src\Practica1\RandomNumberGenerator.h" />
+    <ClInclude Include="..\..\src\Practica1\Rectangle.h" />
+    <ClInclude Include="..\..\src\Practica1\Resources.h" />
+    <ClInclude Include="..\..\src\Practica1\ScoreManager.h" />
+    <ClInclude Include="..\..\src\Practica1\ScoreViewer.h" />
+    <ClInclude Include="..\..\src\Practica1\SDLAudioManager.h" />
+    <ClInclude Include="..\..\src\Practica1\SDLFontsManager.h" />
+    <ClInclude Include="..\..\src\Practica1\SDLGame.h" />
+    <ClInclude Include="..\..\src\Practica1\SDLTexturesManager.h" />
+    <ClInclude Include="..\..\src\Practica1\SDL_macros.h" />
+    <ClInclude Include="..\..\src\Practica1\SimpleMoveBahviour.h" />
+    <ClInclude Include="..\..\src\Practica1\SRandBasedGenerator.h" />
+    <ClInclude Include="..\..\src\Practica1\Texture.h" />
+    <ClInclude Include="..\..\src\Practica1\TexturesManager.h" />
+    <ClInclude Include="..\..\src\Practica1\Transform.h" />
+    <ClInclude Include="..\..\src\Practica1\Vector2D.h" />
+    <ClInclude Include="..\..\src\Practica1\VelocityVectorViewer.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
