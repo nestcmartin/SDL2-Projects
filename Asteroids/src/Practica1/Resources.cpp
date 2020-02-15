@@ -10,7 +10,8 @@ std::vector<Resources::ImageInfo> Resources::images_
 	{ Explosion, "resources/images/explosion.png" },
 	{ Heart, "resources/images/heart.png" },
 	{ SpaceShips, "resources/images/spaceships.png" },
-	{ Star, "resources/images/star.png" }
+	{ Star, "resources/images/star.png" },
+	{ Bullet, "resources/images/whiterect.png" }
 };
 
 std::vector<Resources::TextMsgInfo> Resources::messages_

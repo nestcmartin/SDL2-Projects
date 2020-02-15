@@ -20,6 +20,7 @@ public:
 		Heart,
 		SpaceShips,
 		Star,
+		Bullet,
 
 		// Text Messages
 		HelloWorld,
