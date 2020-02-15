@@ -4,6 +4,10 @@
 #include "Asteroids.h"
 
 // Aquí hay que incluir todos los componentes que se usen
+#include "FighterMotion.h"
+#include "FighterCtrl.h"
+#include "Health.h"
+#include "FighterViewer.h"
 #include "GameCtrl.h"
 #include "GameLogic.h"
 #include "InputHandler.h"
@@ -38,6 +42,15 @@ void Asteroids::initGame()
 	// e->addComponent<Component2>();
 	// eTransform->setPos(game_->getWindowHeight() / 2 - 5, game_->getWindowHeight() / 2 - 25);
 	// eTransform->setWH(10, 50);
+
+	Entity* fighter = entityManager_->addEntity();
+	Transform* fighterTr = fighter->addComponent<Transform>();
+	fighter->addComponent<Health>(game_->getTextureManager()->getTexture(Resources::Heart));
+	fighter->addComponent<FighterViewer>(game_->getTextureManager()->getTexture(Resources::Airplanes));
+	fighter->addComponent<FighterCtrl>(SDLK_UP, SDLK_LEFT, SDLK_RIGHT);
+	fighter->addComponent<FighterMotion>();
+	fighterTr->setPos(game_->getWindowWidth() / 2 - 26, game_->getWindowHeight() / 2 - 37);
+	fighterTr->setWH(52, 75);
 	
 	Entity* gameManager = entityManager_->addEntity();
 	gameManager->addComponent<ScoreManager>();

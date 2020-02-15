@@ -17,6 +17,10 @@ namespace ECS
 		GameCtrl,
 		GameLogic,
 		VelocityVectorViewer,
+		FighterViewer,
+		Health,
+		FighterCtrl,
+		FighterMotion,
 		// YOU SHALL NOT PASS
 		_LastCmptId_
 	};
