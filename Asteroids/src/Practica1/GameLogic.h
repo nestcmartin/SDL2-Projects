@@ -1,19 +1,21 @@
-#pragma once
+#ifndef __GAME_LOGIC_H__
+#define __GAME_LOGIC_H__
 
 #include "Component.h"
 #include "ScoreManager.h"
 #include "Transform.h"
 
-class GameLogic: public Component {
+class GameLogic : public Component 
+{
 public:
-	GameLogic(Transform* ballTR, Transform* leftPaddleTR, Transform* rightPaddleTR);
+	GameLogic();
 	virtual ~GameLogic();
+	
 	void init() override;
 	void update() override;
+
 private:
-	Transform* ballTR_;
-	Transform* leftPaddleTR_;
-	Transform* rightPaddleTR_;
-	ScoreManager *scoreManager_;
+	ScoreManager* scoreManager_;
 };
 
+#endif // !__GAME_LOGIC_H__

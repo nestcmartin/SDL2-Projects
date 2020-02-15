@@ -1,33 +1,19 @@
-#pragma once
+#ifndef __SDL_MACROS__
+#define __SDL_MACROS__
 
 #include <string>
 #include <SDL.h>
 
-/*
- * This file includes some SDL related macros
- */
+// Función que realiza un casting automático a enteros de los parámetros de un rectángulo
+#define RECT(x, y, w, h) { static_cast<int>(x), static_cast<int>(y), static_cast<int>(w), static_cast<int>(h) }
 
-// the RECT macro is used to automatically cast the argument to integer (since in GameObject the
-// dimension, position, etc., are of type double
-#define RECT(x,y,w,h) {static_cast<int>(x),static_cast<int>(y),static_cast<int>(w),static_cast<int>(h)}
-
-// the COLOREXP macro is used to expand an SDL_Color variable into its components, so instead of writing
-//
-//    SDL_SetRenderDrawColor(game_->getRenderer(), color.r, color.g, color.b, color.a);
-//
-// we can simply write
-//
-// SDL_SetRenderDrawColor(game_->getRenderer(), COLOREXP(color));
+// Función que descompone un SDL_Color en sus componentes RRBA
 #define COLOREXP(color) color.r, color.g, color.b, color.a
 
-// Write colors in an easy way in hex, e.g., 0xaaff12ff. Instead of writing
-//
-//   { 0x44, 0x11, 0x22, 0x33 }
-//
-// simply write {COLOR(0x44112233)}
-//
+// Función que permite escribir un SDL_Color como número hexadecimal
 #define COLOR(num) static_cast<Uint8>((num >> 24) & 0xff), static_cast<Uint8>((num >> 16) & 0xff), static_cast<Uint8>((num >> 8) & 0xff), static_cast<Uint8>(num & 0xff)
 
-// converts string of the form "#4455AAFF" to a corresponding SDL_Color
-//
+// Función que convierte un código de color hexadecimal en un SDL_Color
 SDL_Color hex2sdlcolor(std::string input);
+
+#endif // !__SDL_MACROS__

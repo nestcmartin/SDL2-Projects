@@ -1,57 +1,54 @@
+#include <assert.h>
 #include "SDLFontsManager.h"
 
 
-#include <assert.h>
-
 SDLFontsManager::SDLFontsManager() :
-		initialized_(false) {
+	initialized_(false) 
+{
 }
 
-SDLFontsManager::~SDLFontsManager() {
-	if (!initialized_)
-		return;
+SDLFontsManager::~SDLFontsManager() 
+{
+	if (!initialized_) return;
 
-	// free all sound effect chucks
-	for (const auto &font : fonts_) {
-		if (font.second != nullptr)
-			delete font.second;
+	for (const auto& font : fonts_) 
+	{
+		if (font.second) delete font.second;
 	}
 
 	TTF_Quit();
 }
 
-bool SDLFontsManager::init() {
-	if (initialized_)
-		return false;
+bool SDLFontsManager::init() 
+{
+	if (initialized_) return false;
 
 	int ttfInit_r = TTF_Init();
 	assert(ttfInit_r == 0);
-	/*
-	 if ( r != 0 ) {
-	 throw "Something went wrong with TTF_init";
-	 }
-	 */
-	initialized_ = true;
 
+	initialized_ = true;
 	return true;
 }
 
-Font* SDLFontsManager::getFont(int tag) {
+Font* SDLFontsManager::getFont(int tag) 
+{
 	return fonts_[tag];
 }
 
-bool SDLFontsManager::loadFont(int tag, string fileName, int size) {
-	if (!initialized_)
-		return false;
+bool SDLFontsManager::loadFont(int tag, std::string fileName, int size) 
+{
+	if (!initialized_) return false;
 
-	Font *font = new Font();
-	if (font->load(fileName, size)) {
-		Font *curr = fonts_[tag];
-		if (curr != nullptr)
-			delete curr;
+	Font* font = new Font();
+	if (font->load(fileName, size)) 
+	{
+		Font* curr = fonts_[tag];
+		if (curr) delete curr;
 		fonts_[tag] = font;
 		return true;
-	} else {
+	}
+	else 
+	{
 		delete font;
 		return false;
 	}

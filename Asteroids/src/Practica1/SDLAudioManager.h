@@ -1,24 +1,29 @@
-#pragma once
-
-#include "AudioManager.h"
-#include <SDL_mixer.h>
+#ifndef __SDL_AUDIO_MANAGER_H__
+#define __SDL_AUDIO_MANAGER_H__
 
 #include <map>
+#include <SDL_mixer.h>
 
-/*
- *
- */
-class SDLAudioManager: public AudioManager {
+#include "AudioManager.h"
+
+class SDLAudioManager : public AudioManager 
+{
+private:
+	bool initialized_;
+	int channels_;
+
+	std::map<int, Mix_Chunk*> chunks_;
+	std::map<int, Mix_Music*> music_;
+
 public:
 	SDLAudioManager();
 	SDLAudioManager(int channels);
 	virtual ~SDLAudioManager();
 
-	// supposed to be called before start using the object
 	virtual bool init();
 
-	// sound effects
-	virtual bool loadSound(int tag, string fileName);
+	// Sound Effects
+	virtual bool loadSound(int tag, std::string fileName);
 	virtual int playChannel(int tag, int loops, int channel);
 	virtual void pauseChannel(int channel);
 	virtual void resumeChannel(int channel);
@@ -26,18 +31,13 @@ public:
 	virtual int setChannelVolume(int volume, int channel);
 	virtual int channels();
 
-	// music
-	virtual bool loadMusic(int tag, string fileName);
+	// Music
+	virtual bool loadMusic(int tag, std::string fileName);
 	virtual void playMusic(int tag, int loops);
 	virtual int setMusicVolume(int volume);
 	virtual void haltMusic();
 	virtual void pauseMusic();
 	virtual void resumeMusic();
-
-private:
-	bool initialized_;
-	int channels_;
-	map<int, Mix_Chunk*> chunks_;
-	map<int, Mix_Music*> music_;
 };
 
+#endif // !__SDL_AUDIO_MANAGER_H__

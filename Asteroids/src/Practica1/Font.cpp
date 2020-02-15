@@ -2,39 +2,39 @@
 
 #include <iostream>
 
-using namespace std;
-
 Font::Font() :
-		font_(nullptr) {
+	font_(nullptr) 
+{
 }
 
-Font::Font(string fileName, int size) {
+Font::Font(std::string fileName, int size) 
+{
 	load(fileName, size);
 }
 
-Font::~Font() {
+Font::~Font() 
+{
 	close();
 }
 
-bool Font::load(string fileName, int size) {
+bool Font::load(std::string fileName, int size)
+{
 	font_ = TTF_OpenFont(fileName.c_str(), size);
-	if (font_ == nullptr) {
-		throw "Couldn't load font: " + fileName;
-	}
+	if (!font_) throw "Couldn't load font: " + fileName;
 	return font_;
 }
 
-void Font::close() {
-	if (font_) {
+void Font::close() 
+{
+	if (font_) 
+	{
 		TTF_CloseFont(font_);
 		font_ = nullptr;
 	}
 }
 
-SDL_Surface* Font::renderText(string text, SDL_Color color) const {
-	if (font_) {
-		return TTF_RenderText_Solid(font_, text.c_str(), color);
-	} else {
-		return nullptr;
-	}
+SDL_Surface* Font::renderText(std::string text, SDL_Color color) const 
+{
+	if (font_) return TTF_RenderText_Solid(font_, text.c_str(), color);
+	else return nullptr;
 }

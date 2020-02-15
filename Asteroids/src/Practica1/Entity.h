@@ -1,25 +1,33 @@
-#pragma once
+#ifndef __ENTITY_H__
+#define __ENTITY_H__
 
 #include <iostream>
 #include <array>
-#include "Component.h"
-#include "Manager.h"
+
 #include "SDLGame.h"
+#include "Component.h"
+#include "EntityManager.h"
 
-class EntityManager;
+class Entity 
+{
+private:
+	SDLGame* game_;
+	EntityManager* entityManager_;
 
-class Entity {
+	std::vector<std::unique_ptr<Component>> components_;
+	std::array<Component*, ECS::maxComponents> componentsArray_ = {};
+
 public:
-	Entity(SDLGame *game, EntityManager* mngr);
+	Entity(SDLGame* game, EntityManager* mngr);
 	virtual ~Entity();
 
-	EntityManager* getEntityMangr() {
-		return mngr_;
-	}
+	inline EntityManager* getEntityManager() { return entityManager_; }
+	inline bool hasComponent(ECS::CmpIdType id) { return componentsArray_[id] != nullptr; }
 
-	template<typename T, typename ... TArgs>
-	T* addComponent(TArgs ...mArgs) {
-		T *c(new T(std::forward<TArgs>(mArgs)...));
+	template<typename T, typename ...TArgs>
+	T* addComponent(TArgs ...mArgs)
+	{
+		T* c(new T(std::forward<TArgs>(mArgs)...));
 		std::unique_ptr<Component> uPtr(c);
 		components_.push_back(std::move(uPtr));
 		componentsArray_[c->getId()] = c;
@@ -30,30 +38,13 @@ public:
 	}
 
 	template<typename T>
-	T* getComponent(ecs::CmpIdType id) {
+	T* getComponent(ECS::CmpIdType id)
+	{
 		return static_cast<T*>(componentsArray_[id]);
 	}
 
-	bool hasComponent(ecs::CmpIdType id) {
-		return componentsArray_[id] != nullptr;
-	}
-
-	void update() {
-		for (auto &c : components_) {
-			c->update();
-		}
-	}
-
-	void draw() {
-		for (auto &c : components_) {
-			c->draw();
-		}
-	}
-private:
-	SDLGame *game_;
-	EntityManager* mngr_;
-
-	std::vector<unique_ptr<Component>> components_;
-	std::array<Component*,ecs::maxComponents> componentsArray_ = {};
+	void update();
+	void draw();
 };
 
+#endif // !__ENTITY_H__

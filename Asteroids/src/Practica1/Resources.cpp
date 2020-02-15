@@ -1,41 +1,48 @@
 #include "Resources.h"
 #include "SDL_macros.h"
 
-vector<Resources::FontInfo> Resources::fonts_ {
-//
-		{ ARIAL16, "resources/fonts/ARIAL.ttf", 16 }, //
-		{ ARIAL24, "resources/fonts/ARIAL.ttf", 24 } //
+std::vector<Resources::ImageInfo> Resources::images_
+{
+	{ Airplanes, "resources/images/airplanes.png" },
+	{ Asteroid, "resources/images/asteroid.png" },
+	{ Badges, "resources/images/badges.png" },
+	{ BlackHole, "resources/images/black-hole.png" },
+	{ Explosion, "resources/images/explosion.png" },
+	{ Heart, "resources/images/heart.png" },
+	{ SpaceShips, "resources/images/spaceships.png" },
+	{ Star, "resources/images/star.png" }
 };
 
-vector<Resources::ImageInfo> Resources::images_ {
-//
-		{ Blank, "resources/images/blank.png" }, //
-		{ TennisBall, "resources/images/tennis_ball.png" }, //
-		{ KeyBoardIcon, "resources/images/keyboard.png" }, //
-		{ MouseIcon, "resources/images/mouse.png" }, //
-		{ AIIcon, "resources/images/ai.png" }, //
-		{ SpaceShips, "resources/images/spaceships.png" }, //
-		{ Airplanes, "resources/images/airplanes.png" }, //
-		{ Star, "resources/images/star.png" } //
+std::vector<Resources::TextMsgInfo> Resources::messages_
+{
+	{ HelloWorld, "Hello World", { COLOR(0xaaffffff) }, ARIAL16 },
+	{ PresAnyKey, "Press Any Key...", { COLOR(0xaaffbbff) }, ARIAL24 },
+	{ GameOver, "Game Over!", { COLOR(0xffffbbff) }, ARIAL24 }
 };
 
-vector<Resources::TextMsgInfo> Resources::messages_ {
-//
-		{ HelloWorld, "Hello World", { COLOR(0xaaffffff) }, ARIAL16 }, //
-		{ PresAnyKey, "Press Any Key ...", { COLOR(0xaaffbbff) }, ARIAL24 }, //
-		{ GameOver, "Game Over", { COLOR(0xffffbbff) }, ARIAL24 } //
+std::vector<Resources::MusicInfo> Resources::musics_
+{
+	{ Boooo, "resources/sound/boooo.wav" },
+	{ Cheer, "resources/sound/cheer.wav" },
+	{ ImperialMarch, "resources/sound/imperial_march.wav" }
 };
 
-vector<Resources::MusicInfo> Resources::musics_ {
-//
-		{ Beat, "resources/sound/beat.wav" }, //
-		{ Cheer, "resources/sound/cheer.wav" }, //
-		{ Boooo, "resources/sound/boooo.wav" } //
+std::vector<Resources::SoundInfo> Resources::sounds_
+{
+	{ ExplosionSound, "resources/sound/explosion.wav" },
+	{ GunShot, "resources/sound/gunshot.wav" }
 };
 
-vector<Resources::SoundInfo> Resources::sounds_ {
-//
-		{ Wall_Hit, "resources/sound/wall_hit.wav" }, //
-		{ Paddle_Hit, "resources/sound/paddle_hit.wav" } //
+std::vector<Resources::FontInfo> Resources::fonts_
+{
+	{ ARIAL16, "resources/fonts/ARIAL.ttf", 16 },
+	{ ARIAL24, "resources/fonts/ARIAL.ttf", 24 },
+	{ CAPTURE16, "resources/fonts/Capture_it.ttf", 16 },
+	{ CAPTURE24, "resources/fonts/Capture_it.ttf", 24 },
+	{ NES16, "resources/fonts/NES-Chimera.ttf", 16 },
+	{ NES24, "resources/fonts/NES-Chimera.ttf", 24 },
+	{ PAINT16, "resources/fonts/Paintbrush.ttf", 16 },
+	{ PAINT24, "resources/fonts/Paintbrush.ttf", 24 },
+	{ PIXEL16, "resources/fonts/Pixeled.ttf", 16 },
+	{ PIXEL24, "resources/fonts/Pixeled.ttf", 24 },
 };
-

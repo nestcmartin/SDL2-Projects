@@ -1,67 +1,53 @@
-#pragma once
+#ifndef __TEXTURE_H__
+#define __TEXTURE_H__
 
-#include <SDL.h>
-#include "Font.h"
 #include <string>
+#include <SDL.h>
 
-using namespace std;
+#include "Font.h"
 
-class Texture {
-public:
-	Texture();
-	Texture(SDL_Renderer *renderer, string fileName);
-	Texture(SDL_Renderer *renderer, string text, Font &font,
-			const SDL_Color color);
-	virtual ~Texture();
-
-	inline int getWidth() {
-		return width_;
-	}
-
-	inline int getHeight() {
-		return height_;
-	}
-
-	inline bool isReady() {
-		return texture_ != nullptr;
-	}
-
-	// load from image or text, in both cases we should provide a rendered
-	bool loadFromImg(SDL_Renderer *renderer, string fileName);
-	bool loadFromText(SDL_Renderer *renderer, string texto, Font &font,
-			SDL_Color color = { 0, 0, 0, 255 });
-
-	// render the complete texture at position (x,y). We either provide
-	// a renderer or use the one used at construction
-	void render(SDL_Renderer *renderer, int x, int y) const;
-	inline void render(int x, int y) const {
-		render(renderer_, x, y);
-	}
-
-	// render part of the texture (clip) to a destination rectangle, if no
-	// clip provided it renders all texture (scaled to dest). We either provide
-	// a renderer or use the one used at construction
-	void render(SDL_Renderer *renderer, SDL_Rect const &dest, SDL_Rect *clip =
-			nullptr) const;
-	inline void render(SDL_Rect const &dest, SDL_Rect *clip = nullptr) const {
-		render(renderer_, dest, clip);
-	}
-
-	// render part of the texture (clip) to a destination rectangle with a rotation,
-	// if no clip provided it renders all texture (scaled to dest). We either provide
-	// a renderer or use the one used at construction
-	void render(SDL_Renderer *renderer, SDL_Rect const &dest, double angle,
-			SDL_Rect *clip = nullptr) const;
-	void render(SDL_Rect const &dest, double angle,
-			SDL_Rect *clip = nullptr) const {
-		render(renderer_, dest, angle, clip);
-	}
-
-	void close();
-
+class Texture 
+{
 private:
-	SDL_Texture *texture_;
-	SDL_Renderer *renderer_;
+	SDL_Texture* texture_;
+	SDL_Renderer* renderer_;
+
 	int width_;
 	int height_;
+
+public:
+	Texture();
+	Texture(SDL_Renderer* renderer, std::string fileName);
+	Texture(SDL_Renderer* renderer, std::string text, Font& font, const SDL_Color color);
+	virtual ~Texture();
+
+	inline int getWidth() { return width_; }
+	inline int getHeight() { return height_; }
+	inline bool isReady() { return texture_ != nullptr; }
+
+	// Carga una textura desde un archivo de imagen
+	bool loadFromImg(SDL_Renderer* renderer, std::string fileName);
+	// Carga una textura a partir de un texto y una fuente
+	bool loadFromText(SDL_Renderer* renderer, std::string texto, Font& font, SDL_Color color = { 0, 0, 0, 255 });
+
+	// Renderiza una textura completa en la posición x, y
+	// Si no se proporciona renderer se utiliza el proporcionado en la constructora
+	void render(SDL_Renderer* renderer, int x, int y) const;
+	inline void render(int x, int y) const { render(renderer_, x, y); }
+
+	// Renderiza una parte de una texura (rectángulo fuente) en un rectángulo destino
+	// Si no se proporciona un rectángulo fuente se renderiza toda la textura escalada al rectángulo destino
+	// Si no se proporciona renderer se utiliza el proporcionado en la constructora
+	void render(SDL_Renderer* renderer, SDL_Rect const& dest, SDL_Rect* clip = nullptr) const;
+	inline void render(SDL_Rect const& dest, SDL_Rect* clip = nullptr) const { render(renderer_, dest, clip); }
+
+	// Renderiza una parte de una texura (rectángulo fuente) en un rectángulo destino con rotación
+	// Si no se proporciona un rectángulo fuente se renderiza toda la textura escalada al rectángulo destino
+	// Si no se proporciona renderer se utiliza el proporcionado en la constructora
+	void render(SDL_Renderer* renderer, SDL_Rect const& dest, double angle, SDL_Rect* clip = nullptr) const;
+	void render(SDL_Rect const& dest, double angle, SDL_Rect* clip = nullptr) const { render(renderer_, dest, angle, clip); }
+
+	void close();
 };
+
+#endif // !__TEXTURE_H__

@@ -1,30 +1,28 @@
-#pragma once
+#ifndef __SDL_TEXTURES_MANAGER_H__
+#define __SDL_TEXTURES_MANAGER_H__
 
-#include "TexturesManager.h"
 #include <map>
+#include "TexturesManager.h"
 
-/*
- *
- */
-class SDLTexturesManager: public TexturesManager {
+class SDLTexturesManager : public TexturesManager 
+{
+private:
+	bool initialized_;
+	std::map<int, Texture*> textures_;
+
 public:
 	SDLTexturesManager();
 	virtual ~SDLTexturesManager();
 
-	// supposed to be called before start using the object
+	inline Texture* getTexture(int tag) { return textures_[tag]; }
+	
 	virtual bool init();
 
-	inline Texture* getTexture(int tag) {
-		return textures_[tag];
-	}
+	bool loadFromImg(int tag, SDL_Renderer* renderer, std::string fileName);
+	bool loadFromText(int tag, SDL_Renderer* renderer, std::string text, Font& font, SDL_Color color);
 
-	bool loadFromImg(int tag, SDL_Renderer *renderer, string fileName);
-	bool loadFromText(int tag, SDL_Renderer *renderer, string text, Font &font,
-			SDL_Color color);
 private:
-	void storeTexture(int tag, Texture *texture);
-
-	bool initialized_;
-	map<int, Texture*> textures_;
-
+	void storeTexture(int tag, Texture* texture);
 };
+
+#endif // !__SDL_TEXTURES_MANAGER_H__

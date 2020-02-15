@@ -1,79 +1,98 @@
-#pragma once
+#ifndef __RESOURCES_H__
+#define __RESOURCES_H__
 
-#include <SDL.h>
 #include <string>
 #include <vector>
+#include <SDL.h>
 
-using namespace std;
-
-class Resources {
+class Resources 
+{
 public:
 
-	enum TextureId : int {
-		// images
-		Blank,
-		TennisBall,
-		KeyBoardIcon,
-		MouseIcon,
-		AIIcon,
-		SpaceShips,
+	enum TextureId : int 
+	{
+		// Images
 		Airplanes,
+		Asteroid,
+		Badges,
+		BlackHole,
+		Explosion,
+		Heart,
+		SpaceShips,
 		Star,
 
-		// text
+		// Text Messages
 		HelloWorld,
 		PresAnyKey,
 		GameOver
 	};
 
-	enum AudioId : int {
-		// music
-		Beat,
-		Cheer,
+	enum AudioId : int 
+	{
+		// Music
 		Boooo,
+		Cheer,
+		ImperialMarch,
 
-		// sound effects
-		Wall_Hit,
-		Paddle_Hit
+		// Sound Effects
+		ExplosionSound,
+		GunShot
 	};
 
-	enum FontId : int {
-		ARIAL16, ARIAL24,
+	enum FontId : int
+	{
+		// Fonts
+		ARIAL16, 
+		ARIAL24,
+		CAPTURE16,
+		CAPTURE24,
+		NES16,
+		NES24,
+		PAINT16,
+		PAINT24,
+		PIXEL16,
+		PIXEL24
 	};
 
-	struct FontInfo {
-		FontId id;
-		string fileName;
-		int size;
-	};
-
-	struct ImageInfo {
+	struct ImageInfo
+	{
 		TextureId id;
-		string fileName;
+		std::string fileName;
 	};
 
-	struct TextMsgInfo {
+	struct TextMsgInfo
+	{
 		TextureId id;
-		string msg;
+		std::string msg;
 		SDL_Color color;
 		FontId fontId;
 	};
 
-	struct MusicInfo {
+	struct MusicInfo 
+	{
 		AudioId id;
-		string fileName;
+		std::string fileName;
 	};
 
-	struct SoundInfo {
+	struct SoundInfo 
+	{
 		AudioId id;
-		string fileName;
-
+		std::string fileName;
 	};
 
-	static vector<FontInfo> fonts_; // initialized in .cpp
-	static vector<ImageInfo> images_; // initialized in .cpp
-	static vector<TextMsgInfo> messages_; // initialized in .cpp
-	static vector<MusicInfo> musics_; // initialized in .cpp
-	static vector<SoundInfo> sounds_; // initialized in .cpp
+	struct FontInfo
+	{
+		FontId id;
+		std::string fileName;
+		int size;
+	};
+
+	static std::vector<ImageInfo> images_; 
+	static std::vector<TextMsgInfo> messages_; 
+	static std::vector<MusicInfo> musics_; 
+	static std::vector<SoundInfo> sounds_; 
+	static std::vector<FontInfo> fonts_;
 
 };
+
+#endif // !__RESOURCES_H__

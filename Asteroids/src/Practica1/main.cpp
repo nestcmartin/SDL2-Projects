@@ -1,23 +1,27 @@
 #include <iostream>
+#include "checkML.h"
+#include "Asteroids.h"
 
-#include "PingPong.h"
+int main(int argc, char** argv) 
+{
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-using namespace std;
-
-void start() {
-	PingPong g;
-	g.start();
-}
-
-int main(int ac, char **av) {
-	try {
-		start();
-	} catch (std::string &e) { // catch errors thrown as strings
-		cerr << e << endl;
-	} catch (const std::exception &e) { // catch other exceptions
-		cerr << e.what();
-	} catch (...) {
-		cerr << "Caught and exception of unknown type ..";
+	try 
+	{
+		Asteroids g;
+		g.run();
+	}
+	catch (std::string& e) 
+	{
+		std::cerr << e << std::endl;
+	}
+	catch (const std::exception& e) 
+	{
+		std::cerr << e.what();
+	}
+	catch (...) 
+	{
+		std::cerr << "Caught and exception of unknown type ..";
 	}
 
 	return 0;

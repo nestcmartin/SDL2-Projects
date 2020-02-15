@@ -1,18 +1,23 @@
-#pragma once
+#ifndef __GAME_CTRL_H__
+#define __GAME_CTRL_H__
 
 #include "Component.h"
-#include "ScoreManager.h"
-#include "Transform.h"
 
-class GameCtrl: public Component {
+#include "Transform.h"
+#include "ScoreManager.h"
+
+class GameCtrl : public Component 
+{
 public:
-	GameCtrl(Transform *ballTR);
+	GameCtrl();
 	virtual ~GameCtrl();
+
 	void init() override;
 	void update() override;
 	void draw() override;
+
 private:
-	Transform *ballTR_;
-	ScoreManager *scoreManager_;
+	ScoreManager* scoreManager_;
 };
 
+#endif // !__GAME_CTRL_H__
