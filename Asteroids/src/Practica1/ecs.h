@@ -11,16 +11,22 @@ namespace ECS
 	using CmpIdType = std::size_t;
 	enum ComponentId : CmpIdType {
 		Transform = 0,
-		Rectangle,
-		ScoreManager,
-		ScoreViewer,
-		GameCtrl,
-		GameLogic,
 		VelocityVectorViewer,
 		FighterViewer,
 		Health,
 		FighterCtrl,
+		Gun,
 		FighterMotion,
+		AsteroidsPool,
+		AsteroidsMotion,
+		AsteroidsViewer,
+		BulletsPool,
+		BulletsMotion,
+		BulletsViewer,
+		GameCtrl,
+		ScoreManager,
+		ScoreViewer,
+		GameLogic,
 		// YOU SHALL NOT PASS
 		_LastCmptId_
 	};

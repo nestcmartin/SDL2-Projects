@@ -20,7 +20,7 @@ public:
 	inline double getY() const { return y_; }
 	inline void setX(double x) { x_ = x; }
 	inline void setY(double y) { y_ = y; }
-	inline void set(const Vector2D& v) { x_ = v.x_; y_ = v.y_; }
+    inline void set(const Vector2D& v) { x_ = v.x_; y_ = v.y_; }
 	inline void set(double x, double y) { x_ = x; y_ = y; }
 	inline double magnitude() const { return sqrt(pow(x_, 2) + pow(y_, 2)); }
 

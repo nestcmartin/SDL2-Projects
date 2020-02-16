@@ -25,7 +25,8 @@ public:
 		// Text Messages
 		HelloWorld,
 		PresAnyKey,
-		GameOver
+		GameOverWin,
+		GameOverLose
 	};
 
 	enum AudioId : int 

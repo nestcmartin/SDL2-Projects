@@ -149,7 +149,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\Practica1\Asteroid.cpp" />
+    <ClCompile Include="..\..\src\Practica1\AsteroidsMotion.cpp" />
+    <ClCompile Include="..\..\src\Practica1\AsteroidsPool.cpp" />
+    <ClCompile Include="..\..\src\Practica1\AsteroidsViewer.cpp" />
     <ClCompile Include="..\..\src\Practica1\AudioManager.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Bullet.cpp" />
+    <ClCompile Include="..\..\src\Practica1\BulletsMotion.cpp" />
+    <ClCompile Include="..\..\src\Practica1\BulletsPool.cpp" />
+    <ClCompile Include="..\..\src\Practica1\BulletsViewer.cpp" />
     <ClCompile Include="..\..\src\Practica1\Collisions.cpp" />
     <ClCompile Include="..\..\src\Practica1\Component.cpp" />
     <ClCompile Include="..\..\src\Practica1\Entity.cpp" />
@@ -160,6 +168,7 @@
     <ClCompile Include="..\..\src\Practica1\FontsManager.cpp" />
     <ClCompile Include="..\..\src\Practica1\GameCtrl.cpp" />
     <ClCompile Include="..\..\src\Practica1\GameLogic.cpp" />
+    <ClCompile Include="..\..\src\Practica1\Gun.cpp" />
     <ClCompile Include="..\..\src\Practica1\Health.cpp" />
     <ClCompile Include="..\..\src\Practica1\InputHandler.cpp" />
     <ClCompile Include="..\..\src\Practica1\jute.cpp" />
@@ -168,7 +177,6 @@
     <ClCompile Include="..\..\src\Practica1\ObjectPool.cpp" />
     <ClCompile Include="..\..\src\Practica1\Asteroids.cpp" />
     <ClCompile Include="..\..\src\Practica1\RandomNumberGenerator.cpp" />
-    <ClCompile Include="..\..\src\Practica1\Rectangle.cpp" />
     <ClCompile Include="..\..\src\Practica1\Resources.cpp" />
     <ClCompile Include="..\..\src\Practica1\ScoreManager.cpp" />
     <ClCompile Include="..\..\src\Practica1\ScoreViewer.cpp" />
@@ -185,7 +193,15 @@
     <ClCompile Include="..\..\src\Practica1\VelocityVectorViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\Practica1\Asteroid.h" />
+    <ClInclude Include="..\..\src\Practica1\AsteroidsMotion.h" />
+    <ClInclude Include="..\..\src\Practica1\AsteroidsPool.h" />
+    <ClInclude Include="..\..\src\Practica1\AsteroidsViewer.h" />
     <ClInclude Include="..\..\src\Practica1\AudioManager.h" />
+    <ClInclude Include="..\..\src\Practica1\Bullet.h" />
+    <ClInclude Include="..\..\src\Practica1\BulletsMotion.h" />
+    <ClInclude Include="..\..\src\Practica1\BulletsPool.h" />
+    <ClInclude Include="..\..\src\Practica1\BulletsViewer.h" />
     <ClInclude Include="..\..\src\Practica1\checkML.h" />
     <ClInclude Include="..\..\src\Practica1\Collisions.h" />
     <ClInclude Include="..\..\src\Practica1\Component.h" />
@@ -198,6 +214,7 @@
     <ClInclude Include="..\..\src\Practica1\FontsManager.h" />
     <ClInclude Include="..\..\src\Practica1\GameCtrl.h" />
     <ClInclude Include="..\..\src\Practica1\GameLogic.h" />
+    <ClInclude Include="..\..\src\Practica1\Gun.h" />
     <ClInclude Include="..\..\src\Practica1\Health.h" />
     <ClInclude Include="..\..\src\Practica1\InputHandler.h" />
     <ClInclude Include="..\..\src\Practica1\jute.h" />
@@ -205,7 +222,6 @@
     <ClInclude Include="..\..\src\Practica1\ObjectPool.h" />
     <ClInclude Include="..\..\src\Practica1\Asteroids.h" />
     <ClInclude Include="..\..\src\Practica1\RandomNumberGenerator.h" />
-    <ClInclude Include="..\..\src\Practica1\Rectangle.h" />
     <ClInclude Include="..\..\src\Practica1\Resources.h" />
     <ClInclude Include="..\..\src\Practica1\ScoreManager.h" />
     <ClInclude Include="..\..\src\Practica1\ScoreViewer.h" />

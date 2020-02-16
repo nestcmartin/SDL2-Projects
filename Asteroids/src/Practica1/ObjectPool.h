@@ -9,12 +9,32 @@ template<typename T, int SIZE>
 class ObjectPool 
 {
 public:
-	ObjectPool(std::function<bool(T*)> f);
-	virtual ~ObjectPool();
+	ObjectPool(std::function<bool(T*)> f)
+	{
+		inUseF_ = f;
+		for (auto& b : objs_)
+		{
+			objsPtrs_.push_back(&b);
+		}
+	}
 
-	const std::vector<T*>& getPool() { return objsPtrs_; }
+	~ObjectPool()
+	{
+	}
 
-	T* getObj();
+	T* getObj()
+	{
+		for (auto& o : objs_)
+		{
+			if (!inUseF_(&o)) return &o;
+		}
+		return nullptr;
+	}
+
+	const std::vector<T*>& getPool()
+	{
+		return objsPtrs_;
+	}
 
 private:
 	std::function<bool(T*)> inUseF_;

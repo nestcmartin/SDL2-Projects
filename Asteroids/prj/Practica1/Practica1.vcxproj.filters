@@ -78,14 +78,8 @@
     <ClCompile Include="..\..\src\Practica1\ScoreManager.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica1\Rectangle.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Practica1\EntityManager.cpp">
       <Filter>Archivos de origen\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica1\ObjectPool.cpp">
-      <Filter>Archivos de origen\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Practica1\Resources.cpp">
       <Filter>Archivos de origen\Resources</Filter>
@@ -141,6 +135,36 @@
     <ClCompile Include="..\..\src\Practica1\FighterMotion.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Practica1\ObjectPool.cpp">
+      <Filter>Archivos de origen\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica1\Bullet.cpp">
+      <Filter>Archivos de origen\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica1\BulletsPool.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica1\Asteroid.cpp">
+      <Filter>Archivos de origen\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica1\BulletsMotion.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica1\BulletsViewer.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica1\Gun.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica1\AsteroidsPool.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica1\AsteroidsMotion.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica1\AsteroidsViewer.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Practica1\SDLGame.h">
@@ -191,14 +215,8 @@
     <ClInclude Include="..\..\src\Practica1\ScoreManager.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica1\Rectangle.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Practica1\EntityManager.h">
       <Filter>Archivos de encabezado\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica1\ObjectPool.h">
-      <Filter>Archivos de encabezado\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica1\Resources.h">
       <Filter>Archivos de encabezado\Resources</Filter>
@@ -246,6 +264,36 @@
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica1\FighterMotion.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica1\ObjectPool.h">
+      <Filter>Archivos de encabezado\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica1\Bullet.h">
+      <Filter>Archivos de encabezado\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica1\BulletsPool.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica1\Asteroid.h">
+      <Filter>Archivos de encabezado\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica1\BulletsMotion.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica1\BulletsViewer.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica1\Gun.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica1\AsteroidsPool.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica1\AsteroidsMotion.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica1\AsteroidsViewer.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>

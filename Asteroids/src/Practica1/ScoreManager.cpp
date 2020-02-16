@@ -2,11 +2,14 @@
 
 ScoreManager::ScoreManager() :
 	Component(ECS::ScoreManager),
-	running_(false)
+	score_(0),
+	running_(false),
+	gameOver_(false),
+	win_(false)
 {
 }
 
-ScoreManager::~ScoreManager() 
+ScoreManager::~ScoreManager()
 {
 }
 

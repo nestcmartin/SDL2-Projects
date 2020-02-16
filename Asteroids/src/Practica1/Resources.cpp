@@ -17,8 +17,9 @@ std::vector<Resources::ImageInfo> Resources::images_
 std::vector<Resources::TextMsgInfo> Resources::messages_
 {
 	{ HelloWorld, "Hello World", { COLOR(0xaaffffff) }, ARIAL16 },
-	{ PresAnyKey, "Press Any Key...", { COLOR(0xaaffbbff) }, ARIAL24 },
-	{ GameOver, "Game Over!", { COLOR(0xffffbbff) }, ARIAL24 }
+	{ PresAnyKey, "Press Any Key To Start...", { COLOR(0xaaffbbff) }, ARIAL24 },
+	{ GameOverWin, "Game Over! You Win!", { COLOR(0xffffbbff) }, ARIAL24 },
+	{ GameOverLose, "Game Over! You Lose!", { COLOR(0xffffbbff) }, ARIAL24 }
 };
 
 std::vector<Resources::MusicInfo> Resources::musics_
