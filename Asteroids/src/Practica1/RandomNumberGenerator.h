@@ -13,4 +13,3 @@ public:
 };
 
 #endif // !__RANDOM_NUMBER_GENERATOR_H__
-

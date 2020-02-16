@@ -12,4 +12,3 @@ ScoreManager::ScoreManager() :
 ScoreManager::~ScoreManager()
 {
 }
-

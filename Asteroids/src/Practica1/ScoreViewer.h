@@ -6,15 +6,15 @@
 
 class ScoreViewer : public Component 
 {
+private:
+	ScoreManager* scoreManager_;
+
 public:
 	ScoreViewer();
 	virtual ~ScoreViewer();
 	
 	void init() override;
 	void draw() override;
-
-private:
-	ScoreManager* scoreManager_;
 };
 
 #endif // !__SCORE_VIEWER_H__

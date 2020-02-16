@@ -108,4 +108,3 @@ void SDLGame::closeResources()
 	delete randomGenerator_;
 	delete audioManager_;
 }
-
