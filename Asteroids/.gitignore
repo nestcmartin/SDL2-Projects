@@ -7,3 +7,4 @@ obj/
 *.iobj
 *.ipdb
 *.user
+.vscode/
