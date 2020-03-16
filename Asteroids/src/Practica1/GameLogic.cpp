@@ -83,7 +83,6 @@ void GameLogic::update()
 
 							scoreManager_->setScore(scoreManager_->getScore() + 1);
 
-							std::cout << asteroidsPool_->getNumOfAsteroids() << std::endl;
 							if (asteroidsPool_->getNumOfAsteroids() <= 0)
 							{
 								scoreManager_->setRunning(false);

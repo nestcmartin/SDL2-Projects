@@ -58,20 +58,18 @@ void AsteroidsPool::onCollision(Asteroid* a, Bullet* b)
 
 	for (int i = 0; i < 2; i++)
 	{
-		Asteroid* a = asteroidsPool_.getObj();
+		Asteroid* asteroid = asteroidsPool_.getObj();
 
-		if (a)
+		if (asteroid)
 		{
-			RandomNumberGenerator* rnd = game_->getRandomGenerator();
-
 			Vector2D v = vel.rotate(i * 45);
 			Vector2D p = pos + v.normalize();
 
-			a->setPos(p);
-			a->setVel(v);
-			a->setGenerations(g);
-			a->setWH(3 * g + 10, 3 * g + 10);
-			a->setActive(true);
+			asteroid->setPos(p);
+			asteroid->setVel(v);
+			asteroid->setGenerations(g);
+			asteroid->setWH(3 * g + 10, 3 * g + 10);
+			asteroid->setActive(true);
 			activeAsteroidsCount_++;
 		}
 	}

@@ -1,0 +1,3 @@
+#include "StarsPool.h"
+
+
