@@ -1,49 +1,66 @@
-#pragma once
-#include <cassert>
-#include <cstdlib>
-#include <memory>
-#include <new>
+#ifndef __OF_FACTORY_H__
+#define __OF_FACTORY_H__
 
-template<typename T, typename AllocType = std::allocator<T>>
-class ObjectFactory {
-public:
-	ObjectFactory(int n) {
+#include "Singleton.h"
+#include "MemoryPool.h"
 
-		size_ = n;
-		//mem_ = static_cast<T*>(_VSTD::__libcpp_allocate(size_ * sizeof(T), _LIBCPP_ALIGNOF(T)));
-		mem_ = alloc_.allocate(size_);
-		used_ = new bool[size_]();
-	}
+// Clase para gestionar la creación y destrucción de objetos de tipo T.
+// Se implementa utilizando el patrón de diseño Singleton, lo que nos
+// permite controlar cuándo se realiza la inicialización del pool de memoria.
+template<typename T>
+class ObjectFactory : public Singleton<ObjectFactory<T>>
+{
+	friend Singleton<ObjectFactory<T>>;
 
-	virtual ~ObjectFactory() {
-        //_VSTD::__libcpp_deallocate((void*)mem_, size_ * sizeof(T), _LIBCPP_ALIGNOF(T));
-		alloc_.deallocate(mem_,size_);
-	}
-
-	template<typename... Targs>
-	T* construct(Targs&& ...args) {
-		for(int i=0; i<size_; i++) {
-			if ( !used_[i] ) {
-				used_[i] = true;
-				//::new(&mem_[i]) T(std::forward<Targs>(args)...);
-				alloc_.construct(&mem_[i],std::forward<Targs>(args)...);
-				return &mem_[i];
-			}
-		}
-		return nullptr;
-	}
-
-	void destroy(T* p) {
-		int idx = p-mem_;
-		assert(idx >=0 && idx < size_);
-		used_[idx] = false;
-//		p->~T();
-		alloc_.destroy(p);
-	}
 private:
-	std::size_t size_;
-	T* mem_;
-	bool *used_;
-	AllocType alloc_;
+	MemoryPool<T> memPool_;	// Pool de memoria para asignar a los objetos de tipo T
+
+public:
+	virtual ~ObjectFactory()
+	{
+	}
+
+	// Llama al método de construcción de la instancia única
+	template<typename ...Targs>
+	inline static T* construct(Targs&&...args) 
+	{
+		return ObjectFactory<T>::instance()->construct_(std::forward<Targs>(args)...);
+	}
+
+	// Llama al método de destrucción de la instancia única
+	inline static void destroy(T* p) 
+	{
+		ObjectFactory<T>::instance()->destroy_(p);
+	}
+
+	// Llama al método de construcción del pool de memoria
+	// Devuelve el objeto de tipo T construido
+	template<typename ...Targs>
+	inline T* construct_(Targs&&...args) 
+	{
+		memPool_.construct(std::forward<Targs>(args)...);
+	}
+
+	// Llama al método de destrucción del pool de memoria
+	inline void destroy_(T* p) 
+	{
+		memPool_.destroy(p);
+	}
+
+private:
+	// Constructora por defecto
+	// Crea un pool de memoria con un tamaño de 10
+	ObjectFactory() :
+		ObjectFactory(10) 
+	{
+	}
+
+	// Constructora con parámetros
+	// Crea un pool de memoria con un tamaño de n
+	ObjectFactory(std::size_t n) :
+		memPool_(n) 
+	{
+	}
 };
 
+#endif // !__OF_FACTORY_H__

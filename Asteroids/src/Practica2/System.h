@@ -1,36 +1,46 @@
-#pragma once
+#ifndef __SYSTEM_H__
+#define __SYSTEM_H__
+
+#include "ECS.h"
 
 class SDLGame;
-class Manager;
-#include "ecs.h"
+class EntityManager;
 
-class System {
+class System 
+{
+
+protected:
+	SDLGame* game_;
+	EntityManager* entityManager_;
+
 public:
 	System() :
-			mngr_(nullptr), game_(nullptr) {
+		game_(nullptr) ,
+		entityManager_(nullptr)
+	{
 	}
 
-	virtual ~System() {
+	virtual ~System() 
+	{
 	}
 
-	void setGame(SDLGame *game) {
+	void setGame(SDLGame* game) 
+	{
 		game_ = game;
 	}
 
-	void setMngr(Manager *mngr) {
-		mngr_ = mngr;
+	void setMngr(EntityManager* mngr) 
+	{
+		entityManager_ = mngr;
 	}
 
-	virtual void init() {
+	virtual void init() 
+	{
 	}
-	;
-	virtual void update() {
+	
+	virtual void update() 
+	{
 	}
-	;
-
-protected:
-	Manager *mngr_;
-	SDLGame *game_;
-
 };
 
+#endif // !__SYSTEM_H__

@@ -209,9 +209,6 @@
     <ClInclude Include="..\..\src\Practica1\GameLogic.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica1\ECS.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Practica1\ScoreManager.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
@@ -295,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Practica1\AsteroidsViewer.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica1\ECS.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

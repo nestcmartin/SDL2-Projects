@@ -1,5 +1,6 @@
-#pragma once
+#ifndef __COMPONENT_H__
+#define __COMPONENT_H__
 
-struct Component {
-};
+struct Component {};
 
+#endif // !__COMPONENT_H__

@@ -25,7 +25,7 @@ public:
 	}
 
 	inline Entity* construct_(double x, double y, double w, double h, double r, Uint32 lifeTime) {
-		Entity *e = pool_.getObj();
+		Entity *e = pool_.getObject();
 		if (e != nullptr) {
 			e->setActive(true);
 			Transform *tr = e->getComponent<Transform>();
@@ -34,14 +34,14 @@ public:
 			tr->height_ = w;
 			LifeTime *st = e->getComponent<LifeTime>();
 			st->lifeTime_ = lifeTime*1000;
-			st->creatiomTime_ = SDLGame::instance()->getTime();
+			st->creationTime_ = SDLGame::instance()->getTime();
 			e->getComponent<Rotation>()->rotation_ = r;
 		}
 		return e;
 	}
 
 	inline void destroy_(Entity *p) {
-		pool_.relObj(p);
+		pool_.releaseObject(p);
 	}
 
 private:

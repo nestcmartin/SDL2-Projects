@@ -1,67 +1,61 @@
-#pragma once
+#ifndef __SINGLETON_H__
+#define __SINGLETON_H__
+
 #include <memory>
 
 /*
- * usage:
- *
- * class A : public Singleton<A> {
- *
- *    friend Singleton<A>; // this way it can call the constructor
- *
- * private: // constructors are private
- *    A() {
- *      //....
- *    }
- *
- * public: // the rest of the functionality
- *    virtual ~A() {
- *    }
- * }
- *
+ * Clase para implementar el patron de diseño Singleton.
+ * La clase debe heredar públicamente de Singleton (class A : public Singleton<A>).
+ * La clase debe poder acceder al Singleton (friend Singleton<A>).
+ * La clase debe mantener todas las constructoras como privadas.
+ * La clase debe mantener pública y virtual la destructora.
  */
 template<typename T>
-class Singleton {
+class Singleton 
+{
+private:
+	static std::unique_ptr<T> instance_;
+
 protected:
-	Singleton() {
+	Singleton() 
+	{
 	}
 
 public:
-
-	virtual ~Singleton() {
+	virtual ~Singleton() 
+	{
 	}
 
-	// some singletons need to be initialized with some parameters, we
-	// can call this init method at the begining of the program.
+	// Inicializa el Singleton con parametros.
+	// Se recomienda hacer esto al inicio del programa.
 	template<typename ...Targs>
-	inline static T* init(Targs &&...args) {
+	inline static T* init(Targs&&...args) 
+	{
 		assert(instance_.get() == nullptr);
 		instance_.reset(new T(std::forward<Targs>(args)...));
 		return instance_.get();
 	}
 
-	// in some cases, when singletons depend on each other, you have
-	// to close them in a specific order, This is why we have this close
-	// method
-	inline static void close() {
+	// Restaura la instancia única del Singleton.
+	// A veces, cuando los Singleton tienen dependcias,
+	// es necesario cerrarlos en un orden específico.
+	inline static void close() 
+	{
 		instance_.reset();
 	}
 
-	// get the singleton instance
-	//
-	inline static T* instance() {
-		// you can replace the "if" by assert(instance_.get() != nullptr)
-		// to force initialization at the begining
-		//
-		if (instance_.get() == nullptr) {
+	// Accede a la instancia única dell Singleton.
+	inline static T* instance() 
+	{
+		if (instance_.get() == nullptr) 
+		{
 			instance_.reset(init());
 		}
 		return instance_.get();
 	}
-
-private:
-	static std::unique_ptr<T> instance_;
 };
 
 template<typename T>
 std::unique_ptr<T> Singleton<T>::instance_;
 
+#endif // !__SINGLETON_H__

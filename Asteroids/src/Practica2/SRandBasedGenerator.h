@@ -1,19 +1,22 @@
-#pragma once
+#ifndef __SRANDOM_NUMBER_GENERATOR_H__
+#define __SRANDOM_NUMBER_GENERATOR_H__
 
 #include "RandomNumberGenerator.h"
 
-/*
- *
- */
-class SRandBasedGenerator: public RandomNumberGenerator {
+class SRandBasedGenerator : public RandomNumberGenerator
+{
+private:
+	unsigned seed_;
+
 public:
 	SRandBasedGenerator();
 	SRandBasedGenerator(unsigned seed);
 	virtual ~SRandBasedGenerator();
-	void init() override;
-	int nextInt() override;
-	int nextInt(int low, int high) override;
-private:
-	unsigned seed_;
+
+	virtual void init() override;
+
+	virtual int nextInt() override;
+	virtual int nextInt(int low, int high) override;	// Low incluido, High no incluido
 };
 
+#endif // !__SRANDOM_NUMBER_GENERATOR_H__

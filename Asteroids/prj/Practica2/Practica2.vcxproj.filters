@@ -13,23 +13,23 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Archivos de encabezado\Utils">
-      <UniqueIdentifier>{76537292-2963-41d3-8909-e61ecc807412}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de encabezado\Components">
-      <UniqueIdentifier>{a1800910-ec7d-4a06-8f05-d185c0e57859}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Utils">
-      <UniqueIdentifier>{a26dbd91-1265-4d8c-b6ed-be07cfb66ee6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Components">
-      <UniqueIdentifier>{26582aaf-4a9c-4c30-9af2-070cebb42a49}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\Entities">
       <UniqueIdentifier>{152ca06a-90b3-4c9f-aba0-c3cdcfeca581}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\Entities">
       <UniqueIdentifier>{e3ae521a-6f33-4737-9aa5-f05dadef5527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Components">
+      <UniqueIdentifier>{a1800910-ec7d-4a06-8f05-d185c0e57859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Components">
+      <UniqueIdentifier>{532bca5f-22bb-4e9f-8cf7-9c6d4aab6344}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Systems">
+      <UniqueIdentifier>{c957ab6f-b928-42b4-8b30-0216c2d99414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Systems">
+      <UniqueIdentifier>{74cee562-fa0a-4f8c-828f-9dedbbce48b1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de encabezado\Resources">
       <UniqueIdentifier>{d8562455-2137-4d11-8bad-17ff60613fee}</UniqueIdentifier>
@@ -37,63 +37,60 @@
     <Filter Include="Archivos de origen\Resources">
       <UniqueIdentifier>{d85d7fd2-3991-411e-a09b-73afa9ff2470}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Utils">
+      <UniqueIdentifier>{76537292-2963-41d3-8909-e61ecc807412}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Utils">
+      <UniqueIdentifier>{a26dbd91-1265-4d8c-b6ed-be07cfb66ee6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Practica2\Vector2D.cpp">
-      <Filter>Archivos de origen\Utils</Filter>
+    <ClCompile Include="..\..\src\Practica2\Main.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\SRandBasedGenerator.cpp">
-      <Filter>Archivos de origen\Utils</Filter>
+    <ClCompile Include="..\..\src\Practica2\PacMan.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\RandomNumberGenerator.cpp">
-      <Filter>Archivos de origen\Utils</Filter>
+    <ClCompile Include="..\..\src\Practica2\SDLGame.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\Transform.cpp">
-      <Filter>Archivos de origen\Components</Filter>
+    <ClCompile Include="..\..\src\Practica2\Entity.cpp">
+      <Filter>Archivos de origen\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\ScoreViewer.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\GameCtrl.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\Component.cpp">
-      <Filter>Archivos de origen\Components</Filter>
+    <ClCompile Include="..\..\src\Practica2\Manager.cpp">
+      <Filter>Archivos de origen\Entities</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Practica2\Collisions.cpp">
+      <Filter>Archivos de origen\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica2\InputHandler.cpp">
       <Filter>Archivos de origen\Utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Practica2\jute.cpp">
       <Filter>Archivos de origen\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\Entity.cpp">
-      <Filter>Archivos de origen\Entities</Filter>
+    <ClCompile Include="..\..\src\Practica2\RandomNumberGenerator.cpp">
+      <Filter>Archivos de origen\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\VelocityVectorViewer.cpp">
-      <Filter>Archivos de origen\Components</Filter>
+    <ClCompile Include="..\..\src\Practica2\SRandBasedGenerator.cpp">
+      <Filter>Archivos de origen\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\GameLogic.cpp">
-      <Filter>Archivos de origen\Components</Filter>
+    <ClCompile Include="..\..\src\Practica2\Vector2D.cpp">
+      <Filter>Archivos de origen\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\ScoreManager.cpp">
-      <Filter>Archivos de origen\Components</Filter>
+    <ClCompile Include="..\..\src\Practica2\SDL_Macros.cpp">
+      <Filter>Archivos de origen\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\EntityManager.cpp">
-      <Filter>Archivos de origen\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\Resources.cpp">
+    <ClCompile Include="..\..\src\Practica2\AudioManager.cpp">
       <Filter>Archivos de origen\Resources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Practica2\Font.cpp">
       <Filter>Archivos de origen\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\Texture.cpp">
-      <Filter>Archivos de origen\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\AudioManager.cpp">
-      <Filter>Archivos de origen\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Practica2\FontsManager.cpp">
+      <Filter>Archivos de origen\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica2\Resources.cpp">
       <Filter>Archivos de origen\Resources</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Practica2\SDLAudioManager.cpp">
@@ -105,85 +102,67 @@
     <ClCompile Include="..\..\src\Practica2\SDLTexturesManager.cpp">
       <Filter>Archivos de origen\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Practica2\Texture.cpp">
+      <Filter>Archivos de origen\Resources</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Practica2\TexturesManager.cpp">
       <Filter>Archivos de origen\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\SDLGame.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\SDL_Macros.cpp">
-      <Filter>Archivos de origen\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\Asteroids.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\InputHandler.cpp">
-      <Filter>Archivos de origen\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\Main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\Health.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\FighterViewer.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\FighterCtrl.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\FighterMotion.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\ObjectPool.cpp">
-      <Filter>Archivos de origen\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\Bullet.cpp">
-      <Filter>Archivos de origen\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\BulletsPool.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\Asteroid.cpp">
-      <Filter>Archivos de origen\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\BulletsMotion.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\BulletsViewer.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\Gun.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\AsteroidsPool.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\AsteroidsMotion.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Practica2\AsteroidsViewer.cpp">
-      <Filter>Archivos de origen\Components</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\Practica2\checkML.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\PacMan.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\Practica2\SDLGame.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\CollisionSystem.h">
+      <Filter>Archivos de encabezado\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\GameCtrlSystem.h">
+      <Filter>Archivos de encabezado\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\PacManSystem.h">
+      <Filter>Archivos de encabezado\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\RenderSystem.h">
+      <Filter>Archivos de encabezado\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\StarsSystem.h">
+      <Filter>Archivos de encabezado\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\System.h">
+      <Filter>Archivos de encabezado\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica2\Component.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\GameCtrl.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\ScoreViewer.h">
+    <ClInclude Include="..\..\src\Practica2\ImageComponent.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica2\Transform.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\VelocityVectorViewer.h">
+    <ClInclude Include="..\..\src\Practica2\Score.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\LifeTime.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\Collisions.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\Entity.h">
+      <Filter>Archivos de encabezado\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\InputHandler.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\RandomNumberGenerator.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica2\SRandBasedGenerator.h">
       <Filter>Archivos de encabezado\Utils</Filter>
@@ -191,46 +170,43 @@
     <ClInclude Include="..\..\src\Practica2\Vector2D.h">
       <Filter>Archivos de encabezado\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\RandomNumberGenerator.h">
+    <ClInclude Include="..\..\src\Practica2\Singleton.h">
       <Filter>Archivos de encabezado\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica2\jute.h">
       <Filter>Archivos de encabezado\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\Collisions.h">
-      <Filter>Archivos de encabezado\Utils</Filter>
+    <ClInclude Include="..\..\src\Practica2\Rotation.h">
+      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\checkML.h">
-      <Filter>Archivos de encabezado\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\Entity.h">
+    <ClInclude Include="..\..\src\Practica2\ObjectPool.h">
       <Filter>Archivos de encabezado\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\GameLogic.h">
-      <Filter>Archivos de encabezado\Components</Filter>
+    <ClInclude Include="..\..\src\Practica2\StarsPool.h">
+      <Filter>Archivos de encabezado\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\MPL.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica2\ECS.h">
-      <Filter>Archivos de encabezado\Components</Filter>
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\ScoreManager.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\EntityManager.h">
+    <ClInclude Include="..\..\src\Practica2\DefaultFactory.h">
       <Filter>Archivos de encabezado\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\Resources.h">
-      <Filter>Archivos de encabezado\Resources</Filter>
+    <ClInclude Include="..\..\src\Practica2\SDL_Macros.h">
+      <Filter>Archivos de encabezado\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\Texture.h">
+    <ClInclude Include="..\..\src\Practica2\AudioManager.h">
       <Filter>Archivos de encabezado\Resources</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica2\Font.h">
       <Filter>Archivos de encabezado\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\AudioManager.h">
+    <ClInclude Include="..\..\src\Practica2\FontsManager.h">
       <Filter>Archivos de encabezado\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\FontsManager.h">
+    <ClInclude Include="..\..\src\Practica2\Resources.h">
       <Filter>Archivos de encabezado\Resources</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica2\SDLAudioManager.h">
@@ -242,59 +218,20 @@
     <ClInclude Include="..\..\src\Practica2\SDLTexturesManager.h">
       <Filter>Archivos de encabezado\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Practica2\Texture.h">
+      <Filter>Archivos de encabezado\Resources</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\Practica2\TexturesManager.h">
       <Filter>Archivos de encabezado\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\SDL_Macros.h">
-      <Filter>Archivos de encabezado\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\Asteroids.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\InputHandler.h">
-      <Filter>Archivos de encabezado\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\Health.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\FighterViewer.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\FighterCtrl.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\FighterMotion.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\ObjectPool.h">
+    <ClInclude Include="..\..\src\Practica2\MemoryPool.h">
       <Filter>Archivos de encabezado\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\Bullet.h">
+    <ClInclude Include="..\..\src\Practica2\ObjectFactory.h">
       <Filter>Archivos de encabezado\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\BulletsPool.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\Asteroid.h">
+    <ClInclude Include="..\..\src\Practica2\EntityManager.h">
       <Filter>Archivos de encabezado\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\BulletsMotion.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\BulletsViewer.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\Gun.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\AsteroidsPool.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\AsteroidsMotion.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica2\AsteroidsViewer.h">
-      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

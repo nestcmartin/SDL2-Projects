@@ -1,43 +1,43 @@
-#pragma once
-
-#include "AudioManager.h"
-#include <SDL_mixer.h>
+#ifndef __SDL_AUDIO_MANAGER_H__
+#define __SDL_AUDIO_MANAGER_H__
 
 #include <map>
+#include <SDL_mixer.h>
 
-/*
- *
- */
-class SDLAudioManager: public AudioManager {
-public:
-	SDLAudioManager();
-	SDLAudioManager(int channels);
-	~SDLAudioManager();
+#include "AudioManager.h"
 
-	// supposed to be called before start using the object
-	bool init() override;
-
-	// sound effects
-	bool loadSound(int tag, const string &fileName) override;
-	int playChannel(int tag, int loops, int channel) override;
-	void pauseChannel(int channel) override;
-	void resumeChannel(int channel) override;
-	void haltChannel(int channel) override;
-	int setChannelVolume(int volume, int channel) override;
-	int channels() override;
-
-	// music
-	bool loadMusic(int tag, const string &fileName) override;
-	void playMusic(int tag, int loops) override;
-	int setMusicVolume(int volume) override;
-	void haltMusic() override;
-	void pauseMusic() override;
-	void resumeMusic() override;
-
+class SDLAudioManager : public AudioManager 
+{
 private:
 	bool initialized_;
 	int channels_;
-	map<int, Mix_Chunk*> chunks_;
-	map<int, Mix_Music*> music_;
+
+	std::map<int, Mix_Chunk*> chunks_;
+	std::map<int, Mix_Music*> music_;
+
+public:
+	SDLAudioManager();
+	SDLAudioManager(int channels);
+	virtual ~SDLAudioManager();
+
+	virtual bool init() override;
+
+	// Sound Effects
+	virtual bool loadSound(int tag, std::string fileName) override;
+	virtual int playChannel(int tag, int loops, int channel) override;
+	virtual void pauseChannel(int channel) override;
+	virtual void resumeChannel(int channel) override;
+	virtual void haltChannel(int channel) override;
+	virtual int setChannelVolume(int volume, int channel) override;
+	virtual int channels() override;
+
+	// Music
+	virtual bool loadMusic(int tag, std::string fileName) override;
+	virtual void playMusic(int tag, int loops) override;
+	virtual int setMusicVolume(int volume) override;
+	virtual void haltMusic() override;
+	virtual void pauseMusic() override;
+	virtual void resumeMusic() override;
 };
 
+#endif // !__SDL_AUDIO_MANAGER_H__

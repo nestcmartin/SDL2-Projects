@@ -1,19 +1,23 @@
-#pragma once
+#ifndef __FONT_H__
+#define __FONT_H__
 
-#include <SDL_ttf.h>
 #include <string>
+#include <SDL_ttf.h>
 
-using namespace std;
+class Font 
+{
+private:
+	TTF_Font* font_;
 
-class Font {
 public:
 	Font();
-	Font(const string& fileName, int size);
+	Font(std::string fileName, int size);
 	virtual ~Font();
 
-	bool load(const string& fileName, int size);
+	bool load(std::string fileName, int size);
 	void close();
-	SDL_Surface* renderText(const string& text, SDL_Color color) const;
-private:
-	TTF_Font *font_;
+
+	SDL_Surface* renderText(std::string text, SDL_Color color) const;
 };
+
+#endif // !__FONT_H__

@@ -1,16 +1,20 @@
-#pragma once
+#ifndef __LIFE_TIME_H__
+#define __LIFE_TIME_H__
 
-#include <SDL_stdinc.h> // for Uint32
+#include <SDL_stdinc.h>
+
 #include "Component.h"
 
-struct LifeTime: Component {
+struct LifeTime : Component
+{
 	LifeTime() :
-			creatiomTime_(0), //
-			lifeTime_(0) //
+		creationTime_(0),
+		lifeTime_(0)
 	{
 	}
 
-	Uint32 creatiomTime_;
+	Uint32 creationTime_;
 	Uint32 lifeTime_;
 };
 
+#endif // !__LIFE_TIME_H__
