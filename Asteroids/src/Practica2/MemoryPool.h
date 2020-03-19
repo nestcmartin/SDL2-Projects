@@ -1,5 +1,5 @@
-#ifndef __OBJECT_FACTORY_H__
-#define __OBJECT_FACTORY_H__
+#ifndef __MEMORY_POOL_H__
+#define __MEMORY_POOL_H__
 
 #include <cassert>
 #include <cstdlib>
@@ -67,4 +67,4 @@ public:
 
 };
 
-#endif // !__OBJECT_FACTORY_H__
+#endif // !__MEMORY_POOL_H__

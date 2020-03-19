@@ -7,7 +7,7 @@
 struct ImageComponent : Component 
 {
 	ImageComponent(Texture* tex) : 
-		texture_(tex) 
+		texture_(tex)
 	{
 	}
 	

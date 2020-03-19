@@ -1,5 +1,5 @@
-#ifndef __OF_FACTORY_H__
-#define __OF_FACTORY_H__
+#ifndef __OBJECT_FACTORY_H__
+#define __OBJECT_FACTORY_H__
 
 #include "Singleton.h"
 #include "MemoryPool.h"
@@ -63,4 +63,4 @@ private:
 	}
 };
 
-#endif // !__OF_FACTORY_H__
+#endif // !__OBJECT_FACTORY_H__

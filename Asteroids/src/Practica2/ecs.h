@@ -4,34 +4,40 @@
 #include <ctime>
 #include "MPL.h"
 
-// COMPONENTS
+// Identificadores de componentes (corresponden a componentes con los mismos nombres)
 struct Transform;
 struct ImageComponent;
-struct Rotation;
+struct AsteroidLifeTime;
 struct Score;
-struct LifeTime;
+struct GameState;
+struct Health;
+struct Rotation;
 
-using ComponentsList = MPL::TypeList<Transform, ImageComponent, Rotation, Score, LifeTime>;
+using ComponentsList = MPL::TypeList<Transform, ImageComponent, Score, AsteroidLifeTime, GameState, Health, Rotation>;
 
-// GROUPS
-struct _grp_Star;
+// Identificadores de grupos
+struct _grp_Bullet;
+struct _grp_Asteroid;
 
-using GroupsList = MPL::TypeList<_grp_Star>;
+using GroupsList = MPL::TypeList<_grp_Asteroid, _grp_Bullet>;
 
-// HANDLERS
-struct _hdlr_PacMan;
+// Identificadores de handlers
+struct _hdlr_Fighter;
 struct _hdlr_GameState;
 
-using HandlersList = MPL::TypeList<_hdlr_PacMan, _hdlr_GameState>;
+using HandlersList = MPL::TypeList<_hdlr_Fighter, _hdlr_GameState>;
 
-// SYSTEMS
-class CollisionSystem;
-class GameCtrlSystem;
-class PacManSystem;
-class StarsSystem;
+// Identificadores de sistemas
 class RenderSystem;
+class GameCtrlSystem;
+class CollisionSystem;
+class FighterSystem;
+class AsteroidsSystem;
+class AsteroidsSystem;
+class BulletsSystem;
+class FighterGunSystem;
 
-using SystemsList = MPL::TypeList<CollisionSystem, GameCtrlSystem, PacManSystem, StarsSystem, RenderSystem>;
+using SystemsList = MPL::TypeList<RenderSystem, GameCtrlSystem, CollisionSystem, FighterSystem, AsteroidsSystem, BulletsSystem, FighterGunSystem>;
 
 constexpr std::size_t maxComponents = ComponentsList::size;
 constexpr std::size_t maxGroups = GroupsList::size;

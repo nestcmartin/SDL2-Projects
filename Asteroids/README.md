@@ -91,3 +91,7 @@ Renombramos algunos archivos para clarificar su funcionalidad. Estos cambios de 
 * sdl_macros -> SDL_Macros
 
 Ahora podemos aplicar los cambios estéticos que consideremos necesarios. Una vez hayamos acabado, compilamos el proyecto _Practica2_ y lo ejecutamos; si el juego _Stars_ funciona correctamente, podemos concluir con esta sección. Como producto obtendremos la plantilla base sobre la que realizar toda la práctica: _TPV2_Template_2_. La plantilla _pacman_5_ se conservará en el directorio _src_ para futuras referencias.
+
+
+## Asteroids 2.0
+

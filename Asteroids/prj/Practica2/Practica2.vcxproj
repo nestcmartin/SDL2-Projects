@@ -158,7 +158,7 @@
     <ClCompile Include="..\..\src\Practica2\jute.cpp" />
     <ClCompile Include="..\..\src\Practica2\Main.cpp" />
     <ClCompile Include="..\..\src\Practica2\Manager.cpp" />
-    <ClCompile Include="..\..\src\Practica2\PacMan.cpp" />
+    <ClCompile Include="..\..\src\Practica2\Asteroids.cpp" />
     <ClCompile Include="..\..\src\Practica2\RandomNumberGenerator.cpp" />
     <ClCompile Include="..\..\src\Practica2\Resources.cpp" />
     <ClCompile Include="..\..\src\Practica2\SDLAudioManager.cpp" />
@@ -173,6 +173,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Practica2\AudioManager.h" />
+    <ClInclude Include="..\..\src\Practica2\BulletsPool.h" />
+    <ClInclude Include="..\..\src\Practica2\BulletsSystem.h" />
     <ClInclude Include="..\..\src\Practica2\checkML.h" />
     <ClInclude Include="..\..\src\Practica2\Collisions.h" />
     <ClInclude Include="..\..\src\Practica2\CollisionSystem.h" />
@@ -180,20 +182,23 @@
     <ClInclude Include="..\..\src\Practica2\DefaultFactory.h" />
     <ClInclude Include="..\..\src\Practica2\ECS.h" />
     <ClInclude Include="..\..\src\Practica2\Entity.h" />
+    <ClInclude Include="..\..\src\Practica2\FighterGunSystem.h" />
     <ClInclude Include="..\..\src\Practica2\Font.h" />
     <ClInclude Include="..\..\src\Practica2\FontsManager.h" />
     <ClInclude Include="..\..\src\Practica2\GameCtrlSystem.h" />
+    <ClInclude Include="..\..\src\Practica2\GameState.h" />
+    <ClInclude Include="..\..\src\Practica2\Health.h" />
     <ClInclude Include="..\..\src\Practica2\ImageComponent.h" />
     <ClInclude Include="..\..\src\Practica2\InputHandler.h" />
     <ClInclude Include="..\..\src\Practica2\jute.h" />
-    <ClInclude Include="..\..\src\Practica2\LifeTime.h" />
+    <ClInclude Include="..\..\src\Practica2\AsteroidLifeTime.h" />
     <ClInclude Include="..\..\src\Practica2\EntityManager.h" />
     <ClInclude Include="..\..\src\Practica2\MPL.h" />
     <ClInclude Include="..\..\src\Practica2\MemoryPool.h" />
     <ClInclude Include="..\..\src\Practica2\ObjectPool.h" />
     <ClInclude Include="..\..\src\Practica2\ObjectFactory.h" />
-    <ClInclude Include="..\..\src\Practica2\PacMan.h" />
-    <ClInclude Include="..\..\src\Practica2\PacManSystem.h" />
+    <ClInclude Include="..\..\src\Practica2\Asteroids.h" />
+    <ClInclude Include="..\..\src\Practica2\FighterSystem.h" />
     <ClInclude Include="..\..\src\Practica2\RandomNumberGenerator.h" />
     <ClInclude Include="..\..\src\Practica2\RenderSystem.h" />
     <ClInclude Include="..\..\src\Practica2\Resources.h" />
@@ -206,8 +211,8 @@
     <ClInclude Include="..\..\src\Practica2\SDL_Macros.h" />
     <ClInclude Include="..\..\src\Practica2\Singleton.h" />
     <ClInclude Include="..\..\src\Practica2\SRandBasedGenerator.h" />
-    <ClInclude Include="..\..\src\Practica2\StarsPool.h" />
-    <ClInclude Include="..\..\src\Practica2\StarsSystem.h" />
+    <ClInclude Include="..\..\src\Practica2\AsteroidsPool.h" />
+    <ClInclude Include="..\..\src\Practica2\AsteroidsSystem.h" />
     <ClInclude Include="..\..\src\Practica2\System.h" />
     <ClInclude Include="..\..\src\Practica2\Texture.h" />
     <ClInclude Include="..\..\src\Practica2\TexturesManager.h" />

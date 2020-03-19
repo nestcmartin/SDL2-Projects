@@ -55,10 +55,10 @@ public:
 	inline SDL_Renderer* getRenderer() const { return renderer_; }
 	inline int getWindowWidth() const { return width_; }
 	inline int getWindowHeight() const { return height_; }
-	inline FontsManager* getFontMngr() const { return fonts_; }
-	inline TexturesManager* getTextureMngr() const { return textures_; }
-	inline AudioManager* getAudioMngr() const { return audio_; }
-	inline RandomNumberGenerator* getRandGen() const { return random_; }
+	inline FontsManager* getFontManager() const { return fonts_; }
+	inline TexturesManager* getTextureManager() const { return textures_; }
+	inline AudioManager* getAudioManager() const { return audio_; }
+	inline RandomNumberGenerator* getRandomGenerator() const { return random_; }
 	inline InputHandler* getInputHandler() const { return InputHandler::instance(); }
 	inline Uint32 getTime() { return SDL_GetTicks(); }
 

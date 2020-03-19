@@ -1,27 +1,55 @@
 #ifndef __COLLISION_SYSTEM_H__
 #define __COLLISION_SYSTEM_H__
 
-#include "System.h"
-
 #include "EntityManager.h"
-#include "Collisions.h"
-#include "StarsSystem.h"
 
 #include "Transform.h"
+
+#include "System.h"
+#include "FighterSystem.h"
+#include "BulletsSystem.h"
+#include "AsteroidsSystem.h"
+
+#include "Collisions.h"
 
 class CollisionSystem : public System 
 {
 public:
-
-	void update() 
+	void update() override
 	{
-		auto ptr = entityManager_->getHandler<_hdlr_PacMan>()->getComponent<Transform>();
-		for (auto& e : entityManager_->getGroupEntities<_grp_Star>()) 
+		Transform* trFighter = entityManager_->getHandler<_hdlr_Fighter>()->getComponent<Transform>();
+		
+		for (auto& a : entityManager_->getGroupEntities<_grp_Asteroid>()) 
 		{
-			auto etr = e->getComponent<Transform>();
-			if (Collisions::collides(ptr->position_, ptr->width_, ptr->height_, etr->position_, etr->width_, etr->height_)) 
+			Transform* trAsteroid = a->getComponent<Transform>();
+
+			if (Collisions::collides(trFighter->position_, trFighter->width_, trFighter->height_,
+				trAsteroid->position_, trAsteroid->width_, trAsteroid->height_))
 			{
-				entityManager_->getSystem<StarsSystem>()->onCollision(e);
+				entityManager_->getSystem<FighterSystem>()->onCollisionWithAsteroid(a);
+				entityManager_->getSystem<GameCtrlSystem>()->onFighterDeath();
+				break;
+			}
+
+			for (auto& b : entityManager_->getGroupEntities<_grp_Bullet>())
+			{
+				Transform* trBullet = b->getComponent<Transform>();
+
+				if (!b->isActive()) continue;
+				if (!a->isActive()) break;
+
+				if (Collisions::collides(trAsteroid->position_, trAsteroid->width_, trAsteroid->height_,
+					trBullet->position_, trBullet->width_, trBullet->height_))
+				{
+					entityManager_->getSystem<BulletsSystem>()->onCollisionWithAsteroid(b, a);
+					entityManager_->getSystem<AsteroidsSystem>()->onCollisionWithBullet(a, b);
+
+					if (!entityManager_->getSystem<AsteroidsSystem>()->asteroidsLeft())
+					{
+						entityManager_->getSystem<GameCtrlSystem>()->onAsteroidsExtinction();
+						entityManager_->getSystem<FighterSystem>()->onCollisionWithAsteroid(nullptr);
+					}
+				}
 			}
 		}
 	}

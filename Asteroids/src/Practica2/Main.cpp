@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include "PacMan.h"
+#include "Asteroids.h"
 #include "checkML.h"
 
 void start() 
 {
-	PacMan g;
+	Asteroids g;
 	g.start();
 }
 
