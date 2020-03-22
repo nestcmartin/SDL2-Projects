@@ -28,6 +28,8 @@ public:
 			
 			if (bs && game_->getTime() - lastShootTime_ >= 250)
 			{
+				game_->getAudioManager()->playChannel(Resources::GunShot, 0);
+
 				Transform* tr = entityManager_->getHandler<_hdlr_Fighter>()->getComponent<Transform>();
 
 				Vector2D bulletPos = tr->position_ + Vector2D(tr->width_ / 2, tr->height_ / 2) + Vector2D(0, -(tr->height_ / 2 + 5.0)).rotate(tr->rotation_);
@@ -35,7 +37,6 @@ public:
 
 				bs->shoot(bulletPos, bulletVel, 5, 5);
 				lastShootTime_ = game_->getTime();
-				//game_->getAudioManager()->playChannel(Resources::GunShot, 0);
 			}
 		}
 	}

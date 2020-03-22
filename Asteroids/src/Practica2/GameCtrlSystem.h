@@ -50,8 +50,12 @@ public:
 
 	void onGameOver()
 	{
+		game_->getAudioManager()->haltMusic();
+		if (state_->win_) game_->getAudioManager()->playMusic(Resources::Cheer, 0);
+		else game_->getAudioManager()->playMusic(Resources::Boooo, 0);
+
 		entityManager_->getHandler<_hdlr_Fighter>()->getComponent<Health>()->numLives_ = 3;
-		if (!state_->win_) score_ = 0;
+		if (!state_->win_) score_->points_ = 0;
 
 	}
 
@@ -75,6 +79,7 @@ public:
 			{
 				if (ih->keyDownEvent())
 				{
+					game_->getAudioManager()->playMusic(Resources::ImperialMarch);
 					entityManager_->getSystem<AsteroidsSystem>()->addAsteroids(10);
 					state_->running_ = true;
 				}
@@ -83,6 +88,7 @@ public:
 			{
 				if (ih->keyDownEvent())
 				{
+					game_->getAudioManager()->haltMusic();
 					state_->gameOver_ = false;
 					state_->win_ = false;
 				}

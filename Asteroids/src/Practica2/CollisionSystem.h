@@ -26,6 +26,8 @@ public:
 			if (Collisions::collides(trFighter->position_, trFighter->width_, trFighter->height_,
 				trAsteroid->position_, trAsteroid->width_, trAsteroid->height_))
 			{
+				game_->getAudioManager()->playChannel(Resources::ExplosionSound, 0);
+
 				entityManager_->getSystem<FighterSystem>()->onCollisionWithAsteroid(a);
 				entityManager_->getSystem<GameCtrlSystem>()->onFighterDeath();
 				break;
@@ -41,6 +43,7 @@ public:
 				if (Collisions::collides(trAsteroid->position_, trAsteroid->width_, trAsteroid->height_,
 					trBullet->position_, trBullet->width_, trBullet->height_))
 				{
+					game_->getAudioManager()->playChannel(Resources::ExplosionSound, 0);
 					entityManager_->getSystem<BulletsSystem>()->onCollisionWithAsteroid(b, a);
 					entityManager_->getSystem<AsteroidsSystem>()->onCollisionWithBullet(a, b);
 

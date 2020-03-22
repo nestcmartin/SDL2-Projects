@@ -14,9 +14,9 @@
 
 **6.** Abrimos el archivo _Asteroids.sln_ en Visual Studio 2019. Agregamos el proyecto _Practica2_ a la solución _Asteroids_.
 
-**7.** Accedemos a las propiedades del proyecto _Practica2_ y modificamos el valor del campo _General>Directorio Intermedio_ a _$(SolutionDir)obj\\$(ProjectName)\\$(Platform)\\$(Configuration)\\_ para todas las configuraciones, plataforma Win32.
+**7.** Accedemos a las propiedades del proyecto _Practica2_ y modificamos el valor del campo _General>Directorio Intermedio_ a _$(SolutionDir)obj\\$(ProjectName)\\$(Platform)\\$(Configuration)\\_ para todas las configuraciones, plataforma Win32 (x86).
 
-**8.** Accedemos a las propiedades del proyecto _Practica1_ y modificamos el valor del campo _General>Directorio Intermedio_ a _$(SolutionDir)obj\\$(ProjectName)\\$(Platform)\\$(Configuration)\\_ para todas las configuraciones, plataforma Win32.
+**8.** Accedemos a las propiedades del proyecto _Practica1_ y modificamos el valor del campo _General>Directorio Intermedio_ a _$(SolutionDir)obj\\$(ProjectName)\\$(Platform)\\$(Configuration)\\_ para todas las configuraciones, plataforma Win32 (x86).
 
 **9.** Establecemos _Practica2_ como proyecto de inicio en el explorador de soluciones de Visual Studio.
 
@@ -95,3 +95,33 @@ Ahora podemos aplicar los cambios estéticos que consideremos necesarios. Una ve
 
 ## Asteroids 2.0
 
+Antes de hacer nada, deberíamos cambiarle el nombre a la clase principal del juego: pasará de llamarse _PacMan_ a llamarse _Asteroids_; recuerda también cambiarle el nombre (y el tamaño, si lo deseas) a la ventana de SDL en esta misma clase. En la plantilla existen dos sistemas que podemos reutilizar y que nos servirán de base para dar los primeros pasos. Por una parte, _StarsSystem_ se asimila bastante a lo que podría ser nuestro _AsteroidsSystem_ o _BulletsSystem_, mientras que por otra, _PacManSystem_ podría interpretarse como _FighterSystem_.
+
+### Factorías y Sistemas
+
+El primer paso es crear las factorías de asteroides y de balas. Ambas clases, _AsteroidsPool_ y _BulletsPool_, se implementan como _Singleton_, y cuentan con un _ObjectPool_ de entidades como atributo; la diferenciación se produce en la constructora privada de ambas clases: en función de los componentes que se añadan aquí, estaremos creando un _pool_ de asteroides o de balas. La función _construct()_ de estas clases devuelve una entidad del _pool_ activada, estableciendo los parámetros iniciales de los componentes correspondientes. La función _destroy()_, por contra, devuelve una entidad al _pool_.
+Una buena forma de hacer estas dos clases fácilmente es sobrescribir la clase _StarsPool_, que comparte la misma funcionalidad; recuerda cambiar las directivas de inclusión y otras posibles apariciones de la clase _StarsPool_ a lo largo del proyecto, incluyendo la inicialización del correspondiente _pool_ en la clase principal del juego.
+
+Los componentes _Transform_, _ImageComponent_ y _Rotation_ ya vienen incluiddos en la plantilla, por lo que sólo tendremos que crear el componente _AsteroidLifeTime_ (se puede utilizar el archivo _LifeTime.h_ sobrescribiendo su funcionalidad), que mantiene el número de generaciones de un asteroide. Para añadir nuevos componentes al juego, debemos dirigirnos al archivo _ECS.h_, donde veremos varias listas y predeclaraciones. En el apartado de componentes, deberemos incluir _AsteroidLifeTime_ (o sustituir _LifeTime_). En el apartado de grupos, deberemos definir dos nuevos identificadores: _\_grp_Bullet_ y _\_grp_Asteroid_. En el apartado de sistemas, debemos incluir _AsteroidsSystem_ y _BulletsSystem_, que implementaremos a continuación.
+
+Las clases _AsteroidsSystem_ y _BulletsSystem_ recogen la funcionalidad de las clases _AsteroidsPool_ y _BulletsPool_ del proyecto _Practica1_, con ciertas diferencias que radican en el manejo de la gestión de las entidades. Para comprender cómo funciona el gestor de entidades y cómo se implementan estos sistemas, se recomienda sobrescribir la clase _StarsSystem_. Una vez creados los sistemas, debemos añadirlos a la clase principal del juego y recordar inicializarlos y actualizarlos en el bucle principal.
+
+### Manejadores y Renderizado
+
+El segundo paso es recrear la funcionalidad del caza. Si bien el código de _PacManSystem_ es muy similar al que debería tener _FighterSystem_, existen ciertas particularidades que no debemos pasar por alto, como la no limitación de velocidad de _PacMan_. Es buena idea tomar como base _PacManSystem_ para crear _FighterSystem_, pero utilizando el código de _FighterCtrl_ y _FighterMotion_ del proyecto _Practica1_. Fíjate en que el manejador que se utiliza en _PacManSystem_ no es el mismo que deberías utilizar tú, así que ve al archivo _ECS.h_ y en el apartado de manejadores, cambia _\_hdlr_PacMan_ por _\_hdlr_Fighter_; recuerda cambiar el nombre en todos los archivos del proyecto. Podemos utilizar este manejador en _FighterGunSystem_ para acceder a los componentes del caza necesrios para la correcta implementación del sistema de disparo. Del mismo modo, necesitaremos acceso al método _shoot()_ de _BulletsSystem_.
+
+Los componentes _Transform_ e _ImageComponent_ necesarios para el caza ya vienen incluidos en la plantilla, por lo que sólo tendremos que crear el componente _Health_, que mantiene el número de vidas del caza, así como la imagen (_Texture*_) que utilizamos para representarlas. Recuerda registrar el componente en el archivo _ECS.h_, así como incluir, inicializar y actualizar los sistemas del caza en la clase principal del juego. Es importante que _FighterGunSystem_ se inicialice después de _FighterSystem_, puesto que presenta una dependencia directa.
+
+Si queremos empezar a ver avances en pantalla, tendremos que modificar _RenderSystem_. Este sistema se encarga de renderizar todos los elementos de nuestro juego en la ventana de SDL. En primer lugar, pinta todos los asteroides y las balas: debemos iterar los grupos de asteroides y balas llamando al método _draw()_ con cada una de las entidades como parámetro. Después debemos pintar el caza, al que podremos acceder a través del correspondiente manejador. En el método _draw()_ debemos distinguir entre el caza y el resto de entidades, dado que el caza necesitará, por un lado, un rectángulo fuente concreto, y por otro, renderizar las vidas que le queden; podemos utilizar el componente _Health_ como señalizador en este caso (_if (entity->getComponent<Health>() != nullptr) { ... }_). Después, se renderizan la puntuación y los mensajes.
+
+### Comunicación entre Sistemas
+
+La coordinación entre todos los sistemas de juego corre a cargo de _GameCtrlSystem_. Este sistema gestiona una sola entidad con los componentes _Score_ (para la puntuación) y _GameState_ (para el estado del juego: _running_, _game_over_, _win_). Registra ambos componentes en el archivo _ECS.h_, así como un nuevo manejador llamado _\_hdlr_GameState_ que utilizaremos para acceder al controlador del juego. 
+
+Normalmente, las llamadas a los métodos de _GameCtrlSystem_ se realizarán desde _CollisionSystem_. El sistema de detección de colisiones también se encarga de llamar a los métodos correspondientes de _AsteroidsSystem_, _BulletsSystem_ y _FighterSystem_. Sigue el esquema propuesto en el enunciado para no cometer errores.
+
+Recuerda realizar los ajustes necesarios en _RenderSystem_ para que se visualicen adecuadamente tanto la puntuación como los mensajes. Además, revisa el enunciado para saber si es necesario modificar el resto de sistemas (por ejemplo, permitir el movimiento del caza si el estado de juego no es _running_). Aprovecha esta revisión para incluir el audio del juego (música y efectos de sonido). Si todos los sistemas están incluidos, inicializados y actualizados correctamente en la clase _Asteroids_, el juego debería funcionar. ¡Bien!
+
+### Gestión eficiente de la Memoria
+
+Una de las clases que no hemos utilizado en todo el proyecto es _ObjectFactory_. Esta clase, como su propio nombre indica, es una factoría que, al igual que _AsteroidsPool_ o _BulletsPool_, utiliza un _pool_ para crear sus objetos. Sin embargo, no nos encontramos ante un _ObjectPool_ corriente, ya que esta factoría utiliza un _MemoryPool_, un _pool_ que permite la gestión eficiente de la memoria y evita la fragmentación. 
