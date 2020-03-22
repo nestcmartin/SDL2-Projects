@@ -2,6 +2,7 @@
 #define __TEXTURE_H__
 
 #include <string>
+
 #include <SDL.h>
 
 #include "Font.h"

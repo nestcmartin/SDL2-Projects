@@ -3,11 +3,13 @@
 
 #include <list>
 
-#include "SDLGame.h"
-#include "DefaultFactory.h"
-#include "ECS.h"
 #include "Entity.h"
+#include "DefaultFactory.h"
+
 #include "System.h"
+
+#include "ECS.h"
+#include "SDLGame.h"
 
 // Clase que gestiona las entidades y su comunicación
 class EntityManager 

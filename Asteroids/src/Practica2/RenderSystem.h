@@ -12,10 +12,12 @@
 
 #include "System.h"
 
-#include "ECS.h"
 #include "Texture.h"
-#include "SDLGame.h"
+
 #include "SDL_Macros.h"
+
+#include "ECS.h"
+#include "SDLGame.h"
 
 class RenderSystem : public System
 {
@@ -23,6 +25,21 @@ private:
 	SDL_Rect fighterSrcRect_ = RECT(47, 90, 207, 250);
 
 public:
+	void update() override
+	{
+		if (entityManager_->getHandler<_hdlr_GameState>()->getComponent<GameState>()->running_)
+		{
+			for (auto& e : entityManager_->getGroupEntities<_grp_Asteroid>()) draw(e);
+			for (auto& e : entityManager_->getGroupEntities<_grp_Bullet>()) draw(e);
+		}
+
+		draw(entityManager_->getHandler<_hdlr_Fighter>());
+
+		drawScore();
+		drawMsg();
+	}
+
+private:
 	void draw(Entity* e)
 	{
 		Transform* tr = e->getComponent<Transform>();
@@ -33,7 +50,10 @@ public:
 
 		if (health != nullptr)
 		{
-			img->texture_->render(dest, tr->rotation_, &fighterSrcRect_);
+			if (entityManager_->getHandler<_hdlr_GameState>()->getComponent<GameState>()->running_)
+			{
+				img->texture_->render(dest, tr->rotation_, &fighterSrcRect_);
+			}
 
 			for (int i = 0; i < health->numLives_; i++)
 			{
@@ -71,15 +91,6 @@ public:
 				hitanykey->render(game_->getWindowWidth() / 2 - hitanykey->getWidth() / 2, game_->getWindowHeight() - hitanykey->getHeight() - 50);
 			}
 		}
-	}
-
-	void update() override
-	{
-		for (auto& e : entityManager_->getGroupEntities<_grp_Asteroid>()) draw(e);
-		for (auto& e : entityManager_->getGroupEntities<_grp_Bullet>()) draw(e);
-		draw(entityManager_->getHandler<_hdlr_Fighter>());
-		drawScore();
-		drawMsg();
 	}
 };
 

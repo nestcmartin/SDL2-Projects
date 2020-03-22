@@ -2,6 +2,7 @@
 #define __SDL_MACROS__
 
 #include <string>
+
 #include <SDL.h>
 
 // Función que realiza un casting automático a enteros de los parámetros de un rectángulo

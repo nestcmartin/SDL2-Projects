@@ -2,6 +2,7 @@
 #define __TRANSFORM_H__
 
 #include "Component.h"
+
 #include "Vector2D.h"
 
 struct Transform : Component

@@ -1,8 +1,8 @@
 #include <iostream>
+
 #include <SDL_image.h>
 
 #include "Texture.h"
-
 
 Texture::Texture() :
 	texture_(nullptr), 

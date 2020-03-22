@@ -6,14 +6,15 @@
 #include "AsteroidsPool.h"
 
 #include "Score.h"
-#include "AsteroidLifeTime.h"
 #include "Rotation.h"
 #include "Transform.h"
+#include "AsteroidLifeTime.h"
 
 #include "System.h"
 
-#include "SDLGame.h"
 #include "SDL_Macros.h"
+
+#include "SDLGame.h"
 
 class AsteroidsSystem : public System
 {
@@ -78,6 +79,8 @@ public:
 
 	void update() override
 	{
+		if (!entityManager_->getHandler<_hdlr_GameState>()->getComponent<GameState>()->running_) return;
+
 		for (auto& e : entityManager_->getGroupEntities<_grp_Asteroid>())
 		{
 			if (!e->isActive()) return;

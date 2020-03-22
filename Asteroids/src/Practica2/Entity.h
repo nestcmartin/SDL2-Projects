@@ -6,10 +6,12 @@
 #include <bitset>
 #include <functional>
 
-#include "Component.h"
 #include "DefaultFactory.h"
-#include "SDLGame.h"
+
+#include "Component.h"
+
 #include "ECS.h"
+#include "SDLGame.h"
 
 class EntityManager;
 

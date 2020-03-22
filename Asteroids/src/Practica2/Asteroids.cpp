@@ -1,8 +1,10 @@
+#include "ObjectFactory.h"
 #include "AsteroidsPool.h"
 #include "BulletsPool.h"
 
-#include "Asteroids.h"
 #include "SDL_Macros.h"
+
+#include "Asteroids.h"
 
 Asteroids::Asteroids() :
 	exit_(false),
@@ -23,6 +25,14 @@ void Asteroids::initGame()
 	game_ = SDLGame::init("Asteroids", WINDOW_WIDTH, WINDOW_HEIGHT);
 	
 	// Inicializamos los pools y factorías
+	ObjectFactory<Entity>::init(50);
+	ObjectFactory<Transform>::init(50);
+	ObjectFactory<ImageComponent>::init(100);
+	ObjectFactory<Rotation>::init(30);
+	ObjectFactory<AsteroidLifeTime>::init(30);
+	ObjectFactory<Health>::init(1);
+	ObjectFactory<Score>::init(1);
+	ObjectFactory<GameState>::init(1);
 	AsteroidsPool::init(30);
 	BulletsPool::init(10);
 

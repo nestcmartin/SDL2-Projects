@@ -1,8 +1,9 @@
 #ifndef __OBJECT_FACTORY_H__
 #define __OBJECT_FACTORY_H__
 
-#include "Singleton.h"
 #include "MemoryPool.h"
+
+#include "Singleton.h"
 
 // Clase para gestionar la creación y destrucción de objetos de tipo T.
 // Se implementa utilizando el patrón de diseño Singleton, lo que nos
@@ -38,7 +39,7 @@ public:
 	template<typename ...Targs>
 	inline T* construct_(Targs&&...args) 
 	{
-		memPool_.construct(std::forward<Targs>(args)...);
+		return memPool_.construct(std::forward<Targs>(args)...);
 	}
 
 	// Llama al método de destrucción del pool de memoria

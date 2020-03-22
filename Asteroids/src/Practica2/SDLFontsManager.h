@@ -2,6 +2,7 @@
 #define __SDL_FONTS_MANAGER_H__
 
 #include <map>
+
 #include "FontsManager.h"
 
 class SDLFontsManager : public FontsManager 

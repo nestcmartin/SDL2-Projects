@@ -2,6 +2,7 @@
 #define __SDL_AUDIO_MANAGER_H__
 
 #include <map>
+
 #include <SDL_mixer.h>
 
 #include "AudioManager.h"

@@ -11,8 +11,9 @@
 #include "System.h"
 #include "BulletsSystem.h"
 
-#include "SDLGame.h"
 #include "SDL_Macros.h"
+
+#include "SDLGame.h"
 
 class FighterGunSystem : public System
 {
@@ -22,6 +23,8 @@ private:
 public:
 	void update() override
 	{
+		if (!entityManager_->getHandler<_hdlr_GameState>()->getComponent<GameState>()->running_) return;
+
 		if (InputHandler::instance()->isKeyDown(SDLK_SPACE))
 		{
 			BulletsSystem* bs = entityManager_->getSystem<BulletsSystem>();

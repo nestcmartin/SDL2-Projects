@@ -71,8 +71,8 @@ A continuación, añadimos todos los archivos de la plantilla _pacman_5_ al proy
 	* Singleton
 	* SRandBasedGenerator
 	* Vector2D
+	* mpl
 * ecs
-* mpl
 * PacMan
 * SDLGame
 * Main
@@ -126,4 +126,17 @@ Recuerda realizar los ajustes necesarios en _RenderSystem_ para que se visualice
 
 Una de las clases que no hemos utilizado en todo el proyecto es _ObjectFactory_. Esta clase, como su propio nombre indica, es una factoría que, al igual que _AsteroidsPool_ o _BulletsPool_, utiliza un _pool_ para crear sus objetos. Sin embargo, no nos encontramos ante un _ObjectPool_ corriente, ya que esta factoría utiliza un _MemoryPool_, un _pool_ que permite la gestión eficiente de la memoria y evita la fragmentación.
 
-Si queremos utilizar esta factoría, debemos especificarlo bien en la llamada al método correspondiente (generalmente, _addEntity()_ o _addComponent()_) bien en la plantilla del propio método. Hasta ahora, la factoría por defecto era _DefaultFactory_, pero si la cambiamos por _ObjectFactory_ podemos reducir drásticamente las llamadas a _new_ y _delete_. Tendremos que tener en cuenta, eso sí, que debemos inicializar todos y cada uno de los _pools_ de memoria, al igual que hacíamos con _AsteroidsPool_ o _BulletsPool_.  
+Si queremos utilizar esta factoría, debemos especificarlo en la llamada al método correspondiente (generalmente, _addEntity()_ o _addComponent()_). Hasta ahora, la factoría por defecto para todos los componentes era _DefaultFactory_, pero si la cambiamos por _ObjectFactory_ podemos reducir drásticamente las llamadas a _new_ y _delete_. Tendremos que tener en cuenta, eso sí, que debemos inicializar todos y cada uno de los _pools_ de memoria, al igual que hacíamos con _AsteroidsPool_ o _BulletsPool_. 
+
+### Revisión de inclusiones
+
+No olvides peinar las inclusiones para agilizar el trabajo del compilador de Visual Studio. El esquema seguido en la plantilla, bastante intuitivo, es el siguiente:
+
+* Librerías de C++
+* Librerías de SDL
+* Entidades
+* Componentes
+* Sistemas
+* Recursos
+* Utilidades
+* Otros

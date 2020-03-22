@@ -1,15 +1,15 @@
-#include <time.h>
 #include <iostream>
+#include <time.h>
 
-#include "SDLGame.h"
 #include "SDLFontsManager.h"
 #include "SDLAudioManager.h"
 #include "SDLTexturesManager.h"
+
 #include "SRandBasedGenerator.h"
 
+#include "SDLGame.h"
 
 std::unique_ptr<SDLGame> SDLGame::instance_;
-
 
 SDLGame::SDLGame(std::string windowTitle, int width, int height) :
 	windowTitle_(windowTitle),

@@ -1,6 +1,8 @@
 #ifndef __GAME_CTRL_SYSTEM_H__
 #define __GAME_CTRL_SYSTEM_H__
 
+#include "ObjectFactory.h"
+
 #include "Score.h"
 #include "Health.h"
 #include "GameState.h"
@@ -33,6 +35,7 @@ public:
 		}
 		else
 		{
+			game_->getAudioManager()->haltMusic();
 			state_->running_ = false;
 			state_->gameOver_ = false;
 			state_->win_ = false;
@@ -48,22 +51,11 @@ public:
 		onGameOver();
 	}
 
-	void onGameOver()
-	{
-		game_->getAudioManager()->haltMusic();
-		if (state_->win_) game_->getAudioManager()->playMusic(Resources::Cheer, 0);
-		else game_->getAudioManager()->playMusic(Resources::Boooo, 0);
-
-		entityManager_->getHandler<_hdlr_Fighter>()->getComponent<Health>()->numLives_ = 3;
-		if (!state_->win_) score_->points_ = 0;
-
-	}
-
 	void init() override
 	{
-		Entity* e = entityManager_->addEntity();
-		state_ = e->addComponent<GameState>();
-		score_ = e->addComponent<Score>();
+		Entity* e = entityManager_->addEntity<ObjectFactory<Entity>>();
+		state_ = e->addComponent<GameState, ObjectFactory<GameState>>();
+		score_ = e->addComponent<Score, ObjectFactory<Score>>();
 		score_->points_ = 0;
 		
 		entityManager_->setHandler<_hdlr_GameState>(e);
@@ -96,6 +88,17 @@ public:
 		}
 	}
 
+private:
+	void onGameOver()
+	{
+		game_->getAudioManager()->haltMusic();
+		if (state_->win_) game_->getAudioManager()->playMusic(Resources::Cheer, 0);
+		else game_->getAudioManager()->playMusic(Resources::Boooo, 0);
+
+		entityManager_->getHandler<_hdlr_Fighter>()->getComponent<Health>()->numLives_ = 3;
+		if (!state_->win_) score_->points_ = 0;
+
+	}
 };
 
 #endif // !__GAME_CTRL_SYSTEM_H__

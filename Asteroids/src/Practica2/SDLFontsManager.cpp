@@ -1,6 +1,6 @@
 #include <assert.h>
-#include "SDLFontsManager.h"
 
+#include "SDLFontsManager.h"
 
 SDLFontsManager::SDLFontsManager() :
 	initialized_(false) 

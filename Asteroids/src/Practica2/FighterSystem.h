@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "EntityManager.h"
+#include "ObjectFactory.h"
 
 #include "Health.h"
 #include "Transform.h"
@@ -10,8 +11,9 @@
 
 #include "System.h"
 
-#include "SDLGame.h"
 #include "InputHandler.h"
+
+#include "SDLGame.h"
 
 class FighterSystem : public System
 {
@@ -35,19 +37,21 @@ public:
 
 	void init() override
 	{
-		fighter_ = entityManager_->addEntity();
-		transform_ = fighter_->addComponent<Transform>(Vector2D((game_->getWindowWidth() / 2) - 26, (game_->getWindowHeight() / 2) - 37), Vector2D(), 52, 75, 0);
-		fighter_->addComponent<ImageComponent>(game_->getTextureManager()->getTexture(Resources::Airplanes));
-		fighter_->addComponent<Health>(3, game_->getTextureManager()->getTexture(Resources::Heart));
+		fighter_ = entityManager_->addEntity<ObjectFactory<Entity>>();
+		transform_ = fighter_->addComponent<Transform, ObjectFactory<Transform>>(Vector2D((game_->getWindowWidth() / 2) - 26, (game_->getWindowHeight() / 2) - 37), Vector2D(), 52, 75, 0);
+		fighter_->addComponent<ImageComponent, ObjectFactory<ImageComponent>>(game_->getTextureManager()->getTexture(Resources::Airplanes));
+		fighter_->addComponent<Health, ObjectFactory<Health>>(3, game_->getTextureManager()->getTexture(Resources::Heart));
 		
 		entityManager_->setHandler<_hdlr_Fighter>(fighter_);
 	}
 
 	void update() override
 	{
-		auto ih = InputHandler::instance();
+		if (!entityManager_->getHandler<_hdlr_GameState>()->getComponent<GameState>()->running_) return;
+
 		assert(transform_ != nullptr);
-		if (ih->keyDownEvent())
+
+		if (InputHandler::instance()->keyDownEvent())
 		{
 			if (InputHandler::instance()->isKeyDown(SDLK_LEFT))
 			{

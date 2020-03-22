@@ -1,4 +1,5 @@
 #include <assert.h>
+
 #include <SDL_image.h>
 
 #include "SDLTexturesManager.h"

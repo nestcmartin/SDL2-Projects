@@ -2,15 +2,17 @@
 #define __ASTEROIDS_POOL_H__
 
 #include "Entity.h"
+#include "ObjectPool.h"
+#include "ObjectFactory.h"
 
 #include "AsteroidLifeTime.h"
 #include "Rotation.h"
 #include "Transform.h"
 #include "ImageComponent.h"
 
-#include "ECS.h"
 #include "Singleton.h"
-#include "ObjectPool.h"
+
+#include "ECS.h"
 
 class AsteroidsPool : public Singleton<AsteroidsPool> 
 {

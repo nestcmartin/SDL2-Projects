@@ -2,6 +2,7 @@
 #define __IMAGE_COMPONENT_H__
 
 #include "Component.h"
+
 #include "Texture.h"
 
 struct ImageComponent : Component 

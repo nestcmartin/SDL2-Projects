@@ -17,6 +17,8 @@ class CollisionSystem : public System
 public:
 	void update() override
 	{
+		if (!entityManager_->getHandler<_hdlr_GameState>()->getComponent<GameState>()->running_) return;
+
 		Transform* trFighter = entityManager_->getHandler<_hdlr_Fighter>()->getComponent<Transform>();
 		
 		for (auto& a : entityManager_->getGroupEntities<_grp_Asteroid>()) 

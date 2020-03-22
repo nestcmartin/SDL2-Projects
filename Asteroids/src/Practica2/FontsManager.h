@@ -1,8 +1,9 @@
 #ifndef __FONTS_MANAGER_H__
 #define __FONTS_MANAGER_H__
 
-#include "Font.h"
 #include <string>
+
+#include "Font.h"
 
 class FontsManager 
 {

@@ -1,7 +1,8 @@
 #include <iostream>
 
-#include "Asteroids.h"
 #include "checkML.h"
+
+#include "Asteroids.h"
 
 void start() 
 {

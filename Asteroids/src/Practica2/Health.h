@@ -2,6 +2,7 @@
 #define __HEALTH_H__
 
 #include "Component.h"
+
 #include "Texture.h"
 
 struct Health : Component

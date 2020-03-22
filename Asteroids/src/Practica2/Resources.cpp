@@ -1,5 +1,6 @@
 #include "Resources.h"
-#include "SDL_macros.h"
+
+#include "SDL_Macros.h"
 
 std::vector<Resources::ImageInfo> Resources::images_
 {

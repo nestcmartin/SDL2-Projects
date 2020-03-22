@@ -2,6 +2,7 @@
 #define __ECS_H__
 
 #include <ctime>
+
 #include "MPL.h"
 
 // Identificadores de componentes (corresponden a componentes con los mismos nombres)

@@ -1,6 +1,6 @@
-#include "Font.h"
-
 #include <iostream>
+
+#include "Font.h"
 
 Font::Font() :
 	font_(nullptr) 

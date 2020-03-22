@@ -2,13 +2,15 @@
 #define __BULLETS_POOL_H__
 
 #include "Entity.h"
+#include "ObjectPool.h"
+#include "ObjectFactory.h"
 
 #include "Transform.h"
 #include "ImageComponent.h"
 
-#include "ECS.h"
 #include "Singleton.h"
-#include "ObjectPool.h"
+
+#include "ECS.h"
 
 class BulletsPool : public Singleton<BulletsPool>
 {

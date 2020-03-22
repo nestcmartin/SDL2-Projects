@@ -9,8 +9,9 @@
 
 #include "System.h"
 
-#include "SDLGame.h"
 #include "SDL_Macros.h"
+
+#include "SDLGame.h"
 
 class BulletsSystem : public System
 {
@@ -30,6 +31,8 @@ public:
 
 	void update() override
 	{
+		if (!entityManager_->getHandler<_hdlr_GameState>()->getComponent<GameState>()->running_) return;
+
 		for (auto& e : entityManager_->getGroupEntities<_grp_Bullet>())
 		{
 			if (!e->isActive()) return;

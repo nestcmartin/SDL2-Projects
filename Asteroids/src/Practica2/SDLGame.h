@@ -8,10 +8,11 @@
 #include <SDL.h>
 
 #include "Resources.h"
-#include "InputHandler.h"
 #include "AudioManager.h"
 #include "FontsManager.h"
 #include "TexturesManager.h"
+
+#include "InputHandler.h"
 #include "RandomNumberGenerator.h"
 
 class SDLGame 
