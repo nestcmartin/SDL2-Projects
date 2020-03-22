@@ -124,4 +124,6 @@ Recuerda realizar los ajustes necesarios en _RenderSystem_ para que se visualice
 
 ### Gestión eficiente de la Memoria
 
-Una de las clases que no hemos utilizado en todo el proyecto es _ObjectFactory_. Esta clase, como su propio nombre indica, es una factoría que, al igual que _AsteroidsPool_ o _BulletsPool_, utiliza un _pool_ para crear sus objetos. Sin embargo, no nos encontramos ante un _ObjectPool_ corriente, ya que esta factoría utiliza un _MemoryPool_, un _pool_ que permite la gestión eficiente de la memoria y evita la fragmentación. 
+Una de las clases que no hemos utilizado en todo el proyecto es _ObjectFactory_. Esta clase, como su propio nombre indica, es una factoría que, al igual que _AsteroidsPool_ o _BulletsPool_, utiliza un _pool_ para crear sus objetos. Sin embargo, no nos encontramos ante un _ObjectPool_ corriente, ya que esta factoría utiliza un _MemoryPool_, un _pool_ que permite la gestión eficiente de la memoria y evita la fragmentación.
+
+Si queremos utilizar esta factoría, debemos especificarlo bien en la llamada al método correspondiente (generalmente, _addEntity()_ o _addComponent()_) bien en la plantilla del propio método. Hasta ahora, la factoría por defecto era _DefaultFactory_, pero si la cambiamos por _ObjectFactory_ podemos reducir drásticamente las llamadas a _new_ y _delete_. Tendremos que tener en cuenta, eso sí, que debemos inicializar todos y cada uno de los _pools_ de memoria, al igual que hacíamos con _AsteroidsPool_ o _BulletsPool_.  
