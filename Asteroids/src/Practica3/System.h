@@ -3,6 +3,8 @@
 
 #include "ECS.h"
 
+#include "Messages.h"
+
 class SDLGame;
 class EntityManager;
 
@@ -13,8 +15,11 @@ protected:
 	SDLGame* game_;
 	EntityManager* entityManager_;
 
+	ECS::SysIdType id_;
+
 public:
-	System() :
+	System(ECS::SysIdType id) :
+		id_(id),
 		game_(nullptr) ,
 		entityManager_(nullptr)
 	{
@@ -34,13 +39,13 @@ public:
 		entityManager_ = mngr;
 	}
 
-	virtual void init() 
-	{
+	ECS::SysIdType getId() {
+		return id_;
 	}
-	
-	virtual void update() 
-	{
-	}
+
+	virtual void init() {}
+	virtual void update() {}
+	virtual void receive(const MSG::Message& msg) {}
 };
 
 #endif // !__SYSTEM_H__

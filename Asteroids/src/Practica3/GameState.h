@@ -6,6 +6,7 @@
 struct GameState : Component
 {
 	GameState() :
+		Component(ECS::GameState),
 		running_(false),
 		gameOver_(false),
 		win_(false)

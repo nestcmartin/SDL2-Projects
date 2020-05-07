@@ -54,9 +54,6 @@
     <ClCompile Include="..\..\src\Practica3\Entity.cpp">
       <Filter>Archivos de origen\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\Manager.cpp">
-      <Filter>Archivos de origen\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Practica3\Collisions.cpp">
       <Filter>Archivos de origen\Utils</Filter>
     </ClCompile>
@@ -105,8 +102,32 @@
     <ClCompile Include="..\..\src\Practica3\TexturesManager.cpp">
       <Filter>Archivos de origen\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Practica3\Asteroids.cpp">
+    <ClCompile Include="..\..\src\Practica3\EntityManager.cpp">
+      <Filter>Archivos de origen\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\NetworkingSystem.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\Networking.cpp">
+      <Filter>Archivos de origen\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\StarWars.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\BulletSystem.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\GameCtrlSystem.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\CollisionSystem.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\RenderSystem.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\FightersSystem.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,13 +152,7 @@
     <ClInclude Include="..\..\src\Practica3\Component.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\ImageComponent.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Practica3\Transform.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\Score.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica3\Collisions.h">
@@ -163,9 +178,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Practica3\jute.h">
       <Filter>Archivos de encabezado\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\Rotation.h">
-      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica3\ObjectPool.h">
       <Filter>Archivos de encabezado\Entities</Filter>
@@ -215,38 +227,38 @@
     <ClInclude Include="..\..\src\Practica3\EntityManager.h">
       <Filter>Archivos de encabezado\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\Asteroids.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\FighterSystem.h">
-      <Filter>Archivos de encabezado\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\Health.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\AsteroidLifeTime.h">
-      <Filter>Archivos de encabezado\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\AsteroidsPool.h">
-      <Filter>Archivos de encabezado\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\AsteroidsSystem.h">
-      <Filter>Archivos de encabezado\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Practica3\BulletsPool.h">
       <Filter>Archivos de encabezado\Entities</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Practica3\BulletsSystem.h">
       <Filter>Archivos de encabezado\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\FighterGunSystem.h">
-      <Filter>Archivos de encabezado\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Practica3\GameState.h">
       <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Practica3\MPL.h">
+    <ClInclude Include="..\..\src\Practica3\Image.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\CtrlKeys.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\FighterInfo.h">
+      <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\Messages.h">
       <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\NetworkingSystem.h">
+      <Filter>Archivos de encabezado\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\Networking.h">
+      <Filter>Archivos de encabezado\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\StarWars.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Practica3\FightersSystem.h">
+      <Filter>Archivos de encabezado\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

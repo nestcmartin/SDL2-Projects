@@ -9,4 +9,3 @@ struct Component {
 
 	ecs::CmpIdType id_;
 };
-

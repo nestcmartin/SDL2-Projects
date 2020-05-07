@@ -2,13 +2,7 @@
 
 #include "checkML.h"
 
-#include "Asteroids.h"
-
-void start() 
-{
-	Asteroids g;
-	g.start();
-}
+#include "StarWars.h"
 
 int main(int argc, char** argv) 
 {
@@ -16,7 +10,8 @@ int main(int argc, char** argv)
 
 	try 
 	{
-		start();
+		StarWars g;
+		g.start();
 	}
 	catch (std::string & e) 
 	{

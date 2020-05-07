@@ -1,21 +1,19 @@
-#ifndef __ASTEROIDS_H__
-#define __ASTEROIDS_H__
+#ifndef __STAR_WARS_H__
+#define __STAR_WARS_H__
 
 #include <vector>
 
 #include "EntityManager.h"
 
 #include "RenderSystem.h"
+#include "BulletsSystem.h"
+#include "FightersSystem.h"
 #include "GameCtrlSystem.h"
 #include "CollisionSystem.h"
-#include "FighterSystem.h"
-#include "AsteroidsSystem.h"
-#include "BulletsSystem.h"
-#include "FighterGunSystem.h"
 
 #include "SDLGame.h"
 
-class Asteroids
+class StarWars
 {
 private:
 	const static int WINDOW_WIDTH = 1080;
@@ -26,16 +24,14 @@ private:
 	EntityManager* entityManager_;
 
 	RenderSystem* renderSystem_;
+	BulletsSystem* bulletSystem_;
+	FightersSystem* fighterSystem_;
 	GameCtrlSystem* gameCtrlSystem_;
 	CollisionSystem* collisionSystem_;
-	FighterSystem* fighterSystem_;
-	AsteroidsSystem* asteroidsSystem_;
-	BulletsSystem* bulletSystem_;
-	FighterGunSystem* fighterGunSystem_;
 
 public:
-	Asteroids();
-	virtual ~Asteroids();
+	StarWars();
+	virtual ~StarWars();
 
 	void start();
 	void stop();
@@ -45,4 +41,4 @@ private:
 	void closeGame();
 };
 
-#endif // !__ASTEROIDS_H__
+#endif // !__STAR_WARS_H__

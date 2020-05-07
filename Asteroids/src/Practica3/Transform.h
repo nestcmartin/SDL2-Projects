@@ -8,6 +8,7 @@
 struct Transform : Component
 {
 	Transform() :
+		Component(ECS::Transform),
 		position_(),
 		velocity_(),
 		width_(),
@@ -17,6 +18,7 @@ struct Transform : Component
 	}
 
 	Transform(Vector2D pos, Vector2D vel, double width, double height, double rotation) :
+		Component(ECS::Transform),
 		position_(pos),
 		velocity_(vel),
 		width_(width),

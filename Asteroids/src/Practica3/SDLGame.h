@@ -12,15 +12,17 @@
 #include "FontsManager.h"
 #include "TexturesManager.h"
 
+#include "Networking.h"
 #include "InputHandler.h"
 #include "RandomNumberGenerator.h"
 
 class SDLGame 
 {
 protected:
-
 	SDL_Window* window_;
 	SDL_Renderer* renderer_;
+	
+	Networking* networking_;
 
 	AudioManager* audio_;
 	FontsManager* fonts_;
@@ -60,6 +62,7 @@ public:
 	inline TexturesManager* getTextureManager() const { return textures_; }
 	inline AudioManager* getAudioManager() const { return audio_; }
 	inline RandomNumberGenerator* getRandomGenerator() const { return random_; }
+	inline Networking* getNetworking() { return networking_; }
 	inline InputHandler* getInputHandler() const { return InputHandler::instance(); }
 	inline Uint32 getTime() { return SDL_GetTicks(); }
 

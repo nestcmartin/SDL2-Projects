@@ -1,0 +1,7 @@
+1. Crear el proyecto Practica3 duplicando Practica2.
+2. Añadir los nuevos recursos: imágenes, música y sonidos. Modificar el archivo Resources.
+3. Eliminar los archivos: Transform, ImageComponent, AsteroidLifeTime, Health, Rotation, AsteroidsPool, AsteroidsSystem y MPL.
+4. Añadir los archivos: CtrlKeys, FighterInfo, Image, Transform, Messages, Networking y NetworkingSystem.
+5. Modificar los archivos: ECS, Entity, Component, GameState, System, EntityManager, SDLGame, Asteroids y Main.
+6. Crear archivos cpp para BulletSystem, FighterSystem, CollisionSystem, RenderSystem y GameCtrlSystem.
+7. Modificar los archivos h de todos los sistemas, así como el de BulletsPool.

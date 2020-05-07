@@ -5,9 +5,10 @@
 
 #include "Texture.h"
 
-struct ImageComponent : Component 
+struct Image : Component 
 {
-	ImageComponent(Texture* tex) : 
+	Image(Texture* tex) : 
+		Component(ECS::Image),
 		texture_(tex)
 	{
 	}

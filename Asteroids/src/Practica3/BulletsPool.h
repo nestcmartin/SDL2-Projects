@@ -3,10 +3,9 @@
 
 #include "Entity.h"
 #include "ObjectPool.h"
-#include "ObjectFactory.h"
 
 #include "Transform.h"
-#include "ImageComponent.h"
+#include "Image.h"
 
 #include "Singleton.h"
 
@@ -35,18 +34,17 @@ public:
 		BulletsPool::instance()->destroy_(p);
 	}
 
-	inline Entity* construct_(Vector2D pos, Vector2D vel, double w, double h)
+	inline Entity* construct_(Vector2D p, Vector2D v, double w, double h)
 	{
 		Entity* e = pool_.getObject();
-		if (e != nullptr)
+		if (e != nullptr) 
 		{
 			e->setActive(true);
-			Transform* tr = e->getComponent<Transform>();
-			tr->position_ = pos;
-			tr->velocity_ = vel;
+			Transform* tr = e->getComponent<Transform>(ECS::Transform);
+			tr->position_ = p;
+			tr->velocity_ = v;
 			tr->width_ = w;
-			tr->height_ = h;
-			tr->rotation_ = Vector2D(0, -1).angle(vel);
+			tr->height_ = w;
 		}
 		return e;
 	}
@@ -68,7 +66,7 @@ private:
 		for (Entity* e : pool_.getPool())
 		{
 			e->addComponent<Transform>();
-			e->addComponent<ImageComponent>(SDLGame::instance()->getTextureManager()->getTexture(Resources::Bullet));
+			e->addComponent<Image>(SDLGame::instance()->getTextureManager()->getTexture(Resources::Bullet));
 		}
 	}
 };

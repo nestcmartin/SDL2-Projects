@@ -1,0 +1,147 @@
+#include <cstdint>
+#include <algorithm>
+
+#include "Entity.h"
+#include "EntityManager.h"
+
+#include "Image.h"
+#include "CtrlKeys.h"
+#include "Transform.h"
+#include "FighterInfo.h"
+
+#include "BulletsSystem.h"
+#include "FightersSystem.h"
+#include "GameCtrlSystem.h"
+
+#include "ECS.h"
+
+using ECS::ComponentId;
+
+FightersSystem::FightersSystem() :
+	System(ECS::_sys_Fighters),
+	fighter0_(nullptr),
+	fighter1_(nullptr) {
+}
+
+FightersSystem::~FightersSystem()
+{
+}
+
+void FightersSystem::resetFighterPositions()
+{
+	auto f0Tr = fighter0_->getComponent<Transform>(ECS::Transform);
+	f0Tr->velocity_ = Vector2D(0.0, 0.0);
+	f0Tr->position_ = Vector2D(10, game_->getWindowHeight() / 2 - 25);
+	f0Tr->rotation_ = 90.0;
+
+	auto f1Tr = fighter1_->getComponent<Transform>(ECS::Transform);
+	f1Tr->velocity_ = Vector2D(0.0, 0.0);
+	f1Tr->position_ = Vector2D(game_->getWindowWidth() - 50.0 - 10.0, game_->getWindowHeight() / 2 - 25);
+	f1Tr->rotation_ = -90.0;
+}
+
+void FightersSystem::init()
+{
+	// left fighter
+	fighter0_ = entityManager_->addEntity();
+	auto f0Tr = fighter0_->addComponent<Transform>();
+	f0Tr->position_ = Vector2D(10, game_->getWindowHeight() / 2 - 25);
+	f0Tr->velocity_ = Vector2D(0.0, 0.0);
+	f0Tr->width_ = 50.0;
+	f0Tr->height_ = 50.0;
+	f0Tr->rotation_ = 90.0;
+	fighter0_->addComponent<CtrlKeys>(SDLK_LEFT, SDLK_RIGHT, SDLK_UP, SDLK_DOWN, SDLK_SPACE);
+
+	fighter0_->addComponent<Image>(game_->getTextureManager()->getTexture(Resources::Fighter));
+	fighter0_->addToGroup(ECS::_grp_Fighters);
+	entityManager_->setHandler(ECS::_hdlr_Fighter0, fighter0_);
+	fighter0_->addComponent<FighterInfo>(0);
+
+	// right fighter
+	fighter1_ = entityManager_->addEntity();
+	auto f1Tr = fighter1_->addComponent<Transform>();
+	f1Tr->position_ = Vector2D(game_->getWindowWidth() - 50.0 - 10.0, game_->getWindowHeight() / 2 - 25);
+	f1Tr->velocity_ = Vector2D(0.0, 0.0);
+	f1Tr->width_ = 50.0;
+	f1Tr->height_ = 50.0;
+	f1Tr->rotation_ = -90.0;
+	fighter1_->addComponent<CtrlKeys>(SDLK_a, SDLK_d, SDLK_w, SDLK_s, SDLK_x);
+
+	fighter1_->addComponent<Image>(game_->getTextureManager()->getTexture(Resources::Fighter));
+	fighter1_->addToGroup(ECS::_grp_Fighters);
+	fighter1_->addComponent<FighterInfo>(1);
+	entityManager_->setHandler(ECS::_hdlr_Fighter1, fighter1_);
+}
+
+void FightersSystem::update()
+{
+	auto gameState = entityManager_->getSystem<GameCtrlSystem>(ECS::_sys_GameCtrl)->getState();
+	if (gameState != GameCtrlSystem::RUNNING) return;
+
+	updateFighter(fighter0_);
+	updateFighter(fighter1_);
+
+}
+
+void FightersSystem::updateFighter(Entity* e)
+{
+	Transform* tr = e->getComponent<Transform>(ECS::Transform);
+	CtrlKeys* keys = e->getComponent<CtrlKeys>(ECS::CtrlKeys);
+
+	auto ih = game_->getInputHandler();
+	if (ih->keyDownEvent())
+	{
+		// turn left
+		if (ih->isKeyDown(keys->left_))
+		{
+			tr->rotation_ = fmod(tr->rotation_ - 5.0, 360.0);
+			tr->velocity_ = tr->velocity_.rotate(-5.0);
+		}
+		// turn right
+		else if (ih->isKeyDown(keys->right_))
+		{
+			tr->rotation_ = fmod(tr->rotation_ + 5.0, 360.0);
+			tr->velocity_ = tr->velocity_.rotate(5.0);
+		}
+		// speed up
+		else if (ih->isKeyDown(keys->speedup_))
+		{
+			tr->velocity_ = Vector2D(0.0, -1.0).rotate(tr->rotation_)
+				* (std::min(tr->velocity_.magnitude() + 0.2, 3.0));
+		}
+		// slow down
+		else if (ih->isKeyDown(keys->slowdown_))
+		{
+			tr->velocity_ = Vector2D(0.0, -1.0).rotate(tr->rotation_)
+				* (std::max(tr->velocity_.magnitude() - 0.2, 0.0));
+		}
+		// shoot
+		else if (ih->isKeyDown(keys->shoot_) && game_->getTime() - keys->lastShootTime_ > 1000)
+		{
+			keys->lastShootTime_ = game_->getTime();
+			Vector2D p = tr->position_ + Vector2D(tr->width_ / 2, tr->height_ / 2) + Vector2D(0, -(tr->height_ / 2 + 5.0)).rotate(tr->rotation_);
+			Vector2D d = Vector2D(0, -1).rotate(tr->rotation_) * 2;
+			entityManager_->getSystem<BulletsSystem>(ECS::_sys_Bullets)->shoot(p, d, 2, 5);
+		}
+
+	}
+
+	// motion
+	Vector2D oldPos = tr->position_;
+	Vector2D newPos = tr->position_ + tr->velocity_;
+
+	tr->position_ = newPos;
+	tr->velocity_ = tr->velocity_ * 0.995;
+
+	double y = newPos.getY();
+	double x = newPos.getX();
+
+	if (y <= 0
+		|| y + tr->height_ >= game_->getWindowHeight()
+		|| x <= 0
+		|| x + tr->width_ >= game_->getWindowWidth())
+	{
+		tr->velocity_ = Vector2D();
+		tr->position_ = oldPos;
+	}
+}
