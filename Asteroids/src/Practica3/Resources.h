@@ -23,12 +23,16 @@ public:
 		Star,
 		Bullet,
 		PacMan,
+		Fighter,
 
 		// Text Messages
 		HelloWorld,
 		PresAnyKey,
 		GameOverWin,
-		GameOverLose
+		GameOverLose,
+		PressEnter,
+		GameOver,
+		WaitingForPlayer
 	};
 
 	enum AudioId : int 
@@ -37,15 +41,22 @@ public:
 		Boooo,
 		Cheer,
 		ImperialMarch,
+		Beat,
 
 		// Sound Effects
 		ExplosionSound,
-		GunShot
+		GunShot,
+		Wall_Hit,
+		Paddle_Hit,
+		RetroGameOverSound,
+		BonusBellSound
 	};
 
 	enum FontId : int
 	{
 		// Fonts
+		ARIAL10,
+		ARIAL12,
 		ARIAL16, 
 		ARIAL24,
 		CAPTURE16,

@@ -13,7 +13,8 @@ std::vector<Resources::ImageInfo> Resources::images_
 	{ SpaceShips, "resources/images/spaceships.png" },
 	{ Star, "resources/images/star.png" },
 	{ Bullet, "resources/images/whiterect.png" },
-	{ PacMan, "resources/images/pacman.png" }
+	{ PacMan, "resources/images/pacman.png" },
+	{ Fighter, "resources/images/fighter.png" }
 };
 
 std::vector<Resources::TextMsgInfo> Resources::messages_
@@ -21,24 +22,34 @@ std::vector<Resources::TextMsgInfo> Resources::messages_
 	{ HelloWorld, "Hello World", { COLOR(0xaaffffff) }, ARIAL16 },
 	{ PresAnyKey, "Press Any Key To Start...", { COLOR(0xaaffbbff) }, ARIAL24 },
 	{ GameOverWin, "Game Over! You Win!", { COLOR(0xffffbbff) }, ARIAL24 },
-	{ GameOverLose, "Game Over! You Lose!", { COLOR(0xffffbbff) }, ARIAL24 }
+	{ GameOverLose, "Game Over! You Lose!", { COLOR(0xffffbbff) }, ARIAL24 },
+	{ PressEnter, "Press Enter to Start", { COLOR(0xaaffbbff) }, ARIAL24 },
+	{ GameOver, "Game Over", { COLOR(0xffffbbff) }, ARIAL24 },
+	{ WaitingForPlayer, "Waiting for other player", { COLOR(0xaaccbbff) }, ARIAL24 }
 };
 
 std::vector<Resources::MusicInfo> Resources::musics_
 {
 	{ Boooo, "resources/sound/boooo.wav" },
 	{ Cheer, "resources/sound/cheer.wav" },
-	{ ImperialMarch, "resources/sound/imperial_march.wav" }
+	{ ImperialMarch, "resources/sound/imperial_march.wav" },
+	{ Beat, "resources/sound/beat.wav" }
 };
 
 std::vector<Resources::SoundInfo> Resources::sounds_
 {
 	{ ExplosionSound, "resources/sound/explosion.wav" },
-	{ GunShot, "resources/sound/gunshot.wav" }
+	{ GunShot, "resources/sound/gunshot.wav" },
+	{ Wall_Hit, "resources/sound/wall_hit.wav" },
+	{ Paddle_Hit, "resources/sound/paddle_hit.wav" },
+	{ RetroGameOverSound, "resources/sound/game-over.mp3" },
+	{ BonusBellSound, "resources/sound/bonus-bell.mp3" },
 };
 
 std::vector<Resources::FontInfo> Resources::fonts_
 {
+	{ ARIAL10, "resources/fonts/ARIAL.ttf", 10 },
+	{ ARIAL12, "resources/fonts/ARIAL.ttf", 12 },
 	{ ARIAL16, "resources/fonts/ARIAL.ttf", 16 },
 	{ ARIAL24, "resources/fonts/ARIAL.ttf", 24 },
 	{ CAPTURE16, "resources/fonts/Capture_it.ttf", 16 },
