@@ -1,0 +1,18 @@
+Un comentario sobre la ejecución del cliente en el juego PingPong con SDLNet. 
+
+Para ejecutar el cliente, tenéis que entrar en el directorio donde está el directorio 'resources' (suponemos que es C:\Path1\TPV2)
+
+  cd C:\Path1\TPV2
+y después ejecutar
+
+  ..\bin\TPV2Debug.exe client localhost 2000
+La razón por la cual hay que estar en el directorio donde está 'resources' es que en el juego todas las referencias 'resources' son relativas (al cargar imagines, etc.), es decir se supone que el directorio 'resources' está en el directorio actual de ejecución (pasa automáticamente si ejecutamos desde Visual Studio).
+
+Se puede también crear un archivo client.BAT con el contenido:
+
+  cd C:\Path\TPV2
+  ..\bin\TPV2Debug.exe client localhost 2000
+
+Por favor, cuando alguien consigue ejecutar el ejemplo que me envía un mensaje en Discord  para confirmar que todo funciona bien (porque yo no he probado en Windows).
+
+ciao,
