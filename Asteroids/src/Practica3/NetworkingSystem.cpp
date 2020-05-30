@@ -58,6 +58,22 @@ void NetworkingSystem::update() {
 			break;
 		}
 
+		case messages::_BULLET_INFO:
+		{
+			manager_->forwardMsg<messages::BulletInfo>(msg->senderClientId,
+				static_cast<messages::BulletInfo*>(msg)->px,
+				static_cast<messages::BulletInfo*>(msg)->py,
+				static_cast<messages::BulletInfo*>(msg)->vx,
+				static_cast<messages::BulletInfo*>(msg)->vy,
+				static_cast<messages::BulletInfo*>(msg)->w,
+				static_cast<messages::BulletInfo*>(msg)->h);
+			break;
+		}
+
+		case messages::_FIGHTER_COLLISION:
+			manager_->forwardMsg<messages::Message>(msg->senderClientId, messages::_FIGHTER_COLLISION);
+			break;
+
 		default:
 			assert(false);
 			break;

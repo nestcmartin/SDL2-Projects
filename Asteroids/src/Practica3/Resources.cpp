@@ -27,6 +27,7 @@ std::vector<Resources::TextMsgInfo> Resources::messages_
 	{ PressEnterKey, "Press Enter Key To Start...", { COLOR(0xaaffbbff) }, ARIAL24 },
 	{ GameOverWin, "Game Over! You Win!", { COLOR(0xffffbbff) }, ARIAL24 },
 	{ GameOverLose, "Game Over! You Lose!", { COLOR(0xffffbbff) }, ARIAL24 },
+	{ GameOverDraw, "Game Over! It's a Draw!", { COLOR(0xffffbbff) }, ARIAL24 },
 	{ WaitingForPlayer, "Waiting for player...", { COLOR(0xffffbbff) }, ARIAL24 },
 	{ PressAnyKey, "Press Any Key To Start...", { COLOR(0xffffbbff) }, ARIAL24 },
 	{ GameOver, "Game Over!", { COLOR(0xffffbbff) }, ARIAL24 }

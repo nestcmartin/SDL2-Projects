@@ -157,6 +157,7 @@ void FightersSystem::updateFighter(Entity* e) {
 			Vector2D d = Vector2D(0, -1).rotate(tr->rotation_) * 2;
 
 			manager_->getSystem<BulletsSystem>(ECS::_sys_Bullets)->shoot(p, d, 2, 5);
+			manager_->send<messages::BulletInfo>(p.getX(), p.getY(), d.getX(), d.getY(), 2, 5);
 
 		}
 	}

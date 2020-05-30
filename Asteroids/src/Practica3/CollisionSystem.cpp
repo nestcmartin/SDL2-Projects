@@ -32,14 +32,29 @@ void CollisionSystem::update() {
 
 			auto bTR = b->getComponent<Transform>(ECS::Transform);
 
-			if (Collisions::collidesWithRotation(bTR->position_, bTR->width_,
-				bTR->height_, bTR->rotation_, fTR->position_, fTR->width_,
-				fTR->height_, fTR->rotation_)) {
-
+			if (Collisions::collidesWithRotation(
+				bTR->position_, bTR->width_, bTR->height_, bTR->rotation_, 
+				fTR->position_, fTR->width_, fTR->height_, fTR->rotation_)) 
+			{
 				roundOver = true;
 				auto id = f->getComponent<FighterInfo>(ECS::FighterInfo)->fighterId_;
 				manager_->send<messages::BulletCollision>(id);
 			}
+		}
+	}
+
+	if (!roundOver)
+	{
+		auto fighters = manager_->getGroupEntities(ECS::_grp_Fighters);
+		auto fTR0 = fighters[0]->getComponent<Transform>(ECS::Transform);
+		auto fTR1 = fighters[1]->getComponent<Transform>(ECS::Transform);
+
+		if (Collisions::collidesWithRotation(
+			fTR0->position_, fTR0->width_, fTR0->height_, fTR0->rotation_,
+			fTR1->position_, fTR1->width_, fTR1->height_, fTR1->rotation_))
+		{
+			roundOver = true;
+			manager_->send<messages::Message>(messages::_FIGHTER_COLLISION);
 		}
 	}
 

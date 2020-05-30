@@ -19,6 +19,8 @@ namespace messages {
 		_START_ROUND,
 		_BULLET_COLLISION,
 		_FIGHTER_INFO,
+		_BULLET_INFO,
+		_FIGHTER_COLLISION,
 
 		//
 		_last_MsgId_
@@ -70,6 +72,20 @@ namespace messages {
 		double x;
 		double y;
 		double r;
+	};
+
+	struct BulletInfo : Message {
+		BulletInfo(double px, double py, double vx, double vy, double w, double h) :
+			Message(sizeof(BulletInfo), _BULLET_INFO), px(px), py(py), vx(vx), vy(vy), w(w), h(h)
+		{
+		}
+
+		double px;
+		double py;
+		double vx;
+		double vy;
+		double w;
+		double h;
 	};
 
 #pragma pack(pop)

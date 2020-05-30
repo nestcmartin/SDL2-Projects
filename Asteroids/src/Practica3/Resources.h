@@ -33,6 +33,7 @@ public:
 		PressEnterKey,
 		GameOverWin,
 		GameOverLose,
+		GameOverDraw,
 		WaitingForPlayer,
 		PressAnyKey,
 		GameOver

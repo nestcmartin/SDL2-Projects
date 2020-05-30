@@ -1,17 +1,23 @@
-#include "GameCtrlSystem.h"
-
 #include <cassert>
 #include <cstdint>
-#include "ecs.h"
+
+#include "ECS.h"
+
 #include "Entity.h"
-#include "FighterInfo.h"
-#include "FightersSystem.h"
 #include "EntityManager.h"
+
+#include "FighterInfo.h"
+
+#include "BulletsSystem.h"
+#include "FightersSystem.h"
+#include "GameCtrlSystem.h"
+
 
 using ECS::CmpId;
 
 GameCtrlSystem::GameCtrlSystem() :
-		System(ECS::_sys_GameCtrl) {
+		System(ECS::_sys_GameCtrl) 
+{
 	state_ = WAITING;
 	resetScore();
 }
@@ -36,14 +42,17 @@ void GameCtrlSystem::update()
 
 void GameCtrlSystem::startGame() 
 {
-	if (state_ == GAMEOVER) {
+	if (state_ == GAMEOVER) 
+	{
 		resetScore();
 	}
+
 	manager_->getSystem<FightersSystem>(ECS::_sys_Fighters)->resetFighterPositions();
 	state_ = RUNNING;
 }
 
-void GameCtrlSystem::onFighterDeath(uint8_t fighterId) {
+void GameCtrlSystem::onFighterDeath(uint8_t fighterId) 
+{
 	assert(fighterId >= 0 && fighterId <= 1);
 
 	uint8_t id = 1 - fighterId; // the id of the other player fighter
@@ -55,7 +64,8 @@ void GameCtrlSystem::onFighterDeath(uint8_t fighterId) {
 
 }
 
-void GameCtrlSystem::resetScore() {
+void GameCtrlSystem::resetScore() 
+{
 	score[0] = score[1] = 0;
 }
 
@@ -93,9 +103,25 @@ void GameCtrlSystem::receive(const messages::Message& msg)
 		break;
 
 	case messages::_BULLET_COLLISION:
+	{
 		onFighterDeath(static_cast<const messages::BulletCollision&>(msg).fighter);
+		
+		if (manager_->getClientId() != 0)
+		{
+			manager_->getSystem<BulletsSystem>(ECS::_sys_Bullets)->disableAll();
+		}
 		break;
+	}
 
-	
+	case messages::_FIGHTER_COLLISION:
+	{
+		state_ = ROUNDOVER;
+
+		if (manager_->getClientId() != 0)
+		{
+			manager_->getSystem<BulletsSystem>(ECS::_sys_Bullets)->disableAll();
+		}
+		break;
+	}
 	}
 }
