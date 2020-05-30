@@ -3,57 +3,53 @@
 
 #include <ctime>
 
-namespace ECS 
-{
+namespace ECS {
+
 	using CmpIdType = std::size_t;
 	using GrpIdType = std::size_t;
 	using HdlrIdType = std::size_t;
 	using SysIdType = std::size_t;
 
-	// Identificadores de componentes
-	enum ComponentId : CmpIdType 
-	{
+	enum CmpId : CmpIdType {
 		Transform = 0,
 		Image,
 		GameState,
 		CtrlKeys,
 		FighterInfo,
-
-		// YOU SHALL NOT PASS
+		//
+		// don't touch the rest of this enum, it is to identify the max
+		// number of components
 		_LastCmptId_
 	};
 
-	// Identificadores de grupos
-	enum GroupId : GrpIdType 
-	{
+	enum GrpId : GrpIdType {
 		_grp_Fighters,
 		_grp_Bullets,
-
-		// YOU SHALL NOT PASS
+		//
+		// don't touch the rest of this enum, it is to identify the max
+		// number of groups
 		_LastGrpId_
 	};
 
-	// Identificadores de handlers
-	enum HandlerId : HdlrIdType 
-	{
+	enum HdlrId : HdlrIdType {
 		_hdlr_Fighter0,
 		_hdlr_Fighter1,
-
-		// YOU SHALL NOT PASS
+		//
+		// don't touch the rest of this enum, it is to identify the max
+		// number of handlers
 		_LastHdlrId_
 	};
 
-	// Identificadores de sistemas
-	enum SystemId : SysIdType 
-	{
+	enum SysId : SysIdType {
 		_sys_GameCtrl,
 		_sys_Fighters,
 		_sys_Bullets,
 		_sys_Collision,
 		_sys_Render,
 		_sys_NetWorking,
-
-		// YOU SHALL NOT PASS
+		//
+		// don't touch the rest of this enum, it is to identify the max
+		// number of systems
 		_LastSysId_
 	};
 
@@ -62,13 +58,15 @@ namespace ECS
 	constexpr std::size_t maxHandlers = _LastHdlrId_;
 	constexpr std::size_t maxSystems = _LastSysId_;
 
-// Se devuelve un componente a partir del atributo entity_
-#define GETCMP2_(id, type)   GETCMP3(entity_, id, type)
-#define GETCMP1_(type)       GETCMP3(entity_, ECS::type, type)
+// these two should be used to get a component via the field
+// entity_
+#define GETCMP2_(id,type)  GETCMP3(entity_,id,type)
+#define GETCMP1_(type)     GETCMP3(entity_,ECS::type,type)
 
-// Se devuelve un componente a partir del parámetro e
-#define GETCMP2(e, type)     GETCMP3(e, ECS::type, type)
-#define GETCMP3(e, id, type) e->getComponent<type>(id)
+// these two should be used to get a component via an
+// entity e provided as a parameter
+#define GETCMP2(e,type) GETCMP3(e,ECS::type,type)
+#define GETCMP3(e,id,type) e->getComponent<type>(id)
 
 }
 

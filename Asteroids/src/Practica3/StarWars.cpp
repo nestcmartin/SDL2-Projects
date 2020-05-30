@@ -1,76 +1,88 @@
-#include "ObjectFactory.h"
-
-#include "BulletsPool.h"
-
-#include "SDL_Macros.h"
-
 #include "StarWars.h"
 
+#include "BulletsPool.h"
+#include "SDL_macros.h"
+
 StarWars::StarWars() :
-	exit_(false),
-	game_(nullptr), 
-	entityManager_(nullptr)
+	host_(nullptr),
+	port_(0),
+	game_(nullptr),
+	manager_(nullptr),
+	exit_(false) {
+	initGame();
+}
+
+StarWars::StarWars(char* host, int port) :
+	host_(host),
+	port_(port),
+	game_(nullptr),
+	manager_(nullptr),
+	exit_(false)
 {
 	initGame();
 }
 
-StarWars::~StarWars() 
-{
+StarWars::~StarWars() {
 	closeGame();
 }
 
-void StarWars::initGame() 
-{
-	// Inicializamos SDLGame
-	game_ = SDLGame::init("Star Wars", WINDOW_WIDTH, WINDOW_HEIGHT);
+void StarWars::initGame() {
 
-	// Inicializamos el EntityManager
-	entityManager_ = new EntityManager(game_);
-	
-	// Inicializamos los pools y factorías
+	game_ = SDLGame::init("Star Wars", _WINDOW_WIDTH_, _WINDOW_HEIGHT_);
+
+	if (!game_->getNetworking()->client(host_, port_))
+		throw "Couldn't connect to server!";
+
+	manager_ = new EntityManager(game_);
+
 	BulletsPool::init(100);
 
-	// Inicializamos todos los sistemas
-	fighterSystem_ = entityManager_->addSystem<FightersSystem>();
-	gameCtrlSystem_ = entityManager_->addSystem<GameCtrlSystem>();
-	bulletSystem_ = entityManager_->addSystem<BulletsSystem>();
-	collisionSystem_ = entityManager_->addSystem<CollisionSystem>();
-	renderSystem_ = entityManager_->addSystem<RenderSystem>();
+	networkingSystem_ = manager_->addSystem<NetworkingSystem>();
+	fightersSystem_ = manager_->addSystem<FightersSystem>();
+	gameCtrlSystem_ = manager_->addSystem<GameCtrlSystem>();
+	bulletsSystem_ = manager_->addSystem<BulletsSystem>();
+	collisionSystem_ = manager_->addSystem<CollisionSystem>();
+	renderSystem_ = manager_->addSystem<RenderSystem>();
+
 }
 
-void StarWars::closeGame() 
-{
-	delete entityManager_;
+void StarWars::closeGame() {
+	delete manager_;
 }
 
-void StarWars::start() 
-{
+void StarWars::start() {
 	exit_ = false;
 	auto ih = InputHandler::instance();
 
-	while (!exit_)
-	{
+	while (!exit_) {
 		Uint32 startTime = game_->getTime();
-
 		SDL_SetRenderDrawColor(game_->getRenderer(), COLOR(0x00AAAAFF));
 		SDL_RenderClear(game_->getRenderer());
 
 		ih->update(exit_);
-		if (ih->keyDownEvent() && ih->isKeyDown(SDLK_ESCAPE)) exit_ = true;
+		if (ih->keyDownEvent()) {
+			if (ih->isKeyDown(SDLK_ESCAPE)) {
+				exit_ = true;
+				break;
+			}
+		}
 
-		entityManager_->refresh();
+		manager_->refresh();
 
 		gameCtrlSystem_->update();
-		fighterSystem_->update();
-		bulletSystem_->update();
-		if (collisionSystem_) collisionSystem_->update();
+		fightersSystem_->update();
+		bulletsSystem_->update();
+		if (collisionSystem_ != nullptr)
+			collisionSystem_->update();
 		renderSystem_->update();
+		networkingSystem_->update();
 
-		entityManager_->flushMessages();
+		manager_->flushMessages();
 
 		SDL_RenderPresent(game_->getRenderer());
-
 		Uint32 frameTime = game_->getTime() - startTime;
-		if (frameTime < 10) SDL_Delay(10 - frameTime);
+		if (frameTime < 10)
+			SDL_Delay(10 - frameTime);
 	}
 }
+

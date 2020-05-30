@@ -2,7 +2,6 @@
 #define __FONT_H__
 
 #include <string>
-
 #include <SDL_ttf.h>
 
 class Font 

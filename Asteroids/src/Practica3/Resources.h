@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-
 #include <SDL.h>
 
 class Resources 
@@ -15,6 +14,7 @@ public:
 		// Images
 		Airplanes,
 		Asteroid,
+		Blank,
 		Badges,
 		BlackHole,
 		Explosion,
@@ -23,40 +23,41 @@ public:
 		Star,
 		Bullet,
 		PacMan,
+		KeyBoardIcon,
+		MouseIcon,
+		AIIcon,
 		Fighter,
 
 		// Text Messages
 		HelloWorld,
-		PresAnyKey,
+		PressEnterKey,
 		GameOverWin,
 		GameOverLose,
-		PressEnter,
-		GameOver,
-		WaitingForPlayer
+		WaitingForPlayer,
+		PressAnyKey,
+		GameOver
 	};
 
 	enum AudioId : int 
 	{
 		// Music
+		Beat,
 		Boooo,
 		Cheer,
 		ImperialMarch,
-		Beat,
 
 		// Sound Effects
 		ExplosionSound,
 		GunShot,
-		Wall_Hit,
 		Paddle_Hit,
-		RetroGameOverSound,
-		BonusBellSound
+		Wall_Hit,
+		BonusBellSound,
+		RetroGameOverSound
 	};
 
 	enum FontId : int
 	{
 		// Fonts
-		ARIAL10,
-		ARIAL12,
 		ARIAL16, 
 		ARIAL24,
 		CAPTURE16,

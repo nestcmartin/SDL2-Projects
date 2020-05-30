@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\PingPong\AudioManager.cpp" />
+    <ClCompile Include="..\..\src\PingPong\Collisions.cpp" />
+    <ClCompile Include="..\..\src\PingPong\DefFactory.cpp" />
+    <ClCompile Include="..\..\src\PingPong\Entity.cpp" />
+    <ClCompile Include="..\..\src\PingPong\Font.cpp" />
+    <ClCompile Include="..\..\src\PingPong\FontsManager.cpp" />
+    <ClCompile Include="..\..\src\PingPong\GameCtrlSystem.cpp" />
+    <ClCompile Include="..\..\src\PingPong\InputHandler.cpp" />
+    <ClCompile Include="..\..\src\PingPong\jute.cpp" />
+    <ClCompile Include="..\..\src\PingPong\main.cpp" />
+    <ClCompile Include="..\..\src\PingPong\Manager.cpp" />
+    <ClCompile Include="..\..\src\PingPong\Networking.cpp" />
+    <ClCompile Include="..\..\src\PingPong\NetworkingSystem.cpp" />
+    <ClCompile Include="..\..\src\PingPong\ObjectFactory.cpp" />
+    <ClCompile Include="..\..\src\PingPong\ObjectPool.cpp" />
+    <ClCompile Include="..\..\src\PingPong\OFFacotry.cpp" />
+    <ClCompile Include="..\..\src\PingPong\PhysicsSystem.cpp" />
+    <ClCompile Include="..\..\src\PingPong\PingPong.cpp" />
+    <ClCompile Include="..\..\src\PingPong\RandomNumberGenerator.cpp" />
+    <ClCompile Include="..\..\src\PingPong\RenderSystem.cpp" />
+    <ClCompile Include="..\..\src\PingPong\Resources.cpp" />
+    <ClCompile Include="..\..\src\PingPong\SDLAudioManager.cpp" />
+    <ClCompile Include="..\..\src\PingPong\SDLFontsManager.cpp" />
+    <ClCompile Include="..\..\src\PingPong\SDLGame.cpp" />
+    <ClCompile Include="..\..\src\PingPong\SDLTexturesManager.cpp" />
+    <ClCompile Include="..\..\src\PingPong\sdl_macros.cpp" />
+    <ClCompile Include="..\..\src\PingPong\Singleton.cpp" />
+    <ClCompile Include="..\..\src\PingPong\SRandBasedGenerator.cpp" />
+    <ClCompile Include="..\..\src\PingPong\System.cpp" />
+    <ClCompile Include="..\..\src\PingPong\Texture.cpp" />
+    <ClCompile Include="..\..\src\PingPong\TexturesManager.cpp" />
+    <ClCompile Include="..\..\src\PingPong\Transform.cpp" />
+    <ClCompile Include="..\..\src\PingPong\Vector2D.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\PingPong\AudioManager.h" />
+    <ClInclude Include="..\..\src\PingPong\Collisions.h" />
+    <ClInclude Include="..\..\src\PingPong\Component.h" />
+    <ClInclude Include="..\..\src\PingPong\DefFactory.h" />
+    <ClInclude Include="..\..\src\PingPong\ecs.h" />
+    <ClInclude Include="..\..\src\PingPong\Entity.h" />
+    <ClInclude Include="..\..\src\PingPong\Font.h" />
+    <ClInclude Include="..\..\src\PingPong\FontsManager.h" />
+    <ClInclude Include="..\..\src\PingPong\GameCtrlSystem.h" />
+    <ClInclude Include="..\..\src\PingPong\GameState.h" />
+    <ClInclude Include="..\..\src\PingPong\Image.h" />
+    <ClInclude Include="..\..\src\PingPong\InputHandler.h" />
+    <ClInclude Include="..\..\src\PingPong\jute.h" />
+    <ClInclude Include="..\..\src\PingPong\Manager.h" />
+    <ClInclude Include="..\..\src\PingPong\messages.h" />
+    <ClInclude Include="..\..\src\PingPong\Networking.h" />
+    <ClInclude Include="..\..\src\PingPong\NetworkingSystem.h" />
+    <ClInclude Include="..\..\src\PingPong\ObjectFactory.h" />
+    <ClInclude Include="..\..\src\PingPong\ObjectPool.h" />
+    <ClInclude Include="..\..\src\PingPong\OFFacotry.h" />
+    <ClInclude Include="..\..\src\PingPong\PhysicsSystem.h" />
+    <ClInclude Include="..\..\src\PingPong\PingPong.h" />
+    <ClInclude Include="..\..\src\PingPong\RandomNumberGenerator.h" />
+    <ClInclude Include="..\..\src\PingPong\RenderSystem.h" />
+    <ClInclude Include="..\..\src\PingPong\Resources.h" />
+    <ClInclude Include="..\..\src\PingPong\Score.h" />
+    <ClInclude Include="..\..\src\PingPong\SDLAudioManager.h" />
+    <ClInclude Include="..\..\src\PingPong\SDLFontsManager.h" />
+    <ClInclude Include="..\..\src\PingPong\SDLGame.h" />
+    <ClInclude Include="..\..\src\PingPong\SDLTexturesManager.h" />
+    <ClInclude Include="..\..\src\PingPong\SDL_macros.h" />
+    <ClInclude Include="..\..\src\PingPong\Singleton.h" />
+    <ClInclude Include="..\..\src\PingPong\SRandBasedGenerator.h" />
+    <ClInclude Include="..\..\src\PingPong\System.h" />
+    <ClInclude Include="..\..\src\PingPong\Texture.h" />
+    <ClInclude Include="..\..\src\PingPong\TexturesManager.h" />
+    <ClInclude Include="..\..\src\PingPong\Transform.h" />
+    <ClInclude Include="..\..\src\PingPong\Vector2D.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{B852D43A-2308-4D16-9A89-A92F65070749}</ProjectGuid>
+    <RootNamespace>PingPong</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>PingPong</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\SDL2_image-2.0.1\include;$(SolutionDir)lib\SDL2_mixer-2.0.4\include;$(SolutionDir)lib\SDL2_net-2.0.1\include;$(SolutionDir)lib\SDL2_ttf-2.0.15\include;$(SolutionDir)lib\SDL2-2.0.10\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\SDL2_image-2.0.1\lib\x86;$(SolutionDir)lib\SDL2_mixer-2.0.4\lib\x86;$(SolutionDir)lib\SDL2_net-2.0.1\lib\x86;$(SolutionDir)lib\SDL2_ttf-2.0.15\lib\x86;$(SolutionDir)lib\SDL2-2.0.10\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_net.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\SDL2_image-2.0.1\include;$(SolutionDir)lib\SDL2_mixer-2.0.4\include;$(SolutionDir)lib\SDL2_net-2.0.1\include;$(SolutionDir)lib\SDL2_ttf-2.0.15\include;$(SolutionDir)lib\SDL2-2.0.10\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\SDL2_image-2.0.1\lib\x86;$(SolutionDir)lib\SDL2_mixer-2.0.4\lib\x86;$(SolutionDir)lib\SDL2_net-2.0.1\lib\x86;$(SolutionDir)lib\SDL2_ttf-2.0.15\lib\x86;$(SolutionDir)lib\SDL2-2.0.10\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_net.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -3,42 +3,47 @@
 
 #include <vector>
 
-#include "EntityManager.h"
-
-#include "RenderSystem.h"
 #include "BulletsSystem.h"
+#include "CollisionSystem.h"
 #include "FightersSystem.h"
 #include "GameCtrlSystem.h"
-#include "CollisionSystem.h"
-
+#include "EntityManager.h"
+#include "RenderSystem.h"
 #include "SDLGame.h"
+#include "NetworkingSystem.h"
 
-class StarWars
-{
-private:
-	const static int WINDOW_WIDTH = 1080;
-	const static int WINDOW_HEIGHT = 720;
-
-	bool exit_;
-	SDLGame* game_;
-	EntityManager* entityManager_;
-
-	RenderSystem* renderSystem_;
-	BulletsSystem* bulletSystem_;
-	FightersSystem* fighterSystem_;
-	GameCtrlSystem* gameCtrlSystem_;
-	CollisionSystem* collisionSystem_;
+class StarWars {
 
 public:
 	StarWars();
+	StarWars(char* host, int port);
 	virtual ~StarWars();
 
+	// from SDLGame
 	void start();
 	void stop();
 
 private:
 	void initGame();
 	void closeGame();
+
+	char* host_;
+	int port_;
+
+	SDLGame* game_;
+	EntityManager* manager_;
+	bool exit_;
+
+	RenderSystem* renderSystem_;
+	FightersSystem* fightersSystem_;
+	GameCtrlSystem* gameCtrlSystem_;
+	BulletsSystem* bulletsSystem_;
+	CollisionSystem* collisionSystem_;
+	NetworkingSystem* networkingSystem_;
+
+	const static int _WINDOW_WIDTH_ = 640;
+	const static int _WINDOW_HEIGHT_ = 480;
+
 };
 
 #endif // !__STAR_WARS_H__

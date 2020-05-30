@@ -1,43 +1,67 @@
-#include "EntityManager.h"
-
 #include "NetworkingSystem.h"
 
-#include "Messages.h"
+#include "messages.h"
+#include "EntityManager.h"
 
 NetworkingSystem::NetworkingSystem() :
-	System(ECS::_sys_NetWorking) 
-{
+	System(ECS::_sys_NetWorking) {
 
 }
 
-NetworkingSystem::~NetworkingSystem() 
-{
+NetworkingSystem::~NetworkingSystem() {
 }
 
-void NetworkingSystem::receive(const MSG::Message& msg) 
-{
-	if (msg.senderClientId == entityManager_->getClientId()) 
-	{
+void NetworkingSystem::receive(const messages::Message& msg) {
+	if (msg.senderClientId == manager_->getClientId()) {
 		game_->getNetworking()->send(msg);
 	}
 }
 
-void NetworkingSystem::update() 
-{
+void NetworkingSystem::update() {
 	auto net = game_->getNetworking();
-	MSG::Message* msg = nullptr;
+	messages::Message* msg = nullptr;
 
-	while ((msg = net->receive()) != nullptr) 
+	while ((msg = net->recieve()) != nullptr) 
 	{
 		switch (msg->id) 
 		{
-		case MSG::_CLIENT_DISCONNECTED:
-			entityManager_->forwardMsg<MSG::ClientDisconnectedMsg>(msg->senderClientId, static_cast<MSG::ClientDisconnectedMsg*>(msg)->clientId);
+		case messages::_PLAYER_INFO:
+			manager_->forwardMsg<messages::Message>(msg->senderClientId, messages::_PLAYER_INFO);
 			break;
+
+		case messages::_CLIENT_DISCONNECTED:
+			manager_->forwardMsg<messages::ClientDisconnectedMsg>(msg->senderClientId,
+				static_cast<messages::ClientDisconnectedMsg*>(msg)->clientId);
+			break;
+
+		case messages::_START_REQ:
+			manager_->forwardMsg<messages::Message>(msg->senderClientId, messages::_START_REQ);
+			break;
+
+		case messages::_START_ROUND: {
+			manager_->forwardMsg<messages::Message>(msg->senderClientId, messages::_START_ROUND);
+			break;
+		}
+
+		case messages::_BULLET_COLLISION: {
+			manager_->forwardMsg<messages::BulletCollision>(msg->senderClientId, 
+				static_cast<messages::BulletCollision*>(msg)->fighter);
+			break;
+		}
+
+		case messages::_FIGHTER_INFO:
+		{
+			manager_->forwardMsg<messages::FighterInfo>(msg->senderClientId,
+				static_cast<messages::FighterInfo*>(msg)->x,
+				static_cast<messages::FighterInfo*>(msg)->y,
+				static_cast<messages::FighterInfo*>(msg)->r);
+			break;
+		}
 
 		default:
 			assert(false);
 			break;
 		}
 	}
+
 }

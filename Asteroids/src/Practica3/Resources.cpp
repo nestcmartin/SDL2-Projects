@@ -1,11 +1,12 @@
 #include "Resources.h"
 
-#include "SDL_Macros.h"
+#include "SDL_macros.h"
 
 std::vector<Resources::ImageInfo> Resources::images_
 {
 	{ Airplanes, "resources/images/airplanes.png" },
 	{ Asteroid, "resources/images/asteroid.png" },
+	{ Blank, "resources/images/blank.png" },
 	{ Badges, "resources/images/badges.png" },
 	{ BlackHole, "resources/images/black-hole.png" },
 	{ Explosion, "resources/images/explosion.png" },
@@ -14,18 +15,21 @@ std::vector<Resources::ImageInfo> Resources::images_
 	{ Star, "resources/images/star.png" },
 	{ Bullet, "resources/images/whiterect.png" },
 	{ PacMan, "resources/images/pacman.png" },
+	{ KeyBoardIcon, "resources/images/keyboard.png" },
+	{ MouseIcon, "resources/images/mouse.png" },
+	{ AIIcon, "resources/images/ai.png" },
 	{ Fighter, "resources/images/fighter.png" }
 };
 
 std::vector<Resources::TextMsgInfo> Resources::messages_
 {
 	{ HelloWorld, "Hello World", { COLOR(0xaaffffff) }, ARIAL16 },
-	{ PresAnyKey, "Press Any Key To Start...", { COLOR(0xaaffbbff) }, ARIAL24 },
+	{ PressEnterKey, "Press Enter Key To Start...", { COLOR(0xaaffbbff) }, ARIAL24 },
 	{ GameOverWin, "Game Over! You Win!", { COLOR(0xffffbbff) }, ARIAL24 },
 	{ GameOverLose, "Game Over! You Lose!", { COLOR(0xffffbbff) }, ARIAL24 },
-	{ PressEnter, "Press Enter to Start", { COLOR(0xaaffbbff) }, ARIAL24 },
-	{ GameOver, "Game Over", { COLOR(0xffffbbff) }, ARIAL24 },
-	{ WaitingForPlayer, "Waiting for other player", { COLOR(0xaaccbbff) }, ARIAL24 }
+	{ WaitingForPlayer, "Waiting for player...", { COLOR(0xffffbbff) }, ARIAL24 },
+	{ PressAnyKey, "Press Any Key To Start...", { COLOR(0xffffbbff) }, ARIAL24 },
+	{ GameOver, "Game Over!", { COLOR(0xffffbbff) }, ARIAL24 }
 };
 
 std::vector<Resources::MusicInfo> Resources::musics_
@@ -40,16 +44,14 @@ std::vector<Resources::SoundInfo> Resources::sounds_
 {
 	{ ExplosionSound, "resources/sound/explosion.wav" },
 	{ GunShot, "resources/sound/gunshot.wav" },
-	{ Wall_Hit, "resources/sound/wall_hit.wav" },
 	{ Paddle_Hit, "resources/sound/paddle_hit.wav" },
-	{ RetroGameOverSound, "resources/sound/game-over.mp3" },
+	{ Wall_Hit, "resources/sound/wall_hit.wav" },
 	{ BonusBellSound, "resources/sound/bonus-bell.mp3" },
+	{ RetroGameOverSound, "resources/sound/game-over.mp3" }
 };
 
 std::vector<Resources::FontInfo> Resources::fonts_
 {
-	{ ARIAL10, "resources/fonts/ARIAL.ttf", 10 },
-	{ ARIAL12, "resources/fonts/ARIAL.ttf", 12 },
 	{ ARIAL16, "resources/fonts/ARIAL.ttf", 16 },
 	{ ARIAL24, "resources/fonts/ARIAL.ttf", 24 },
 	{ CAPTURE16, "resources/fonts/Capture_it.ttf", 16 },

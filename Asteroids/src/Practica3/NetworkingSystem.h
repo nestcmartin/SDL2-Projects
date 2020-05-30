@@ -3,14 +3,13 @@
 
 #include "System.h"
 
-class NetworkingSystem : public System
-{
+class NetworkingSystem : public System {
 public:
 	NetworkingSystem();
 	virtual ~NetworkingSystem();
-
-	void receive(const MSG::Message& msg) override;
+	void receive(const messages::Message& msg) override;
 	void update() override;
 };
+
 
 #endif // !__NETWORKING_SYSTEM_H__

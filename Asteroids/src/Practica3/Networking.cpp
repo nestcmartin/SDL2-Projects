@@ -1,72 +1,71 @@
-#include <iostream>
-
 #include "Networking.h"
 
+#include <iostream>
+
 Networking::Networking() :
-	sock(nullptr),
-	socketSet(nullptr)
+		sock(nullptr), //
+		socketSet(nullptr) //
 {
-	if (SDLNet_Init() < 0) error();
+	if (SDLNet_Init() < 0) {
+		error();
+	}
+
 }
 
-Networking::~Networking()
-{
+Networking::~Networking() {
 	SDLNet_Quit();
 }
 
-void Networking::send(const MSG::Message& msg, TCPsocket sock)
-{
-	int n = SDLNet_TCP_Send(sock, (char*)&msg, msg.size);
-	if (n < msg.size) error();
+void Networking::send(const messages::Message &msg, TCPsocket sock) {
+	int n = SDLNet_TCP_Send(sock, (char*) &msg, msg.size);
+	if (n < msg.size)
+		error();
 }
 
-MSG::Message* Networking::receive(TCPsocket sock)
-{
+messages::Message* Networking::recieve(TCPsocket sock) {
 	int n = 0;
 	int m = 0;
-	while (n < sizeof(MSG::msgSizeType))
-	{
-		m = SDLNet_TCP_Recv(sock, buffer + n, sizeof(MSG::msgSizeType) - n);
-		if (m <= 0) return nullptr;
+	while (n < sizeof(messages::msgSizeType)) {
+		m = SDLNet_TCP_Recv(sock, buffer + n, sizeof(messages::msgSizeType) - n);
+		if (m <= 0)
+			return nullptr;
 		n = n + m;
 	}
 
-	int size = *((MSG::msgSizeType*) buffer);
+	int size = *((messages::msgSizeType*) buffer);
 
-	while (n < size)
-	{
+	while (n < size) {
 		m = SDLNet_TCP_Recv(sock, buffer + n, size - n);
-		if (m <= 0) return nullptr;
+		if (m <= 0)
+			return nullptr;
 		n = n + m;
 	}
-
-	return (MSG::Message*) buffer;
+//	std::cout << n << " " << size << std::endl;
+	return (messages::Message*) buffer;
 }
 
-bool Networking::client(char* host, int port)
-{
+bool Networking::client(char *host, int port) {
 	// a variable that represents the address of the server we want to connect to
 	IPaddress ip;
 
 	// fill in the address in 'ip'
-	if (SDLNet_ResolveHost(&ip, host, port) < 0) error();
+	if (SDLNet_ResolveHost(&ip, host, port) < 0) {
+		error();
+	}
 
 	// establish the connection with the server
 	sock = SDLNet_TCP_Open(&ip);
-	if (!sock) error();
-
-	MSG::Message* m = receive(sock);
-
-	if (m == nullptr) // something went wrong
-	{
-		error(); 
+	if (!sock) {
+		error();
 	}
-	else if (m->id == MSG::_CONNECTED) // M0
-	{ 
-		clientId = static_cast<MSG::ConnectedMsg*>(m)->clientId; // copy the identifier to id
-	}
-	else 
-	{
+
+	messages::Message *m = recieve(sock);
+
+	if (m == nullptr) {
+		error(); // something went wrong
+	} else if (m->id == messages::_CONNECTED) { // M0
+		clientId = static_cast<messages::ConnectedMsg*>(m)->clientId; // copy the identifier to id
+	} else {
 		return false;
 	}
 
@@ -77,116 +76,116 @@ bool Networking::client(char* host, int port)
 	return true;
 }
 
-void Networking::server(int port)
-{
-	std::cout << "Starting server at port " << port << std::endl;
+void Networking::server(int port) {
 
-	// a variable that represents the address -- in this case only the port
-	IPaddress ip;
+		std::cout << "Starting server at port " << port << std::endl;
 
-	// fill in the address in 'ip' -- note that the 2nd parameter is 'nullptr'
-	// which means that we want to use 'ip' to start a server
-	if (SDLNet_ResolveHost(&ip, nullptr, port) < 0) error();
+		// a variable that represents the address -- in this case only the port
+		IPaddress ip;
 
-	// Since the host in 'ip' is 0 (we provided 'nullptr' above), SDLNet_TCP_Open starts
-	// a server listening at the port specified in 'ip', and returns a socket for listening
-	// to connection requests
-	TCPsocket masterSocket = SDLNet_TCP_Open(&ip);
-	if (!masterSocket) error();
+		// fill in the address in 'ip' -- note that the 2nd parameter is 'nullptr'
+		// which means that we want to use 'ip' to start a server
+		if (SDLNet_ResolveHost(&ip, nullptr, port) < 0) {
+			error();
+		}
 
-	// We want to use non-blocking communication, the way to do this is via a socket set.
-	// We add sockets to this set and then we can ask if any has some activity without blocking.
-	// Non-blocking communication is the adequate one for video games!
-	SDLNet_SocketSet socketSet = SDLNet_AllocSocketSet(1000);
+		// Since the host in 'ip' is 0 (we provided 'nullptr' above), SDLNet_TCP_Open starts
+		// a server listening at the port specified in 'ip', and returns a socket for listening
+		// to connection requests
+		TCPsocket masterSocket = SDLNet_TCP_Open(&ip);
+		if (!masterSocket) {
+			error();
+		}
 
-	// add the masterSocket to the set
-	SDLNet_TCP_AddSocket(socketSet, masterSocket);
+		// We want to use non-blocking communication, the way to do this is via a socket set.
+		// We add sockets to this set and then we can ask if any has some activity without blocking.
+		// Non-blocking communication is the adequate one for video games!
+		SDLNet_SocketSet socketSet = SDLNet_AllocSocketSet(1000);
 
-	// an array for clients
-	constexpr int MAX_CLIENTS = 2;
-	TCPsocket clients[MAX_CLIENTS];
-	for (uint32_t i = 0; i < MAX_CLIENTS; i++) clients[i] = nullptr;
+		// add the masterSocket to the set
+		SDLNet_TCP_AddSocket(socketSet, masterSocket);
 
-	while (true)
-	{
-		// The call to SDLNet_CheckSockets returns the number of sockets with activity
-		// in socketSet. The 2nd parameter tells the method to wait up to SDL_MAX_UINT32
-		// if there is no activity -- no need to put it 0 unless we really don't want to
-		// block. With 0 it would consume CPU unnecessarily
-		if (SDLNet_CheckSockets(socketSet, SDL_MAX_UINT32) > 0)
-		{
-			// if there is an activity in masterSocket we process it. Note that
-			// before calling SDLNet_SocketReady we must have called SDLNet_CheckSockets
-			if (SDLNet_SocketReady(masterSocket))
-			{
-				// accept the connection (activity on master socket is always a connection
-				// request, sending and receiving data is done via the socket returned by
-				// SDLNet_TCP_Accept. This way we can serve several clients.
-				TCPsocket client = SDLNet_TCP_Accept(masterSocket);
+		// an array for clients
+		constexpr int MAX_CLIENTS = 2;
+		TCPsocket clients[MAX_CLIENTS];
+		for (uint32_t i = 0; i < MAX_CLIENTS; i++) {
+			clients[i] = nullptr;
+		}
 
-				// look for a free slot
-				uint32_t j = 0;
-				while (j < MAX_CLIENTS && clients[j] != nullptr) j++;
+		while (true) {
+			// The call to SDLNet_CheckSockets returns the number of sockets with activity
+			// in socketSet. The 2nd parameter tells the method to wait up to SDL_MAX_UINT32
+			// if there is no activity -- no need to put it 0 unless we really don't want to
+			// block. With 0 it would consume CPU unnecessarily
+			if (SDLNet_CheckSockets(socketSet, SDL_MAX_UINT32) > 0) {
 
-				// if there is a slot, add the client to the socketSet and send a connected message,
-				// other say we are fully booked and close the connection
-				if (j < MAX_CLIENTS)
-				{
-					std::cout << "Client connected, assigned id " << j << std::endl;
-					clients[j] = client;
-					SDLNet_TCP_AddSocket(socketSet, client);
-					send(MSG::ConnectedMsg(j), client);
-				}
-				else
-				{
-					// refuse connection (message type M1)
-					MSG::Message m(MSG::_CONNECTION_REFUSED);
-					send(m, client);
-					SDLNet_TCP_Close(client);
-				}
-			}
+				// if there is an activity in masterSocket we process it. Note that
+				// before calling SDLNet_SocketReady we must have called SDLNet_CheckSockets
+				if (SDLNet_SocketReady(masterSocket)) {
 
-			// check clients activity
-			for (int i = 0; i < MAX_CLIENTS; i++)
-			{
-				if (clients[i] != nullptr && SDLNet_SocketReady(clients[i]))
-				{
-					MSG::Message* m = receive(clients[i]);
+					// accept the connection (activity on master socket is always a connection
+					// request, sending and receiving data is done via the socket returned by
+					// SDLNet_TCP_Accept. This way we can serve several clients.
+					TCPsocket client = SDLNet_TCP_Accept(masterSocket);
 
-					// if result is zero, then the client has closed the connection
-					// and if smaller than zero, then there was some error. In both
-					// cases we close the connection
-					if (m == nullptr)
-					{
-						std::cout << "Client " << i << " disconnected! " << std::endl;
-						SDLNet_TCP_Close(clients[i]);
-						SDLNet_TCP_DelSocket(socketSet, clients[i]);
-						clients[i] = nullptr;
+					// look for a free slot
+					uint32_t j = 0;
+					while (j < MAX_CLIENTS && clients[j] != nullptr)
+						j++;
 
-						// tell all clients that 'i' disconnected (message type M3)
-						MSG::ClientDisconnectedMsg m(i);
-						for (uint32_t j = 0; j < MAX_CLIENTS; j++)
-						{
-							if (clients[j] != nullptr) send(m, clients[j]);
-						}
-					}
-					else
-					{
-						for (uint32_t j = 0; j < MAX_CLIENTS; j++)
-						{
-							if (i != j && clients[j] != nullptr) send(*m, clients[j]);
-						}
+					// if there is a slot, add the client to the socketSet and send a connected message,
+					// other say we are fully booked and close the connection
+					if (j < MAX_CLIENTS) {
+						std::cout << "Client connected, assigned id " << j << std::endl;
+						clients[j] = client;
+						SDLNet_TCP_AddSocket(socketSet, client);
+
+						send(messages::ConnectedMsg(j), client);
+
+					} else {
+						// refuse connection (message type M1)
+						messages::Message m(messages::_CONNECTION_REFUSED);
+						send(m, client);
+						SDLNet_TCP_Close(client);
 					}
 				}
+
+				// check clients activity
+				for (int i = 0; i < MAX_CLIENTS; i++) {
+					if (clients[i] != nullptr && SDLNet_SocketReady(clients[i])) {
+						messages::Message *m = recieve(clients[i]);
+
+						// if result is zero, then the client has closed the connection
+						// and if smaller than zero, then there was some error. In both
+						// cases we close the connection
+						if (m == nullptr) {
+							std::cout << "Client " << i << " disconnected! " << std::endl;
+							SDLNet_TCP_Close(clients[i]);
+							SDLNet_TCP_DelSocket(socketSet, clients[i]);
+							clients[i] = nullptr;
+
+							// tell all clients that 'i' disconnected (message type M3)
+							messages::ClientDisconnectedMsg m(i);
+							for (uint32_t j = 0; j < MAX_CLIENTS; j++) {
+								if (clients[j] != nullptr)
+									send(m, clients[j]);
+							}
+						} else {
+							for (uint32_t j = 0; j < MAX_CLIENTS; j++) {
+								if (i != j && clients[j] != nullptr)
+									send(*m, clients[j]);
+							}
+						}
+					}
+				}
+
 			}
 		}
+
+		// finalize SDLNet
+		SDLNet_Quit();
+
 	}
 
-	// finalize SDLNet
-	SDLNet_Quit();
-}
-
-void Networking::error()
-{
-	std::cerr << "Networking error\n";
+void Networking::error() {
 }

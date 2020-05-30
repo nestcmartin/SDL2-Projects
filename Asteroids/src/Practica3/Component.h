@@ -3,11 +3,9 @@
 
 #include "ECS.h"
 
-struct Component 
-{
+struct Component {
 	Component(ECS::CmpIdType id) :
-		id_(id) 
-	{
+		id_(id) {
 	}
 
 	ECS::CmpIdType id_;

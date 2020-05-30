@@ -3,7 +3,8 @@
 
 #include "Vector2D.h"
 
-class Collisions {
+class Collisions 
+{
 public:
 	virtual ~Collisions();
 	static bool collides(const Vector2D o1Pos, double o1Width, double o1Height, const Vector2D o2Pos, double o2Width, double o2Height);
