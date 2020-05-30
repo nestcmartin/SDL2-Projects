@@ -21,6 +21,7 @@ namespace messages {
 		_FIGHTER_INFO,
 		_BULLET_INFO,
 		_FIGHTER_COLLISION,
+		_PLAYER_NAME,
 
 		//
 		_last_MsgId_
@@ -86,6 +87,16 @@ namespace messages {
 		double vy;
 		double w;
 		double h;
+	};
+
+	struct PlayerName : Message {
+		PlayerName(const char* _name) :
+			Message(sizeof(PlayerName), _PLAYER_NAME)
+		{
+			strcpy_s(name, _name);
+		}
+
+		char name[11];
 	};
 
 #pragma pack(pop)

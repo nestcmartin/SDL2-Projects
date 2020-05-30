@@ -15,6 +15,13 @@ RenderSystem::RenderSystem() :
 {
 }
 
+void RenderSystem::init()
+{
+	playerNames_[manager_->getClientId()] = manager_->getName();
+	playerNames_[1 - manager_->getClientId()] = "Anonymous";
+	manager_->send<messages::PlayerName>(playerNames_[manager_->getClientId()]);
+}
+
 void RenderSystem::update()
 {
 	for (auto& e : manager_->getGroupEntities(ECS::_grp_Fighters))
@@ -29,6 +36,20 @@ void RenderSystem::update()
 
 	drawCtrlMessages();
 	drawScore();
+	drawNames();	
+}
+
+void RenderSystem::receive(const messages::Message& msg)
+{
+	switch (msg.id)
+	{
+	case messages::_PLAYER_NAME:
+	{
+		if (msg.senderClientId == manager_->getClientId()) return;
+		playerNames_[msg.senderClientId] = static_cast<const messages::PlayerName&>(msg).name;
+		break;
+	}
+	}
 }
 
 void RenderSystem::drawImage(Entity* e)
@@ -87,4 +108,26 @@ void RenderSystem::drawScore()
 
 	Texture scoreTex(game_->getRenderer(), to_string(gameCtrl->getScore(0)) + " - " + to_string(gameCtrl->getScore(1)), game_->getFontMngr()->getFont(Resources::ARIAL24), { COLOR(0x111122ff) });
 	scoreTex.render(game_->getWindowWidth() / 2 - scoreTex.getWidth() / 2, 10);
+}
+
+void RenderSystem::drawNames()
+{
+	SDL_Rect dest;
+	auto bg = game_->getTextureMngr()->getTexture(Resources::Bullet);
+	Texture playerNameTex(game_->getRenderer(), playerNames_[manager_->getClientId()], game_->getFontMngr()->getFont(Resources::ARIAL24), { COLOR(0x111122ff) });
+	Texture oponentNameTex(game_->getRenderer(), playerNames_[1 - manager_->getClientId()], game_->getFontMngr()->getFont(Resources::ARIAL24), { COLOR(0x111122ff) });
+
+	if (manager_->getClientId() == 0)
+	{
+		dest = RECT(10, 10, playerNameTex.getWidth(), playerNameTex.getHeight());
+		oponentNameTex.render(game_->getWindowWidth() - playerNameTex.getWidth() - 10, 10);
+	}
+	else
+	{
+		dest = RECT(game_->getWindowWidth() - playerNameTex.getWidth() - 10, 10, playerNameTex.getWidth(), playerNameTex.getHeight());
+		oponentNameTex.render(10, 10);
+	}
+
+	bg->render(dest);
+	playerNameTex.render(dest.x, dest.y);
 }

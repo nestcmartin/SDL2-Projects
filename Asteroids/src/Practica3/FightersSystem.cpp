@@ -34,8 +34,7 @@ void FightersSystem::resetFighterPositions()
 
 	auto f1Tr = fighter1_->getComponent<Transform>(ECS::Transform);
 	f1Tr->velocity_ = Vector2D(0.0, 0.0);
-	f1Tr->position_ = Vector2D(game_->getWindowWidth() - 50.0 - 10.0,
-		game_->getWindowHeight() / 2 - 25);
+	f1Tr->position_ = Vector2D(game_->getWindowWidth() - 50.0 - 10.0, game_->getWindowHeight() / 2 - 25);
 	f1Tr->rotation_ = -90.0;
 }
 

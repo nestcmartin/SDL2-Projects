@@ -1,5 +1,6 @@
 #include "StarWars.h"
 
+#include <string.h>
 #include "BulletsPool.h"
 #include "SDL_macros.h"
 
@@ -8,32 +9,36 @@ StarWars::StarWars() :
 	port_(0),
 	game_(nullptr),
 	manager_(nullptr),
-	exit_(false) {
-	initGame();
+	exit_(false)
+{
+	initGame("Anonymous");
 }
 
-StarWars::StarWars(char* host, int port) :
+StarWars::StarWars(char* host, int port, char* name) :
 	host_(host),
 	port_(port),
 	game_(nullptr),
 	manager_(nullptr),
 	exit_(false)
 {
-	initGame();
+	if (!name || (name && std::strlen(name) > 10)) initGame("Anonymous");
+	initGame(name);
 }
 
-StarWars::~StarWars() {
+StarWars::~StarWars()
+{
 	closeGame();
 }
 
-void StarWars::initGame() {
+void StarWars::initGame(const char* name)
+{
 
 	game_ = SDLGame::init("Star Wars", _WINDOW_WIDTH_, _WINDOW_HEIGHT_);
 
 	if (!game_->getNetworking()->client(host_, port_))
 		throw "Couldn't connect to server!";
 
-	manager_ = new EntityManager(game_);
+	manager_ = new EntityManager(game_, name);
 
 	BulletsPool::init(100);
 
@@ -46,22 +51,27 @@ void StarWars::initGame() {
 
 }
 
-void StarWars::closeGame() {
+void StarWars::closeGame()
+{
 	delete manager_;
 }
 
-void StarWars::start() {
+void StarWars::start()
+{
 	exit_ = false;
 	auto ih = InputHandler::instance();
 
-	while (!exit_) {
+	while (!exit_)
+	{
 		Uint32 startTime = game_->getTime();
 		SDL_SetRenderDrawColor(game_->getRenderer(), COLOR(0x00AAAAFF));
 		SDL_RenderClear(game_->getRenderer());
 
 		ih->update(exit_);
-		if (ih->keyDownEvent()) {
-			if (ih->isKeyDown(SDLK_ESCAPE)) {
+		if (ih->keyDownEvent())
+		{
+			if (ih->isKeyDown(SDLK_ESCAPE))
+			{
 				exit_ = true;
 				break;
 			}

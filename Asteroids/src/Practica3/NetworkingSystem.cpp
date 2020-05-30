@@ -74,6 +74,13 @@ void NetworkingSystem::update() {
 			manager_->forwardMsg<messages::Message>(msg->senderClientId, messages::_FIGHTER_COLLISION);
 			break;
 
+		case messages::_PLAYER_NAME:
+		{
+			manager_->forwardMsg<messages::PlayerName>(msg->senderClientId,
+				static_cast<messages::PlayerName*>(msg)->name);
+			break;
+		}
+
 		default:
 			assert(false);
 			break;

@@ -75,7 +75,7 @@
     <ClCompile Include="..\..\src\Practica3\GameCtrlSystem.cpp" />
     <ClCompile Include="..\..\src\Practica3\InputHandler.cpp" />
     <ClCompile Include="..\..\src\Practica3\jute.cpp" />
-    <ClCompile Include="..\..\src\Practica3\main.cpp" />
+    <ClCompile Include="..\..\src\Practica3\Main.cpp" />
     <ClCompile Include="..\..\src\Practica3\EntityManager.cpp" />
     <ClCompile Include="..\..\src\Practica3\Networking.cpp" />
     <ClCompile Include="..\..\src\Practica3\NetworkingSystem.cpp" />

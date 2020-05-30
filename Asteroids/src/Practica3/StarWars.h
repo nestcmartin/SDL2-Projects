@@ -16,7 +16,7 @@ class StarWars {
 
 public:
 	StarWars();
-	StarWars(char* host, int port);
+	StarWars(char* host, int port, char* name);
 	virtual ~StarWars();
 
 	// from SDLGame
@@ -24,7 +24,7 @@ public:
 	void stop();
 
 private:
-	void initGame();
+	void initGame(const char* name);
 	void closeGame();
 
 	char* host_;

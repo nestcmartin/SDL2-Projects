@@ -173,9 +173,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Practica3\main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Practica3\SDLGame.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -256,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Practica3\EntityManager.cpp">
       <Filter>Archivos de origen\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica3\Main.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

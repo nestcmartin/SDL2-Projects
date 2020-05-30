@@ -17,8 +17,10 @@ class EntityManager {
 	using EventType = std::function<void()>;
 
 public:
-	EntityManager(SDLGame* game) :
-		game_(game) {
+	EntityManager(SDLGame* game, const char* name) :
+		game_(game),
+		name_(name)
+	{
 
 		messages_ = new std::list<MessagePtr>();
 
@@ -130,8 +132,13 @@ public:
 		return game_->getNetworking()->getClientId();
 	}
 
+	inline const char* getName() {
+		return name_;
+	}
+
 private:
 	SDLGame* game_;
+	const char* name_;
 
 	std::vector<EntityPtr> entities_;
 	std::array<std::vector<Entity*>, ECS::maxGroups> entityGroups_;
