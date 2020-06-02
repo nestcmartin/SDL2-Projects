@@ -45,7 +45,7 @@ void CollisionSystem::update() {
 
 	if (!roundOver)
 	{
-		auto fighters = manager_->getGroupEntities(ECS::_grp_Fighters);
+		auto& fighters = manager_->getGroupEntities(ECS::_grp_Fighters);
 		auto fTR0 = fighters[0]->getComponent<Transform>(ECS::Transform);
 		auto fTR1 = fighters[1]->getComponent<Transform>(ECS::Transform);
 

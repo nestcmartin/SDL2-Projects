@@ -54,15 +54,10 @@ void BulletsSystem::receive(const messages::Message& msg)
 	{
 		if (msg.senderClientId == manager_->getClientId()) return;
 
-		Entity* b = manager_->addEntity<BulletsPool>(
+		shoot(
 			Vector2D(static_cast<const messages::BulletInfo&>(msg).px, static_cast<const messages::BulletInfo&>(msg).py), 
 			Vector2D(static_cast<const messages::BulletInfo&>(msg).vx, static_cast<const messages::BulletInfo&>(msg).vy),
 			static_cast<const messages::BulletInfo&>(msg).w, static_cast<const messages::BulletInfo&>(msg).h);
-
-		if (b != nullptr)
-		{
-			b->addToGroup(ECS::_grp_Bullets);
-		}
 
 		break;
 	}

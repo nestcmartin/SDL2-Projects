@@ -22,7 +22,7 @@ StarWars::StarWars(char* host, int port, char* name) :
 	exit_(false)
 {
 	if (!name || (name && std::strlen(name) > 10)) initGame("Anonymous");
-	initGame(name);
+	else initGame(name);
 }
 
 StarWars::~StarWars()
