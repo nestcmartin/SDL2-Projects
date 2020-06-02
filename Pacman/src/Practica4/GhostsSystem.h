@@ -1,9 +1,9 @@
 #ifndef __GHOSTS_SYSTEM_H__
 #define __GHOSTS_SYSTEM_H__
 
+#include <SDL.h>
 
 #include "System.h"
-#include <SDL.h>
 
 class GhostsSystem : public System 
 {
@@ -17,8 +17,9 @@ public:
 	
 	void init() override;
 	void update() override;
+	void receive(const msg::Message& msg) override;
 
-	// TODO: privatize this
+private:
 	void onCollisionWithPacMan(Entity *e);
 	void addGhosts(std::size_t n);
 	void disableAll();

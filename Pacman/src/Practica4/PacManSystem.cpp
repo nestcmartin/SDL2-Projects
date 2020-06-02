@@ -27,7 +27,7 @@ void PacManSystem::init()
 	auto animatedImage = pacman_->addComponent<AnimatedImage>();
 	animatedImage->setSpriteTime(100);
 	
-	Texture* spritesTex = game_->getTextureMngr()->getTexture(Resources::PacManSprites);
+	Texture* spritesTex = game_->getTextureManager()->getTexture(Resources::PacManSprites);
 	for (int i = 0; i < 4; i++) 
 	{
 		animatedImage->addSprite(spritesTex, { i * 128, 0, 128, 128 });
@@ -80,6 +80,16 @@ void PacManSystem::update()
 	{
 		transform_->position_ = oldPosition;
 		transform_->velocity_ = Vector2D(0.0, 0.0);
+	}
+}
+
+void PacManSystem::receive(const msg::Message& msg)
+{
+	switch (msg.id)
+	{
+	case msg::_GAME_START:
+		resetPacManPosition();
+		break;
 	}
 }
 

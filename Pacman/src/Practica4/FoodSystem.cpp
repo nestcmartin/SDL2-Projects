@@ -26,26 +26,44 @@ void FoodSystem::update()
 {
 }
 
+void FoodSystem::receive(const msg::Message& msg)
+{
+	switch (msg.id)
+	{
+	case msg::_GAME_START:
+		addFood(10);
+		break;
+
+	case msg::_GAME_OVER:
+		disableAll();
+		break;
+
+	case msg::_FOOD_COLLISION:
+		onEat(static_cast<const msg::FoodCollisionMsg&>(msg).e);
+		break;
+	}
+}
+
 void FoodSystem::onEat(Entity* e) 
 {
 	// Update score
 	auto gameState = enityManager_->getHandler(ECS::_hdlr_GameStateEntity)->getComponent<GameState>(ECS::GameState);
 	gameState->score_++;
 
-	game_->getAudioMngr()->playChannel(Resources::PacMan_Eat, 0);
-
 	// Disbale food
 	e->setActive(false);
 	numOfFoodPieces_--;
+
+	// Game Over
 	if (numOfFoodPieces_ == 0)
 	{
-		enityManager_->getSystem<GameCtrlSystem>(ECS::_sys_GameCtrl)->onNoMoreFood();
+		enityManager_->send<msg::Message>(msg::_PACMAN_WIN);
 	}
 }
 
 void FoodSystem::addFood(std::size_t n) 
 {
-	RandomNumberGenerator* r = game_->getRandGen();
+	RandomNumberGenerator* r = game_->getRandomGenerator();
 
 	// Food width and height
 	int width = 30;

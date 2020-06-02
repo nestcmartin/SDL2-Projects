@@ -68,7 +68,7 @@ private:
 			e->addComponent<Transform>();
 			auto animatedImage = e->addComponent<AnimatedImage>();
 			animatedImage->setSpriteTime(100);
-			Texture* spritesTex =SDLGame::instance()->getTextureMngr()->getTexture(Resources::PacManSprites);
+			Texture* spritesTex =SDLGame::instance()->getTextureManager()->getTexture(Resources::PacManSprites);
 			
 			for (int i = 0; i < 4; i++) 
 			{

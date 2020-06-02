@@ -13,8 +13,9 @@ public:
 
 	void init() override;
 	void update() override;
+	void receive(const msg::Message& msg) override;
 
-	// TODO: privatize this
+private:
 	void addFood(std::size_t n);
 	void onEat(Entity *e);
 	void disableAll();

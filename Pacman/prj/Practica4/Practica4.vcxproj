@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\Practica4\AnimatedImage.h" />
     <ClInclude Include="..\..\src\Practica4\AudioManager.h" />
+    <ClInclude Include="..\..\src\Practica4\AudioSystem.h" />
     <ClInclude Include="..\..\src\Practica4\checkML.h" />
     <ClInclude Include="..\..\src\Practica4\Collisions.h" />
     <ClInclude Include="..\..\src\Practica4\CollisionSystem.h" />
@@ -64,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Practica4\AudioManager.cpp" />
+    <ClCompile Include="..\..\src\Practica4\AudioSystem.cpp" />
     <ClCompile Include="..\..\src\Practica4\Collisions.cpp" />
     <ClCompile Include="..\..\src\Practica4\CollisionSystem.cpp" />
     <ClCompile Include="..\..\src\Practica4\Entity.cpp" />

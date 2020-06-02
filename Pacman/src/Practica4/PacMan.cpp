@@ -42,6 +42,7 @@ void PacMan::initGame()
 	renderSystem_ = entityManager_->addSystem<RenderSystem>();
 	collisionSystem_ = entityManager_->addSystem<CollisionSystem>();
 	gameCtrlSystem_ = entityManager_->addSystem<GameCtrlSystem>();
+	audioSystem_ = entityManager_->addSystem<AudioSystem>();
 }
 
 void PacMan::closeGame() 
@@ -78,9 +79,9 @@ void PacMan::start()
 		foodSystem_->update();
 		collisionSystem_->update();
 		renderSystem_->update();
+		audioSystem_->update();
 
-		// TODO: Messages
-		// entityManager_->flushMessages();
+		entityManager_->flushMessages();
 
 		SDL_RenderPresent(game_->getRenderer());
 

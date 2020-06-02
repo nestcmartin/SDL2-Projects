@@ -1,10 +1,9 @@
 #ifndef __PACMAN_SYSTEM_H__
 #define __PACMAN_SYSTEM_H__
 
-
-#include "System.h"
-#include "Transform.h"
 #include "Entity.h"
+#include "Transform.h"
+#include "System.h"
 
 class PacManSystem : public System 
 {
@@ -17,8 +16,9 @@ public:
 
 	void init() override;
 	void update() override;
+	void receive(const msg::Message& msg) override;
 
-	// TODO: privatize this
+private:
 	void resetPacManPosition();
 };
 

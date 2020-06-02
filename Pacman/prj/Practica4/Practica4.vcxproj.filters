@@ -168,6 +168,9 @@
     <ClInclude Include="..\..\src\Practica4\checkML.h">
       <Filter>Archivos de encabezado\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Practica4\AudioSystem.h">
+      <Filter>Archivos de encabezado\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Practica4\Entity.cpp">
@@ -250,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Practica4\Main.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Practica4\AudioSystem.cpp">
+      <Filter>Archivos de origen\Systems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

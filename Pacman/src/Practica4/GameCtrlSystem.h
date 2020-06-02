@@ -15,13 +15,12 @@ public:
 
 	void init() override;
 	void update() override;
-
-	// TODO: privatize this
-	void onPacManDeath();
-	void onNoMoreFood();
+	void receive(const msg::Message& msg) override;
 
 private:
 	void startGame();
+	void onPacManDeath();
+	void onNoMoreFood();
 };
 
 #endif // !__GAME_CTRL_SYSTEM_H__

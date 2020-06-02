@@ -113,7 +113,8 @@ public:
 			MessagePtr msg = std::move(messages_->front());
 			for (auto& s : systems_) 
 			{
-				s->receive(*msg);
+				if (s != nullptr) 
+					s->receive(*msg);
 			}
 			messages_->pop_front();
 		}

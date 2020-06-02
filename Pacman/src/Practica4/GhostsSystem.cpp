@@ -46,7 +46,7 @@ void GhostsSystem::update()
 		Transform* tr = e->getComponent<Transform>(ECS::Transform);
 
 		// With probability 5% change direction to follow pacman
-		RandomNumberGenerator* r = game_->getRandGen();
+		RandomNumberGenerator* r = game_->getRandomGenerator();
 		if (r->nextInt(0, 100) < 5) 
 		{
 			Vector2D pmanPositon = enityManager_->getHandler(ECS::_hdlr_PacManEntity)->getComponent<Transform>(ECS::Transform)->position_;
@@ -66,9 +66,27 @@ void GhostsSystem::update()
 	}
 }
 
+void GhostsSystem::receive(const msg::Message& msg)
+{
+	switch (msg.id)
+	{
+	case msg::_GAME_START:
+		addGhosts(2);
+		break;
+
+	case msg::_GAME_OVER:
+		disableAll();
+		break;
+
+	case msg::_GHOST_COLLISION:
+		onCollisionWithPacMan(static_cast<const msg::GhostCollisionMsg&>(msg).e);
+		break;
+	}
+}
+
 void GhostsSystem::onCollisionWithPacMan(Entity* e) 
 {
-	enityManager_->getSystem<GameCtrlSystem>(ECS::_sys_GameCtrl)->onPacManDeath();
+	enityManager_->send<msg::Message>(msg::_PACMAN_LOSE);
 }
 
 void GhostsSystem::addGhosts(std::size_t n) 
@@ -76,7 +94,7 @@ void GhostsSystem::addGhosts(std::size_t n)
 	// We cannot exceed the maximum number of ghosts
 	if (numOfGhosts_ >= maxGhosts_) return;
 
-	RandomNumberGenerator* r = game_->getRandGen();
+	RandomNumberGenerator* r = game_->getRandomGenerator();
 
 	Vector2D pacmanPositon = enityManager_->getHandler(ECS::_hdlr_PacManEntity)->getComponent<Transform>(ECS::Transform)->position_;
 

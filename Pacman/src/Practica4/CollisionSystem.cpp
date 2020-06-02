@@ -31,7 +31,7 @@ void CollisionSystem::update()
 			ptr->position_, ptr->width_, ptr->height_,
 			etr->position_, etr->width_, etr->height_)) 
 		{
-			enityManager_->getSystem<FoodSystem>(ECS::_sys_Food)->onEat(e);
+			enityManager_->send<msg::FoodCollisionMsg>(e);
 		}
 	}
 
@@ -44,7 +44,7 @@ void CollisionSystem::update()
 			ptr->position_, ptr->width_, ptr->height_, 
 			etr->position_, etr->width_, etr->height_)) 
 		{
-			enityManager_->getSystem<GhostsSystem>(ECS::_sys_Ghosts)->onCollisionWithPacMan(e);
+			enityManager_->send<msg::GhostCollisionMsg>(e);
 			break;
 		}
 	}

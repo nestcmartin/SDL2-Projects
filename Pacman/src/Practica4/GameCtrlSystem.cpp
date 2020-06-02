@@ -21,7 +21,6 @@ void GameCtrlSystem::init()
 	Entity* e = enityManager_->addEntity();
 	gameState_ = e->addComponent<GameState>();
 	enityManager_->setHandler(ECS::_hdlr_GameStateEntity, e);
-	game_->getAudioMngr()->playMusic(Resources::PacMan_Intro);
 }
 
 void GameCtrlSystem::update() 
@@ -36,7 +35,6 @@ void GameCtrlSystem::update()
 		{
 		case GameState::READY:
 			gameState_->state_ = GameState::RUNNING;
-			game_->getAudioMngr()->haltMusic();
 			startGame();
 			break;
 
@@ -44,7 +42,7 @@ void GameCtrlSystem::update()
 			gameState_->state_ = GameState::READY;
 			gameState_->score_ = 0;
 			gameState_->won_ = false;
-			game_->getAudioMngr()->playMusic(Resources::PacMan_Intro);
+			enityManager_->send<msg::Message>(msg::_RESET);
 			break;
 
 		default:
@@ -54,29 +52,37 @@ void GameCtrlSystem::update()
 	}
 }
 
+void GameCtrlSystem::receive(const msg::Message& msg)
+{
+	switch (msg.id)
+	{
+	case msg::_PACMAN_WIN:
+		onNoMoreFood();
+		break;
+
+	case msg::_PACMAN_LOSE:
+		onPacManDeath();
+		break;
+	}
+}
+
 void GameCtrlSystem::onPacManDeath() 
 {
 	gameState_->state_ = GameState::OVER;
 	gameState_->won_ = false;
-	enityManager_->getSystem<GhostsSystem>(ECS::_sys_Ghosts)->disableAll();
-	enityManager_->getSystem<FoodSystem>(ECS::_sys_Food)->disableAll();
-	game_->getAudioMngr()->haltMusic();
-	game_->getAudioMngr()->playChannel(Resources::PacMan_Death, 0);
+
+	enityManager_->send<msg::Message>(msg::_GAME_OVER);
 }
 
 void GameCtrlSystem::onNoMoreFood() 
 {
 	gameState_->state_ = GameState::OVER;
 	gameState_->won_ = true;
-	enityManager_->getSystem<GhostsSystem>(ECS::_sys_Ghosts)->disableAll();
-	enityManager_->getSystem<FoodSystem>(ECS::_sys_Food)->disableAll();
-	game_->getAudioMngr()->haltMusic();
-	game_->getAudioMngr()->playChannel(Resources::PacMan_Won, 0);
+
+	enityManager_->send<msg::Message>(msg::_GAME_OVER);
 }
 
 void GameCtrlSystem::startGame() 
 {
-	enityManager_->getSystem<FoodSystem>(ECS::_sys_Food)->addFood(10);
-	enityManager_->getSystem<GhostsSystem>(ECS::_sys_Ghosts)->addGhosts(2);
-	enityManager_->getSystem<PacManSystem>(ECS::_sys_PacMan)->resetPacManPosition();
+	enityManager_->send<msg::Message>(msg::_GAME_START);
 }

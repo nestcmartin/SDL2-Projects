@@ -11,6 +11,7 @@
 #include "CollisionSystem.h"
 #include "GameCtrlSystem.h"
 #include "RenderSystem.h"
+#include "AudioSystem.h"
 
 #include "SDLGame.h"
 
@@ -31,6 +32,7 @@ private:
 	CollisionSystem* collisionSystem_;
 	GameCtrlSystem* gameCtrlSystem_;
 	RenderSystem* renderSystem_;
+	AudioSystem* audioSystem_;
 
 public:
 	PacMan();

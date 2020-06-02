@@ -74,7 +74,7 @@ void RenderSystem::drawPacMan(GameState* gs)
 void RenderSystem::drawState(GameState* gs) 
 {
 	// Score
-	Texture scoreMsg(game_->getRenderer(), std::to_string(gs->score_), game_->getFontMngr()->getFont(Resources::ARIAL24), { COLOR(0xff0000ff) });
+	Texture scoreMsg(game_->getRenderer(), std::to_string(gs->score_), game_->getFontManager()->getFont(Resources::ARIAL24), { COLOR(0xff0000ff) });
 	scoreMsg.render(game_->getWindowWidth() / 2 - scoreMsg.getWidth() / 2, 10);
 
 	if (gs->state_ == GameState::RUNNING) return;
@@ -85,7 +85,7 @@ void RenderSystem::drawState(GameState* gs)
 	{
 	case GameState::READY: 
 	{
-		auto startNewGameMsg = game_->getTextureMngr()->getTexture(Resources::PressEnterToStartANewGame);
+		auto startNewGameMsg = game_->getTextureManager()->getTexture(Resources::PressEnterToStartANewGame);
 		x = (game_->getWindowWidth() - startNewGameMsg->getWidth()) / 2;
 		y = (game_->getWindowHeight() - startNewGameMsg->getHeight()) / 2;
 		startNewGameMsg->render(x, y);
@@ -95,12 +95,12 @@ void RenderSystem::drawState(GameState* gs)
 	
 	case GameState::OVER: 
 	{
-		auto toContMsg = game_->getTextureMngr()->getTexture(Resources::PressEnterToContinue);
+		auto toContMsg = game_->getTextureManager()->getTexture(Resources::PressEnterToContinue);
 		x = (game_->getWindowWidth() - toContMsg->getWidth()) / 2;
 		y = (game_->getWindowHeight() - toContMsg->getHeight()) / 2;
 		toContMsg->render(x, y);
 
-		auto gameOverMsg = game_->getTextureMngr()->getTexture(Resources::GameOver);
+		auto gameOverMsg = game_->getTextureManager()->getTexture(Resources::GameOver);
 		x = (game_->getWindowWidth() - gameOverMsg->getWidth()) / 2;
 		y = (game_->getWindowHeight() - gameOverMsg->getHeight()) / 2 - 50;
 		gameOverMsg->render(x, y);
